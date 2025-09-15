@@ -2,6 +2,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 
 export default function ContactPage() {
   const [scrolled, setScrolled] = useState(false)
@@ -44,7 +45,7 @@ export default function ContactPage() {
       setEmail("")
       setPhone("")
       setMessage("")
-    } catch (e: any) {
+    } catch (_err: unknown) { // ← any 금지 규칙 회피
       setErr("오류가 발생했습니다. 잠시 후 다시 시도해주세요.")
     } finally {
       setLoading(false)
@@ -60,15 +61,13 @@ export default function ContactPage() {
         }`}
       >
         <nav className="w-full px-6 md:px-14 lg:px-16 py-8 flex items-center justify-between">
-          {/* 왼쪽: Home */}
-          <a href="/" className="text-sm md:text-base hover:text-gray-200">
+          {/* 내부 링크는 next/link 사용 */}
+          <Link href="/" className="text-sm md:text-base hover:text-gray-200">
             Home
-          </a>
-
-          {/* 오른쪽: Work */}
-          <a href="/work" className="text-sm md:text-base hover:text-gray-200">
+          </Link>
+          <Link href="/work" className="text-sm md:text-base hover:text-gray-200">
             Work
-          </a>
+          </Link>
         </nav>
       </header>
 
