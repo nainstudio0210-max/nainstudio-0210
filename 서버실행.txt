@@ -1,0 +1,2 @@
+cd nain-studio02
+npm run dev

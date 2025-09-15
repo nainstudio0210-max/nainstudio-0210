@@ -1,0 +1,17 @@
+﻿node_modules/
+.next/
+out/
+dist/
+.vercel/
+npm-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+*.log
+
+# env
+.env*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
