@@ -1,0 +1,7 @@
+cd nain-studio02
+npm run dev
+
+
+git add .
+git commit -m
+git push

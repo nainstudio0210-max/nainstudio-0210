@@ -1,11 +1,17 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import logo from "@/public/logo.png"
-import { motion, useScroll, useSpring, useTransform, useMotionValueEvent } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValueEvent,
+} from "framer-motion"
 import { Instagram, Youtube } from "lucide-react"
 
+/* -------------------- Hero (Intro) -------------------- */
 function HeroIntro({ src }: { src: string }) {
   return (
     <section className="relative min-h-screen flex items-center justify-center text-center">
@@ -26,28 +32,29 @@ function HeroIntro({ src }: { src: string }) {
 
       <div className="absolute inset-0 bg-black/0" />
 
-      {/* 로고: next/image + 정적 import */}
+      {/* 로고: 문자열 경로로 next/image 사용, 애니메이션은 래퍼에 적용 */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 0.4, scale: 1.5 }}
         transition={{ duration: 0.8 }}
-        className="absolute z-10 left-1/2 -translate-x-1/2 top-28 md:top-[130px] w-60 md:w-96"
+        className="absolute z-10 left-1/2 -translate-x-1/2 top-28 md:top-130"
       >
         <Image
-          src={logo}
+          src="/logo.png"
           alt="NAIN"
+          width={384}         // 필요에 맞게 수정 가능
+          height={88}
           priority
           draggable={false}
           onContextMenu={(e) => e.preventDefault()}
-          width={384}     // 필요 시 로고 실제 비율에 맞게 조정
-          height={88}
-          className="w-full h-auto select-none pointer-events-none"
+          className="w-60 md:w-96 h-auto"
         />
       </motion.div>
     </section>
   )
 }
 
+/* -------------------- Hero (Plain Video) -------------------- */
 function HeroVideo({ src }: { src: string }) {
   return (
     <section className="relative min-h-screen flex items-center justify-center text-center">
@@ -70,6 +77,7 @@ function HeroVideo({ src }: { src: string }) {
   )
 }
 
+/* -------------------- Spacers -------------------- */
 function Spacer() {
   return <div className="h-16 md:h-24 bg-black" />
 }
@@ -78,6 +86,7 @@ function BigSpacer({ h = "180vh" }: { h?: string }) {
   return <div style={{ height: h }} className="bg-black" />
 }
 
+/* -------------------- Scroll Sequence (Canvas) -------------------- */
 function SequenceFixed() {
   const COUNT = 51
   const PAD = 4
@@ -158,6 +167,7 @@ function SequenceFixed() {
 
   return (
     <section ref={sectionRef} className="relative h-[380vh]">
+      {/* 클릭 가로채지 않도록 */}
       <motion.div className="fixed inset-0 z-20 pointer-events-none" style={{ y: slideY, opacity: overlayOpacity }}>
         <div className="absolute inset-0 bg-black" />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -170,6 +180,7 @@ function SequenceFixed() {
   )
 }
 
+/* -------------------- Sticky Reveal -------------------- */
 function StickyReveal({ src }: { src: string }) {
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] })
@@ -181,6 +192,7 @@ function StickyReveal({ src }: { src: string }) {
 
   return (
     <section ref={sectionRef} className="relative h-[150vh]">
+      {/* 고정 레이어가 클릭을 막지 않도록 */}
       <motion.div className="fixed inset-0 z-10 pointer-events-none" style={{ opacity: videoOpacity }}>
         <video
           autoPlay
@@ -197,6 +209,7 @@ function StickyReveal({ src }: { src: string }) {
           <source src={src} type="video/mp4" />
         </video>
 
+        {/* CTA는 클릭 가능해야 하므로 auto */}
         <motion.div
           style={{ opacity: ctaOpacity, x: ctaX }}
           className="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 z-10 text-right pointer-events-auto"
@@ -211,6 +224,7 @@ function StickyReveal({ src }: { src: string }) {
   )
 }
 
+/* -------------------- Page -------------------- */
 export default function Page() {
   const [scrolled, setScrolled] = useState(false)
 
@@ -220,17 +234,14 @@ export default function Page() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // 보안 차단(우클릭/드래그/단축키 일부)
+  // ===== Work 페이지와 동일한 보안 차단 =====
   useEffect(() => {
     const prevent = (e: Event) => e.preventDefault()
     const onKeyDown = (e: KeyboardEvent) => {
       const k = e.key.toLowerCase()
       const mod = e.ctrlKey || e.metaKey
-      if (
-        k === "contextmenu" ||
-        (mod && (k === "s" || k === "p" || k === "u" || k === "i" || k === "j")) ||
-        k === "printscreen"
-      ) {
+      // 개발자도구/저장/인쇄/소스보기 일부 단축키 억제
+      if (k === "contextmenu" || (mod && (k === "s" || k === "p" || k === "u" || k === "i" || k === "j")) || k === "printscreen") {
         e.preventDefault()
         e.stopPropagation()
       }
@@ -246,6 +257,7 @@ export default function Page() {
       document.removeEventListener("keydown", onKeyDown)
     }
   }, [])
+  // ========================================
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
@@ -255,27 +267,32 @@ export default function Page() {
         }`}
       >
         <nav className="w-full px-6 md:px-14 lg:px-16 py-8 flex items-center justify-between">
-          <a href="/contact" className="text-sm md:text-base hover:text-gray-200">Contact</a>
-          <a href="/work" className="text-sm md:text-base hover:text-gray-200">Work</a>
+          <a href="/contact" className="text-sm md:text-base hover:text-gray-200">
+            Contact
+          </a>
+          <a href="/work" className="text-sm md:text-base hover:text-gray-200">
+            Work
+          </a>
         </nav>
       </header>
 
       <HeroIntro src="/background.mp4" />
       <SequenceFixed />
       <StickyReveal src="/background-2.mp4" />
+
       <BigSpacer h="200vh" />
       <HeroVideo src="/background-3.mp4" />
       <BigSpacer h="20vh" />
 
-      {/* Bottom Section */}
+      {/* ===== Bottom Section ===== */}
       <section className="py-16 bg-black text-white">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-8 items-center">
+          {/* Left: Title */}
           <div className="pl-6 md:pl-14 lg:pl-25">
-            <h2 className="text-4xl md:text-6xl font-light tracking-[0.04em] md:tracking-[0.04em]">
-              NAIN STUDIO
-            </h2>
+            <h2 className="text-4xl md:text-6xl font-light tracking-[0.04em] md:tracking-[0.04em]">NAIN STUDIO</h2>
           </div>
 
+          {/* Right: Socials (icons + text) */}
           <div className="flex md:justify-end gap-6 pr-6 md:pr-14 lg:pr-25">
             <a
               href="https://www.instagram.com/nainstudio0210/"
@@ -299,14 +316,16 @@ export default function Page() {
             </a>
           </div>
 
+          {/* Description */}
           <div className="pl-6 md:pl-14 lg:pl-25 pr-6 md:pr-14 lg:pr-25 md:col-span-2">
             <p className="text-lg leading-relaxed max-w-2xl">
-              We are a creative visualization studio specializing in architectural imagery,
-              animation, and realtime experiences.
+              We are a creative visualization studio specializing in architectural imagery, animation, and realtime
+              experiences.
             </p>
           </div>
         </div>
       </section>
+      {/* ===== /Bottom Section ===== */}
     </div>
   )
 }
