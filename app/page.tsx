@@ -194,7 +194,7 @@ function StickyReveal({ src }: { src: string }) {
         >
           <p className="text-base md:text-2xl tracking-wide">Want to see more?</p>
           <a href="/work" className="block text-xl md:text-4xl font-medium underline underline-offset-4 hover:opacity-80">
-            Check out out work!
+            Check out work!
           </a>
         </motion.div>
       </motion.div>
