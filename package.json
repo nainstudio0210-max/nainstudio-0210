@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "vercel-build": "git lfs install && git lfs fetch --all && git lfs checkout && next build --turbopack"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",
