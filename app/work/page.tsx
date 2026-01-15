@@ -210,7 +210,7 @@ export default function WorkPage() {
             >
               {active.type === "image" ? (
                 <Image
-                  src={active.src}
+                  src={active.src || ''}
                   alt={active.title}
                   fill
                   sizes="100vw"
