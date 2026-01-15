@@ -4,19 +4,19 @@ import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon } from "lucide-react"
+import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize } from "lucide-react"
 
 type MediaItem = {
   id: string
-  type: "image" | "video"
+  type: "image" | "video" | "youtube"
   src: string
+  youtubeId?: string
   title: string
   caption?: string
   poster?: string
   span?: string
 }
 
-/* 6열 반복 패턴 (빈칸 없이 타일링) */
 function spanFor(i: number) {
   const r = i % 14
   switch (r) {
@@ -38,10 +38,7 @@ function spanFor(i: number) {
 }
 
 export default function WorkPage() {
-  /* 사이드바 폭(로고 크게 사용) */
   const SIDEBAR_W = "w-32 md:w-36"
-
-  /* 네비 위치/간격 조절용 상수 (px) */
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
@@ -50,6 +47,7 @@ export default function WorkPage() {
       { id: "01", type: "video", src: "/work/01.mp4", poster: "/work/01_poster.jpg", title: "High-rise Above the Clouds", caption: "Exterior visualization / Concept" },
       { id: "02", type: "image", src: "/work/02.jpg", title: "Arcade of Umbrellas", caption: "Commercial / Garden" },
       { id: "03", type: "video", src: "/work/03.mp4", poster: "/work/03_poster.jpg", title: "Fabric Facade", caption: "Detail / Motion" },
+      { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "1 2 Edit01 VR 360", caption: "360° Virtual Reality / Experience" },
       { id: "04", type: "video", src: "/work/04.mp4", poster: "/work/04_poster.jpg", title: "Board & Pieces", caption: "Lifestyle / Motion" },
       { id: "05", type: "video", src: "/work/05.mp4", poster: "/work/05_poster.jpg", title: "Yellow Sprint", caption: "Automotive / Motion" },
       { id: "06", type: "video", src: "/work/06.mp4", poster: "/work/06_poster.jpg", title: "Forest Bridge", caption: "Exterior / Night" },
@@ -67,7 +65,6 @@ export default function WorkPage() {
     []
   )
 
-  /* 라이트박스: 현재 인덱스로 관리 */
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const active = activeIndex == null ? null : items[activeIndex]
 
@@ -88,7 +85,6 @@ export default function WorkPage() {
     })
   }, [items.length])
 
-  /* 간단 보안: 우클릭/드래그/일부 단축키 차단 */
   useEffect(() => {
     const prevent = (e: Event) => e.preventDefault()
     const onKeyDown = (e: KeyboardEvent) => {
@@ -102,7 +98,6 @@ export default function WorkPage() {
         e.preventDefault()
         e.stopPropagation()
       }
-      /* 라이트박스 열렸을 때 좌우 화살표 네비 */
       if (activeIndex != null) {
         if (e.key === "ArrowLeft") goPrev()
         if (e.key === "ArrowRight") goNext()
@@ -123,11 +118,9 @@ export default function WorkPage() {
 
   return (
     <div className="relative min-h-screen bg-black text-white">
-      {/* 좌측 사이드바 */}
       <aside
         className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-black/95 border-r border-white/10 flex flex-col items-center select-none`}
       >
-        {/* 로고 */}
         <Link href="/" className="mt-6 block" aria-label="Go to Home">
           <Image
             src="/logo.png"
@@ -139,7 +132,6 @@ export default function WorkPage() {
           />
         </Link>
 
-        {/* 네비 (로고 바로 아래) */}
         <nav
           className="w-full flex flex-col items-center text-xs md:text-sm tracking-wide"
           style={{ marginTop: NAV_OFFSET_PX, gap: NAV_GAP_PX }}
@@ -149,7 +141,6 @@ export default function WorkPage() {
           <Link href="/contact" className="text-white/70 hover:text-white">Contact</Link>
         </nav>
 
-        {/* 하단: SNS + 소개 */}
         <div className="w-full px-3 md:px-4 mt-auto mb-6">
           <div className="flex items-center gap-3 text-white/70 justify-start pl-1">
             <a
@@ -179,7 +170,6 @@ export default function WorkPage() {
         </div>
       </aside>
 
-      {/* 콘텐츠 그리드 (순서 고정) */}
       <main className="pl-32 md:pl-36">
         <div
           className="
@@ -202,7 +192,6 @@ export default function WorkPage() {
         </div>
       </main>
 
-      {/* 라이트박스 */}
       <AnimatePresence>
         {active && activeIndex != null && (
           <motion.div
@@ -219,7 +208,6 @@ export default function WorkPage() {
               exit={{ scale: 0.98, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* 미디어 */}
               {active.type === "image" ? (
                 <Image
                   src={active.src}
@@ -230,6 +218,16 @@ export default function WorkPage() {
                   className="object-contain bg-black select-none"
                   priority
                 />
+              ) : active.type === "youtube" ? (
+                <div className="w-full h-full bg-black">
+                  <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${active.youtubeId}?autoplay=1&controls=1`}
+                    title={active.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
               ) : (
                 <video
                   className="w-full h-full object-contain bg-black"
@@ -243,36 +241,33 @@ export default function WorkPage() {
                 </video>
               )}
 
-              {/* 좌상단 타이틀(배경 없이 텍스트만) */}
-              <div className="absolute left-4 top-4 text-white drop-shadow-sm">
+              <div className="absolute left-4 top-4 text-white drop-shadow-sm z-10">
                 <div className="text-base md:text-lg font-medium">{active.title}</div>
                 {active.caption && (
                   <div className="text-white/80 text-xs md:text-sm">{active.caption}</div>
                 )}
               </div>
 
-              {/* 오른쪽 상단 X 버튼 */}
               <button
                 onClick={close}
                 aria-label="Close"
-                className="absolute right-4 top-4 grid place-items-center rounded-full bg-white/90 text-black hover:bg-white w-9 h-9"
+                className="absolute right-4 top-4 grid place-items-center rounded-full bg-white/90 text-black hover:bg-white w-9 h-9 z-10"
                 title="Close"
               >
                 <XIcon className="w-5 h-5" />
               </button>
 
-              {/* 좌우 네비게이션 화살표 */}
               <button
                 onClick={(e) => { e.stopPropagation(); goPrev() }}
                 aria-label="Previous"
-                className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20"
+                className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20 z-10"
               >
                 <ChevronLeft className="w-6 h-6 text-white" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); goNext() }}
                 aria-label="Next"
-                className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20"
+                className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20 z-10"
               >
                 <ChevronRight className="w-6 h-6 text-white" />
               </button>
@@ -284,7 +279,6 @@ export default function WorkPage() {
   )
 }
 
-/* 개별 타일 */
 function Tile({
   item,
   span,
@@ -334,14 +328,17 @@ function Tile({
             )}
             <div className="absolute inset-0 grid place-items-center">
               <div className="rounded-full bg-black/55 border border-white/30 p-3">
-                <Play className="w-6 h-6 text-white" />
+                {item.type === "youtube" ? (
+                  <Maximize className="w-6 h-6 text-white" />
+                ) : (
+                  <Play className="w-6 h-6 text-white" />
+                )}
               </div>
             </div>
           </>
         )}
       </div>
 
-      {/* Hover 텍스트 */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="absolute left-3 right-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <div className="text-sm md:text-base font-medium">{item.title}</div>
