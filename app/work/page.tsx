@@ -222,7 +222,7 @@ export default function WorkPage() {
                 <div className="w-full h-full bg-black">
                   <iframe
                     className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${active.youtubeId}?autoplay=1&controls=1`}
+                    src={`https://www.youtube.com/embed/${active.youtubeId || ''}?autoplay=1&controls=1`}
                     title={active.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
