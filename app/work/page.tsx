@@ -9,7 +9,7 @@ import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximi
 type MediaItem = {
   id: string
   type: "image" | "video" | "youtube"
-  src: string
+  src?: string
   youtubeId?: string
   title: string
   caption?: string
