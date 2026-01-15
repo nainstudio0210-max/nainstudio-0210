@@ -9,7 +9,7 @@ import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximi
 type MediaItem = {
   id: string
   type: "image" | "video" | "youtube"
-  src: string
+  src?: string
   youtubeId?: string
   title: string
   caption?: string
@@ -210,7 +210,7 @@ export default function WorkPage() {
             >
               {active.type === "image" ? (
                 <Image
-                  src={active.src}
+                  src={active.src || ''}
                   alt={active.title}
                   fill
                   sizes="100vw"
@@ -222,7 +222,7 @@ export default function WorkPage() {
                 <div className="w-full h-full bg-black">
                   <iframe
                     className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${active.youtubeId}?autoplay=1&controls=1`}
+                    src={`https://www.youtube.com/embed/${active.youtubeId || ''}?autoplay=1&controls=1`}
                     title={active.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -237,7 +237,7 @@ export default function WorkPage() {
                   controlsList="nodownload noplaybackrate"
                   poster={active.poster}
                 >
-                  <source src={active.src || ''} type="video/mp4" />
+                  <source src={active.src} type="video/mp4" />
                 </video>
               )}
 
@@ -303,7 +303,7 @@ function Tile({
       <div className="absolute inset-0">
         {item.type === "image" ? (
           <Image
-            src={item.src || ''}
+            src={item.src}
             alt={item.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
