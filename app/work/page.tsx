@@ -47,7 +47,7 @@ export default function WorkPage() {
       { id: "01", type: "video", src: "/work/01.mp4", poster: "/work/01_poster.jpg", title: "High-rise Above the Clouds", caption: "Exterior visualization / Concept" },
       { id: "02", type: "image", src: "/work/02.jpg", title: "Arcade of Umbrellas", caption: "Commercial / Garden" },
       { id: "03", type: "video", src: "/work/03.mp4", poster: "/work/03_poster.jpg", title: "Fabric Facade", caption: "Detail / Motion" },
-      { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", title: "1 2 Edit01 VR 360", caption: "360° Virtual Reality / Experience" },
+      { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "https://img.youtube.com/vi/a73C8n-lQlQ/maxresdefault.jpg", title: "1 2 Edit01 VR 360", caption: "360° Virtual Reality / Experience" },
       { id: "04", type: "video", src: "/work/04.mp4", poster: "/work/04_poster.jpg", title: "Board & Pieces", caption: "Lifestyle / Motion" },
       { id: "05", type: "video", src: "/work/05.mp4", poster: "/work/05_poster.jpg", title: "Yellow Sprint", caption: "Automotive / Motion" },
       { id: "06", type: "video", src: "/work/06.mp4", poster: "/work/06_poster.jpg", title: "Forest Bridge", caption: "Exterior / Night" },
