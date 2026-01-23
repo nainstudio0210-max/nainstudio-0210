@@ -79,7 +79,7 @@ export default function WorkPage() {
       { id: "03", type: "video", src: "/work/03.mp4", poster: "/work/03_poster.jpg", title: "Fabric Facade", caption: "Detail / Motion" },
       { id: "04", type: "video", src: "/work/04.mp4", poster: "/work/04_poster.jpg", title: "Board & Pieces", caption: "Lifestyle / Motion" },
       { id: "05", type: "video", src: "/work/05.mp4", poster: "/work/05_poster.jpg", title: "Yellow Sprint", caption: "Automotive / Motion" },
-      { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "", caption: "360° Virtual Reality / Experience" },
+      { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "", caption: "" },
       { id: "06", type: "video", src: "/work/06.mp4", poster: "/work/06_poster.jpg", title: "Forest Bridge", caption: "Exterior / Night" },
       { id: "07", type: "image", src: "/work/07.jpg", title: "Lobby Frame", caption: "Interior / Detail" },
       { id: "08", type: "video", src: "/work/08.mp4", poster: "/work/08_poster.jpg", title: "Ribbon Bridge", caption: "Aerial / Motion" },
@@ -350,11 +350,10 @@ function Tile({
       onContextMenu={(e) => e.preventDefault()}
     >
       <div className="absolute inset-0">
-        {/* ▼ 3. Tile 렌더링 수정: gallery도 이미지를 보여주도록 설정 */}
         {item.type === "image" || item.type === "gallery" ? (
           <Image
             src={item.poster || item.images?.[0] || item.src || ''}
-            alt={item.title}
+            alt={item.title || ""}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             priority={priority}
@@ -366,7 +365,7 @@ function Tile({
             {item.poster ? (
               <Image
                 src={item.poster}
-                alt={item.title}
+                alt={item.title || ""}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 draggable={false}
@@ -389,14 +388,21 @@ function Tile({
         )}
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <div className="absolute left-3 right-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="text-sm md:text-base font-medium flex items-center gap-2">
-            {item.title}
-            {item.type === "gallery" && <Layers className="w-3 h-3 text-white/70" />}
-        </div>
-        {item.caption && <div className="text-xs md:text-sm text-white/70">{item.caption}</div>}
-      </div>
+      {/* 텍스트(title, caption)가 있을 때만 아래 영역을 렌더링합니다 */}
+      {(item.title || item.caption) && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute left-3 right-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {item.title && (
+              <div className="text-sm md:text-base font-medium flex items-center gap-2">
+                {item.title}
+                {item.type === "gallery" && <Layers className="w-3 h-3 text-white/70" />}
+              </div>
+            )}
+            {item.caption && <div className="text-xs md:text-sm text-white/70">{item.caption}</div>}
+          </div>
+        </>
+      )}
     </div>
   )
 }
