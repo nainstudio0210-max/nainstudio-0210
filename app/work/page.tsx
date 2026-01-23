@@ -290,12 +290,7 @@ export default function WorkPage() {
                 </video>
               )}
 
-              <div className="absolute left-4 top-4 text-white drop-shadow-sm z-10 pointer-events-none">
-                <div className="text-base md:text-lg font-medium">{active.title}</div>
-                {active.caption && (
-                  <div className="text-white/80 text-xs md:text-sm">{active.caption}</div>
-                )}
-              </div>
+              
 
               <button
                 onClick={close}
