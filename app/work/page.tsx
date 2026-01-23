@@ -4,12 +4,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize } from "lucide-react"
+import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers } from "lucide-react"
 
+// 1. 타입 정의: gallery와 images 추가
 type MediaItem = {
   id: string
-  type: "image" | "video" | "youtube"
+  type: "image" | "video" | "youtube" | "gallery"
   src?: string
+  images?: string[] // 갤러리용 이미지 배열
   youtubeId?: string
   title: string
   caption?: string
@@ -44,12 +46,40 @@ export default function WorkPage() {
 
   const items: MediaItem[] = useMemo(
     () => [
+      // ▼ [NEW] Shake Shake 갤러리 (17장)
+      { 
+        id: "shake01", 
+        type: "gallery", 
+        title: "Shake Shake Project", 
+        caption: "Multiple Images / Gallery",
+        poster: "/work/Shake Shake_01.jpg", // 목록에서 보일 대표 이미지
+        images: [
+          "/work/Shake Shake_01.jpg",
+          "/work/Shake Shake_02.png", // 2번은 png
+          "/work/Shake Shake_03.jpg",
+          "/work/Shake Shake_04.jpg",
+          "/work/Shake Shake_05.jpg",
+          "/work/Shake Shake_06.jpg",
+          "/work/Shake Shake_07.jpg",
+          "/work/Shake Shake_08.jpg",
+          "/work/Shake Shake_09.jpg",
+          "/work/Shake Shake_10.jpg",
+          "/work/Shake Shake_11.jpg",
+          "/work/Shake Shake_12.jpg",
+          "/work/Shake Shake_13.jpg",
+          "/work/Shake Shake_14.jpg",
+          "/work/Shake Shake_15.jpg",
+          "/work/Shake Shake_16.jpg",
+          "/work/Shake Shake_17.jpg",
+        ]
+      },
+      // ▼ 기존 아이템들
       { id: "01", type: "video", src: "/work/01.mp4", poster: "/work/01_poster.jpg", title: "High-rise Above the Clouds", caption: "Exterior visualization / Concept" },
       { id: "02", type: "image", src: "/work/02.jpg", title: "Arcade of Umbrellas", caption: "Commercial / Garden" },
       { id: "03", type: "video", src: "/work/03.mp4", poster: "/work/03_poster.jpg", title: "Fabric Facade", caption: "Detail / Motion" },
       { id: "04", type: "video", src: "/work/04.mp4", poster: "/work/04_poster.jpg", title: "Board & Pieces", caption: "Lifestyle / Motion" },
       { id: "05", type: "video", src: "/work/05.mp4", poster: "/work/05_poster.jpg", title: "Yellow Sprint", caption: "Automotive / Motion" },
-      { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "1 2 Edit01 VR 360", caption: "360° Virtual Reality / Experience" },
+      { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "https://img.youtube.com/vi/a73C8n-lQlQ/maxresdefault.jpg", title: "1 2 Edit01 VR 360", caption: "360° Virtual Reality / Experience" },
       { id: "06", type: "video", src: "/work/06.mp4", poster: "/work/06_poster.jpg", title: "Forest Bridge", caption: "Exterior / Night" },
       { id: "07", type: "image", src: "/work/07.jpg", title: "Lobby Frame", caption: "Interior / Detail" },
       { id: "08", type: "video", src: "/work/08.mp4", poster: "/work/08_poster.jpg", title: "Ribbon Bridge", caption: "Aerial / Motion" },
@@ -202,13 +232,32 @@ export default function WorkPage() {
             onClick={close}
           >
             <motion.div
-              className="absolute inset-6 md:inset-10 lg:inset-14 rounded-xl overflow-hidden"
+              className="absolute inset-6 md:inset-10 lg:inset-14 rounded-xl overflow-hidden bg-zinc-900/50"
               initial={{ scale: 0.98, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.98, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {active.type === "image" ? (
+              {/* ▼ 2. 갤러리 뷰어 로직 (새로 추가됨) */}
+              {active.type === "gallery" ? (
+                <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-4 md:p-8">
+                  {active.images?.map((img, index) => (
+                    <div key={index} className="relative w-full max-w-5xl shadow-2xl">
+                      <Image
+                        src={img}
+                        alt={`${active.title} - ${index + 1}`}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        className="w-full h-auto object-contain rounded-sm"
+                        priority={index === 0}
+                      />
+                    </div>
+                  ))}
+                  {/* 하단 여백 */}
+                  <div className="h-20" />
+                </div>
+              ) : active.type === "image" ? (
                 <Image
                   src={active.src || ''}
                   alt={active.title}
@@ -241,7 +290,7 @@ export default function WorkPage() {
                 </video>
               )}
 
-              <div className="absolute left-4 top-4 text-white drop-shadow-sm z-10">
+              <div className="absolute left-4 top-4 text-white drop-shadow-sm z-10 pointer-events-none">
                 <div className="text-base md:text-lg font-medium">{active.title}</div>
                 {active.caption && (
                   <div className="text-white/80 text-xs md:text-sm">{active.caption}</div>
@@ -251,7 +300,7 @@ export default function WorkPage() {
               <button
                 onClick={close}
                 aria-label="Close"
-                className="absolute right-4 top-4 grid place-items-center rounded-full bg-white/90 text-black hover:bg-white w-9 h-9 z-10"
+                className="absolute right-4 top-4 grid place-items-center rounded-full bg-white/90 text-black hover:bg-white w-9 h-9 z-20"
                 title="Close"
               >
                 <XIcon className="w-5 h-5" />
@@ -260,14 +309,14 @@ export default function WorkPage() {
               <button
                 onClick={(e) => { e.stopPropagation(); goPrev() }}
                 aria-label="Previous"
-                className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20 z-10"
+                className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20 z-20"
               >
                 <ChevronLeft className="w-6 h-6 text-white" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); goNext() }}
                 aria-label="Next"
-                className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20 z-10"
+                className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20 z-20"
               >
                 <ChevronRight className="w-6 h-6 text-white" />
               </button>
@@ -301,9 +350,10 @@ function Tile({
       onContextMenu={(e) => e.preventDefault()}
     >
       <div className="absolute inset-0">
-        {item.type === "image" ? (
+        {/* ▼ 3. Tile 렌더링 수정: gallery도 이미지를 보여주도록 설정 */}
+        {item.type === "image" || item.type === "gallery" ? (
           <Image
-            src={item.src || ''}
+            src={item.poster || item.images?.[0] || item.src || ''}
             alt={item.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
@@ -341,7 +391,10 @@ function Tile({
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="absolute left-3 right-3 bottom-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="text-sm md:text-base font-medium">{item.title}</div>
+        <div className="text-sm md:text-base font-medium flex items-center gap-2">
+            {item.title}
+            {item.type === "gallery" && <Layers className="w-3 h-3 text-white/70" />}
+        </div>
         {item.caption && <div className="text-xs md:text-sm text-white/70">{item.caption}</div>}
       </div>
     </div>
