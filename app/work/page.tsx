@@ -46,16 +46,14 @@ export default function WorkPage() {
 
   const items: MediaItem[] = useMemo(
     () => [
-      // ▼ [NEW] Shake Shake 갤러리 (17장)
       { 
-        id: "shake01", 
-        type: "gallery", 
-        title: "Shake Shake Project", 
-        caption: "Multiple Images / Gallery",
-        poster: "/work/Shake Shake_01.jpg", // 목록에서 보일 대표 이미지
+    id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio" 
+},
+      { 
+        id: "shake01", type: "gallery", title: "Shake Shake Project", caption: "Multiple Images / Gallery", poster: "/work/Shake Shake_01.jpg",
         images: [
           "/work/Shake Shake_01.jpg",
-          "/work/Shake Shake_02.png", // 2번은 png
+          "/work/Shake Shake_02.png",
           "/work/Shake Shake_03.jpg",
           "/work/Shake Shake_04.jpg",
           "/work/Shake Shake_05.jpg",
@@ -73,7 +71,6 @@ export default function WorkPage() {
           "/work/Shake Shake_17.jpg",
         ]
       },
-      // ▼ 기존 아이템들
       { id: "01", type: "video", src: "/work/01.mp4", poster: "/work/01_poster.jpg", title: "High-rise Above the Clouds", caption: "Exterior visualization / Concept" },
       { id: "02", type: "image", src: "/work/02.jpg", title: "Arcade of Umbrellas", caption: "Commercial / Garden" },
       { id: "03", type: "video", src: "/work/03.mp4", poster: "/work/03_poster.jpg", title: "Fabric Facade", caption: "Detail / Motion" },
