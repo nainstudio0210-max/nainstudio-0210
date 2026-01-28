@@ -73,7 +73,7 @@ export default function WorkPage() {
       },
       { id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio" },
       { id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio" },
-      { id: "03", type: "video", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project" },
+      { id: "03", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project" },
       { id: "04", type: "video", src: "/work/04.mp4", poster: "/work/04_poster.jpg", title: "Board & Pieces", caption: "Lifestyle / Motion" },
       { id: "05", type: "video", src: "/work/05.mp4", poster: "/work/05_poster.jpg", title: "Yellow Sprint", caption: "Automotive / Motion" },
       { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Experience it in 4K for higher quality" },
