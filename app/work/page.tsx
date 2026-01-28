@@ -50,7 +50,7 @@ export default function WorkPage() {
     id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio" 
 },
       { 
-        id: "shake01", type: "gallery", title: "Shake Shake Project", caption: "Multiple Images / Gallery", poster: "/work/Shake Shake_01.jpg",
+        id: "shake01", type: "gallery", title: "Shake Shake Project", caption: "Singapore Project", poster: "/work/Shake Shake_01.jpg",
         images: [
           "/work/Shake Shake_01.jpg",
           "/work/Shake Shake_02.png",
@@ -71,7 +71,7 @@ export default function WorkPage() {
           "/work/Shake Shake_17.jpg",
         ]
       },
-      { id: "01", type: "video", src: "/work/01.mp4", poster: "/work/01_poster.jpg", title: "High-rise Above the Clouds", caption: "Exterior visualization / Concept" },
+      { id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio" },
       { id: "02", type: "image", src: "/work/02.jpg", title: "Arcade of Umbrellas", caption: "Commercial / Garden" },
       { id: "03", type: "video", src: "/work/03.mp4", poster: "/work/03_poster.jpg", title: "Fabric Facade", caption: "Detail / Motion" },
       { id: "04", type: "video", src: "/work/04.mp4", poster: "/work/04_poster.jpg", title: "Board & Pieces", caption: "Lifestyle / Motion" },
