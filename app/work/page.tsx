@@ -86,7 +86,7 @@ export default function WorkPage() {
       { id: "12", type: "video", src: "/work/12.mp4", poster: "/work/12_poster.jpg", title: "Red Stadium", caption: "Competition / Concept" },
       { id: "13", type: "image", src: "/work/13.jpg", title: "Kistefos The Twist Reference", caption: "Portfolio" },
       { id: "14", type: "image", src: "/work/14.jpg", title: "A snowy forest path", caption: "Portfolio" },
-      { id: "15", type: "video", src: "/work/15.mp4", poster: "/work/15_poster.jpg", title: "Minimal Loft", caption: "Interior / Still" },
+      { id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio" },
       { id: "16", type: "image", src: "/work/16.jpg", title: "Industrial Loft Office", caption: "Portfolio" },
     ],
     []
