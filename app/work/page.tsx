@@ -81,7 +81,7 @@ export default function WorkPage() {
       { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality" },
       { id: "06", type: "youtube", youtubeId: "A7LAPEA3X3o", poster: "/work/06_poster.jpg", title: "Forest Glass Villa", caption: "Portfolio" },
       { id: "07", type: "image", src: "/work/07.jpg", title: "Lobby Frame", caption: "Interior / Detail" },
-      { id: "08", type: "youtube", youtubeId: "OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio" },
+      { id: "08", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio" },
       { id: "09", type: "youtube", youtubeId: "fzvrlfouD54", poster: "/work/SOYO Hannam Reference_poster.jpg", title: "SOYO Hannam Reference", caption: "Portfolio" },
       { id: "10", type: "image", src: "/work/10.jpg", title: "Pool Pavilion", caption: "Resort / Still" },
       { id: "11", type: "video", src: "/work/11.mp4", poster: "/work/11_poster.jpg", title: "Seaside Towers", caption: "Sunset Sequence" },
