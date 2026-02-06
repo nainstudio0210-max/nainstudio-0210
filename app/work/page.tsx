@@ -6,12 +6,21 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers } from "lucide-react"
 
-// 1. 타입 정의: gallery와 images 추가
+// ▼ [수정 1] 갤러리 내부 아이템 타입 정의 (이미지/유튜브 혼합용)
+type GalleryContent = {
+  type: "image" | "youtube"
+  src?: string       // 이미지 경로
+  youtubeId?: string // 유튜브 ID
+}
+
+// ▼ [수정 2] MediaItem 타입 확장
+// 기존 images(문자열 배열)와 새로운 galleryContents(객체 배열)를 모두 지원하도록 설정
 type MediaItem = {
   id: string
   type: "image" | "video" | "youtube" | "gallery"
   src?: string
-  images?: string[] // 갤러리용 이미지 배열
+  images?: string[] // 기존 데이터 호환용 (문자열 배열)
+  galleryContents?: GalleryContent[] // 새로 추가할 기능용 (이미지+영상 혼합)
   youtubeId?: string
   title: string
   caption?: string
@@ -44,11 +53,12 @@ export default function WorkPage() {
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
+  // ▼ 기존 데이터 그대로 유지 (나중에 galleryContents로 수정해서 쓰시면 됩니다)
   const items: MediaItem[] = useMemo(
     () => [
       { 
-    id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio" 
-},
+        id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio" 
+      },
       { 
         id: "shake01", type: "gallery", title: "Shake Shake Project", caption: "Singapore Project", poster: "/work/Shake Shake_01.jpg",
         images: [
@@ -237,20 +247,33 @@ export default function WorkPage() {
               exit={{ scale: 0.98, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* ▼ 2. 갤러리 뷰어 로직 (새로 추가됨) */}
+              {/* ▼ [수정 3] 갤러리 렌더링 로직 (이미지+유튜브 통합) */}
               {active.type === "gallery" ? (
                 <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-4 md:p-8">
-                  {active.images?.map((img, index) => (
-                    <div key={index} className="relative w-full max-w-5xl shadow-2xl">
-                      <Image
-                        src={img}
-                        alt={`${active.title} - ${index + 1}`}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        className="w-full h-auto object-contain rounded-sm"
-                        priority={index === 0}
-                      />
+                  {/* 기존 images 배열과 새로운 galleryContents 배열을 호환시켜 하나로 합침 */}
+                  {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
+                    <div key={index} className="relative w-full max-w-5xl shadow-2xl bg-black">
+                      {content.type === "youtube" ? (
+                        <div className="w-full aspect-video">
+                          <iframe
+                            className="w-full h-full"
+                            src={`https://www.youtube.com/embed/${content.youtubeId}?autoplay=0&controls=1`}
+                            title={`Gallery Video ${index}`}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                      ) : (
+                        <Image
+                          src={content.src || ""}
+                          alt={`${active.title} - ${index + 1}`}
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          className="w-full h-auto object-contain rounded-sm"
+                          priority={index === 0}
+                        />
+                      )}
                     </div>
                   ))}
                   {/* 하단 여백 */}
@@ -289,7 +312,8 @@ export default function WorkPage() {
                 </video>
               )}
 
-              
+              {/* ▼ [수정 4] 타이틀/캡션은 클릭해서 들어왔을 때 제거 (요청사항 반영) */}
+              {/* 여기에 있던 타이틀/캡션 코드를 삭제했습니다. */}
 
               <button
                 onClick={close}
@@ -322,6 +346,7 @@ export default function WorkPage() {
   )
 }
 
+// ▼ [수정 5] Tile 컴포넌트: Poster 이미지를 찾는 로직 보강
 function Tile({
   item,
   span,
@@ -333,6 +358,13 @@ function Tile({
   onOpen: () => void
   priority?: boolean
 }) {
+  // 포스터 이미지 우선순위: 1.poster -> 2.galleryContents의 첫 번째 이미지 -> 3.images의 첫 번째 이미지 -> 4.src
+  const posterSrc = item.poster || 
+                    (item.galleryContents && item.galleryContents.find(c => c.type === "image")?.src) || 
+                    (item.images && item.images[0]) || 
+                    item.src || 
+                    '';
+
   return (
     <div
       className={[
@@ -344,9 +376,9 @@ function Tile({
       onContextMenu={(e) => e.preventDefault()}
     >
       <div className="absolute inset-0">
-        {item.type === "image" || item.type === "gallery" ? (
+        {(item.type === "image" || item.type === "gallery") && posterSrc ? (
           <Image
-            src={item.poster || item.images?.[0] || item.src || ''}
+            src={posterSrc}
             alt={item.title || ""}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
@@ -382,7 +414,6 @@ function Tile({
         )}
       </div>
 
-      {/* 텍스트(title, caption)가 있을 때만 아래 영역을 렌더링합니다 */}
       {(item.title || item.caption) && (
         <>
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
