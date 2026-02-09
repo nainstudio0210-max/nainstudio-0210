@@ -39,7 +39,7 @@ export default function WorkPage() {
      type: "gallery", 
      title: "Gold Coast", // 제목 (원하는 대로 수정하세요)
      caption: "Portfolio", 
-      span: "md:col-span-3 md:row-span-2", // 가로로 넓은 배치 (작게 하려면 col-span-2 로 수정)
+      span: "md:col-span-4 md:row-span-2", // 가로로 넓은 배치 (작게 하려면 col-span-2 로 수정)
      poster: "/work/Gold Coast.jpg", // 목록에서 보여질 대표 썸네일
      galleryContents: [
        { type: "youtube", youtubeId: "3i984k1CbJ4" }, // 1. 영상
@@ -47,6 +47,13 @@ export default function WorkPage() {
        { type: "image", src: "/work/Gold Coast_vp.jpg" } // 3. VP 이미지
       ]
     },
+     { 
+        id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
+        span: "md:col-span-2 md:row-span-2",
+        images: [
+          "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg"
+        ]
+      },
       // [Row 1] 3칸 + 3칸 (반반)
       { 
         id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
