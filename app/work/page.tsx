@@ -83,7 +83,7 @@ export default function WorkPage() {
         span: "md:col-span-3 md:row-span-2"
       },
       { 
-        id: "IFC02", type: "youtube", youtubeId: "5S0JepNfMew", poster: "/work/Seoul Nightscape Drone View_poster.jpg", title: "Seoul Nightscape Drone View", caption: "Portfolio",
+        id: "IFC02", type: "youtube", youtubeId: "Hgnd9kO2DTw", poster: "/work/Seoul Nightscape Drone View_poster.jpg", title: "Seoul Nightscape Drone View", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2"
       },
 
