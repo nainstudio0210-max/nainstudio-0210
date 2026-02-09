@@ -6,46 +6,25 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers } from "lucide-react"
 
-// ▼ [수정 1] 갤러리 내부 아이템 타입 정의 (이미지/유튜브 혼합용)
+// 1. 갤러리/유튜브 혼합용 타입
 type GalleryContent = {
   type: "image" | "youtube"
-  src?: string       // 이미지 경로
-  youtubeId?: string // 유튜브 ID
+  src?: string       
+  youtubeId?: string 
 }
 
-// ▼ [수정 2] MediaItem 타입 확장
-// 기존 images(문자열 배열)와 새로운 galleryContents(객체 배열)를 모두 지원하도록 설정
+// 2. MediaItem 타입 정의 (span은 이제 필수값처럼 다룹니다)
 type MediaItem = {
   id: string
   type: "image" | "video" | "youtube" | "gallery"
   src?: string
-  images?: string[] // 기존 데이터 호환용 (문자열 배열)
-  galleryContents?: GalleryContent[] // 새로 추가할 기능용 (이미지+영상 혼합)
+  images?: string[] 
+  galleryContents?: GalleryContent[]
   youtubeId?: string
   title: string
   caption?: string
   poster?: string
-  span?: string
-}
-
-function spanFor(i: number) {
-  const r = i % 14
-  switch (r) {
-    case 0:  return "md:col-span-3 md:row-span-2"
-    case 1:  return "md:col-span-3 md:row-span-2"
-    case 2:  return "md:col-span-2 md:row-span-2"
-    case 3:  return "md:col-span-2 md:row-span-2"
-    case 4:  return "md:col-span-2 md:row-span-2"
-    case 5:  return "md:col-span-4 md:row-span-2"
-    case 6:  return "md:col-span-2 md:row-span-2"
-    case 7:  return "md:col-span-3 md:row-span-2"
-    case 8:  return "md:col-span-3 md:row-span-2"
-    case 9:  return "md:col-span-2 md:row-span-2"
-    case 10: return "md:col-span-4 md:row-span-2"
-    case 11: return "md:col-span-2 md:row-span-2"
-    case 12: return "md:col-span-2 md:row-span-2"
-    default: return "md:col-span-2 md:row-span-2"
-  }
+  span: string // ★ 여기서 span을 직접 지정하므로 필수 속성으로 생각하면 편합니다
 }
 
 export default function WorkPage() {
@@ -53,53 +32,128 @@ export default function WorkPage() {
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
-  // ▼ 기존 데이터 그대로 유지 (나중에 galleryContents로 수정해서 쓰시면 됩니다)
+  // ▼▼▼ 여기에 모든 아이템의 크기(span)를 직접 고정했습니다. ▼▼▼
+  // 이제 순서를 바꿔도 이 span 값 때문에 모양이 유지됩니다.
   const items: MediaItem[] = useMemo(
     () => [
+      // [Row 1] 3칸 + 3칸 (반반)
       { 
-        id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio" 
+        id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2" 
       },
       { 
         id: "shake01", type: "gallery", title: "Shake Shake Project", caption: "Singapore Project", poster: "/work/Shake Shake_01.jpg",
+        span: "md:col-span-3 md:row-span-2",
         images: [
-          "/work/Shake Shake_01.jpg",
-          "/work/Shake Shake_02.png",
-          "/work/Shake Shake_03.jpg",
-          "/work/Shake Shake_04.jpg",
-          "/work/Shake Shake_05.jpg",
-          "/work/Shake Shake_06.jpg",
-          "/work/Shake Shake_07.jpg",
-          "/work/Shake Shake_08.jpg",
-          "/work/Shake Shake_09.jpg",
-          "/work/Shake Shake_10.jpg",
-          "/work/Shake Shake_11.jpg",
-          "/work/Shake Shake_12.jpg",
-          "/work/Shake Shake_13.jpg",
-          "/work/Shake Shake_14.jpg",
-          "/work/Shake Shake_15.jpg",
-          "/work/Shake Shake_16.jpg",
+          "/work/Shake Shake_01.jpg", "/work/Shake Shake_02.png", "/work/Shake Shake_03.jpg", "/work/Shake Shake_04.jpg",
+          "/work/Shake Shake_05.jpg", "/work/Shake Shake_06.jpg", "/work/Shake Shake_07.jpg", "/work/Shake Shake_08.jpg",
+          "/work/Shake Shake_09.jpg", "/work/Shake Shake_10.jpg", "/work/Shake Shake_11.jpg", "/work/Shake Shake_12.jpg",
+          "/work/Shake Shake_13.jpg", "/work/Shake Shake_14.jpg", "/work/Shake Shake_15.jpg", "/work/Shake Shake_16.jpg",
           "/work/Shake Shake_17.jpg",
         ]
       },
-      { id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio" },
-      { id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio" },
-      { id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project" },
-      { id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio" },
-      { id: "05", type: "youtube", youtubeId: "NbcLyvo1MV0", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio" },
-      { id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality" },
-      { id: "IFC02", type: "youtube", youtubeId: "hdcUfX2HbTU", poster: "/work/Seoul Nightscape Drone View_poster.jpg", title: "Seoul Nightscape Drone View", caption: "Portfolio" },
-      { id: "IFC01", type: "youtube", youtubeId: "LRPn_SX0i-I", poster: "/work/IFC Seoul Nightscape_poster.jpg", title: "IFC Seoul Nightscape", caption: "Portfolio" },
-      { id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio" },
-      { id: "Splash Vol.1", type: "youtube", youtubeId: "n23M7AvNRDg", poster: "/work/11_poster.jpg", title: "Forest Splash Vol.1", caption: "Portfolio" },
-      { id: "Splash Vol.2", type: "youtube", youtubeId: "guC-rwfJ4bY", poster: "/work/12_poster.jpg", title: "Forest Splash Vol.2", caption: "Portfolio" },
-      { id: "Glass Villa", type: "youtube", youtubeId: "A7LAPEA3X3o", poster: "/work/06_poster.jpg", title: "Forest Glass Villa", caption: "Portfolio" },
-      { id: "Hannam01", type: "youtube", youtubeId: "fzvrlfouD54", poster: "/work/SOYO Hannam Reference_poster.jpg", title: "SOYO Hannam Reference", caption: "Portfolio" },
-      { id: "Hannam02", type: "image", src: "/work/10.jpg", title: "SOYO Hannam Reference", caption: "Portfolio" },
-      { id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/07.jpg", images: [ "/work/07.jpg", ] },
-      { id: "13", type: "image", src: "/work/13.jpg", title: "Kistefos The Twist Reference", caption: "Portfolio" },
-      { id: "14", type: "image", src: "/work/14.jpg", title: "A snowy forest path", caption: "Portfolio" },
-      { id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio" },
-      { id: "16", type: "image", src: "/work/16.jpg", title: "Industrial Loft Office", caption: "Portfolio" },
+
+      // [Row 2] 2칸 + 2칸 + 2칸 (3등분)
+      { 
+        id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
+        span: "md:col-span-2 md:row-span-2"
+      },
+
+      // [Row 3] 4칸 + 2칸 (넓은 것 + 좁은 것)
+      { 
+        id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2"
+      },
+      { 
+        id: "05", type: "youtube", youtubeId: "NbcLyvo1MV0", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+
+      // [Row 4] 3칸 + 3칸 (반반)
+      { 
+        id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality",
+        span: "md:col-span-3 md:row-span-2"
+      },
+      { 
+    id: "IFC02", 
+    type: "gallery", 
+    title: "Seoul Nightscape Drone View", 
+    caption: "Portfolio",
+    span: "md:col-span-3 md:row-span-2",
+    poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+    galleryContents: [
+    { type: "youtube", youtubeId: "Hgnd9kO2DTw" },
+    { type: "image", src: "/work/IFC02_Train.jpg" },
+    { type: "image", src: "/work/IFC02_Train_VP.jpg" }
+   ]
+    },
+
+      // [Row 5] 2칸 + 4칸 (좁은 것 + 넓은 것)
+      { 
+        id: "IFC01", type: "youtube", youtubeId: "LRPn_SX0i-I", poster: "/work/IFC Seoul Nightscape_poster.jpg", title: "IFC Seoul Nightscape", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2"
+      },
+
+      // [Row 6] 2칸 + 2칸 + 2칸 (3등분)
+      { 
+        id: "Splash Vol.1", type: "youtube", youtubeId: "n23M7AvNRDg", poster: "/work/11_poster.jpg", title: "Forest Splash Vol.1", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "Splash Vol.2", type: "youtube", youtubeId: "guC-rwfJ4bY", poster: "/work/12_poster.jpg", title: "Forest Splash Vol.2", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "Glass Villa", type: "youtube", youtubeId: "A7LAPEA3X3o", poster: "/work/06_poster.jpg", title: "Forest Glass Villa", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+
+      // [Row 7] 3칸 + 3칸 (패턴 반복 시작)
+      { 
+        id: "Hannam01", type: "youtube", youtubeId: "fzvrlfouD54", poster: "/work/SOYO Hannam Reference_poster.jpg", title: "SOYO Hannam Reference", caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2"
+      },
+      { 
+        id: "Hannam02", type: "image", src: "/work/10.jpg", title: "SOYO Hannam Reference", caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2"
+      },
+
+      // [Row 8] 2칸 + 2칸 + 2칸
+      { 
+        id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/07.jpg", 
+        span: "md:col-span-2 md:row-span-2",
+        images: [ "/work/07.jpg" ] 
+      },
+      { 
+        id: "13", type: "image", src: "/work/13.jpg", title: "Kistefos The Twist Reference", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "14", type: "image", src: "/work/14.jpg", title: "A snowy forest path", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+
+      // [Row 9] 4칸 + 2칸
+      { 
+        id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2"
+      },
+      { 
+        id: "16", type: "image", src: "/work/16.jpg", title: "Industrial Loft Office", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
     ],
     []
   )
@@ -223,7 +277,7 @@ export default function WorkPage() {
             <Tile
               key={item.id}
               item={item}
-              span={item.span ?? spanFor(i)}
+              span={item.span} // ★ 이제 계산하지 않고 아이템에 적힌 값을 그대로 씁니다
               onOpen={() => openAt(i)}
               priority={i < 6}
             />
@@ -247,10 +301,8 @@ export default function WorkPage() {
               exit={{ scale: 0.98, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* ▼ [수정 3] 갤러리 렌더링 로직 (이미지+유튜브 통합) */}
               {active.type === "gallery" ? (
                 <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-4 md:p-8">
-                  {/* 기존 images 배열과 새로운 galleryContents 배열을 호환시켜 하나로 합침 */}
                   {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
                     <div key={index} className="relative w-full max-w-5xl shadow-2xl bg-black">
                       {content.type === "youtube" ? (
@@ -276,7 +328,6 @@ export default function WorkPage() {
                       )}
                     </div>
                   ))}
-                  {/* 하단 여백 */}
                   <div className="h-20" />
                 </div>
               ) : active.type === "image" ? (
@@ -312,9 +363,6 @@ export default function WorkPage() {
                 </video>
               )}
 
-              {/* ▼ [수정 4] 타이틀/캡션은 클릭해서 들어왔을 때 제거 (요청사항 반영) */}
-              {/* 여기에 있던 타이틀/캡션 코드를 삭제했습니다. */}
-
               <button
                 onClick={close}
                 aria-label="Close"
@@ -346,7 +394,6 @@ export default function WorkPage() {
   )
 }
 
-// ▼ [수정 5] Tile 컴포넌트: Poster 이미지를 찾는 로직 보강
 function Tile({
   item,
   span,
@@ -358,7 +405,6 @@ function Tile({
   onOpen: () => void
   priority?: boolean
 }) {
-  // 포스터 이미지 우선순위: 1.poster -> 2.galleryContents의 첫 번째 이미지 -> 3.images의 첫 번째 이미지 -> 4.src
   const posterSrc = item.poster || 
                     (item.galleryContents && item.galleryContents.find(c => c.type === "image")?.src) || 
                     (item.images && item.images[0]) || 
