@@ -325,7 +325,7 @@ export default function WorkPage() {
               {active.type === "gallery" ? (
                 <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-2 md:p-4">
                   {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
-                    <div key={index} className="relative w-full shadow-2xl bg-black">
+                    <div key={index} className="relative w-[90%] shadow-2xl bg-black">
                       {content.type === "youtube" ? (
                         <div className="w-full aspect-video">
                           <iframe
