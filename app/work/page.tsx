@@ -83,9 +83,18 @@ export default function WorkPage() {
         span: "md:col-span-3 md:row-span-2"
       },
       { 
-        id: "IFC02", type: "youtube", youtubeId: "Hgnd9kO2DTw", poster: "/work/Seoul Nightscape Drone View_poster.jpg", title: "Seoul Nightscape Drone View", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2"
-      },
+    id: "IFC02", 
+    type: "gallery", 
+    title: "Seoul Nightscape Drone View", 
+    caption: "Portfolio",
+    span: "md:col-span-3 md:row-span-2",
+    poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+    galleryContents: [
+    { type: "youtube", youtubeId: "Hgnd9kO2DTw" },
+    { type: "image", src: "/work/IFC02_Train.jpg" },
+    { type: "image", src: "/work/IFC02_Train_VP.jpg" }
+   ]
+    },
 
       // [Row 5] 2칸 + 4칸 (좁은 것 + 넓은 것)
       { 
