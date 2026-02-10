@@ -13,7 +13,7 @@ type GalleryContent = {
   youtubeId?: string 
 }
 
-// 2. MediaItem 타입 정의 (span은 이제 필수값처럼 다룹니다)
+// 2. MediaItem 타입 정의
 type MediaItem = {
   id: string
   type: "image" | "video" | "youtube" | "gallery"
@@ -24,7 +24,7 @@ type MediaItem = {
   title: string
   caption?: string
   poster?: string
-  span: string // ★ 여기서 span을 직접 지정하므로 필수 속성으로 생각하면 편합니다
+  span: string 
 }
 
 export default function WorkPage() {
@@ -32,10 +32,28 @@ export default function WorkPage() {
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
-  // ▼▼▼ 여기에 모든 아이템의 크기(span)를 직접 고정했습니다. ▼▼▼
-  // 이제 순서를 바꿔도 이 span 값 때문에 모양이 유지됩니다.
   const items: MediaItem[] = useMemo(
     () => [
+      { 
+     id: "gold coast", 
+     type: "gallery", 
+     title: "Gold Coast", // 제목 (원하는 대로 수정하세요)
+     caption: "Portfolio", 
+      span: "md:col-span-4 md:row-span-2", // 가로로 넓은 배치 (작게 하려면 col-span-2 로 수정)
+     poster: "/work/Gold Coast.jpg", // 목록에서 보여질 대표 썸네일
+     galleryContents: [
+       { type: "youtube", youtubeId: "3i984k1CbJ4" }, // 1. 영상
+       { type: "image", src: "/work/Gold Coast.jpg" }, // 2. 메인 이미지
+       { type: "image", src: "/work/Gold Coast_vp.jpg" } // 3. VP 이미지
+      ]
+    },
+     { 
+        id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
+        span: "md:col-span-2 md:row-span-2",
+        images: [
+          "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg"
+        ]
+      },
       // [Row 1] 3칸 + 3칸 (반반)
       { 
         id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
@@ -82,19 +100,22 @@ export default function WorkPage() {
         id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality",
         span: "md:col-span-3 md:row-span-2"
       },
+      
+      // ▼▼▼ 여기가 문제였던 부분! 완벽하게 고쳤습니다 ▼▼▼
       { 
-    id: "IFC02", 
-    type: "gallery", 
-    title: "Seoul Nightscape Drone View", 
-    caption: "Portfolio",
-    span: "md:col-span-3 md:row-span-2",
-    poster: "/work/Seoul Nightscape Drone View_poster.jpg",
-    galleryContents: [
-    { type: "youtube", youtubeId: "Hgnd9kO2DTw" },
-    { type: "image", src: "/work/IFC02_Train.jpg" },
-    { type: "image", src: "/work/IFC02_Train_VP.jpg" }
-   ]
-    },
+        id: "IFC02", 
+        type: "gallery", 
+        title: "Seoul Nightscape Drone View", 
+        caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "Hgnd9kO2DTw" },
+          { type: "image", src: "/work/IFC02_Train.jpg" },
+          { type: "image", src: "/work/IFC02_Train_VP.jpg" }
+        ]
+      },
+      // ▲▲▲ 괄호와 콤마를 정확하게 닫았습니다 ▲▲▲
 
       // [Row 5] 2칸 + 4칸 (좁은 것 + 넓은 것)
       { 
@@ -277,7 +298,7 @@ export default function WorkPage() {
             <Tile
               key={item.id}
               item={item}
-              span={item.span} // ★ 이제 계산하지 않고 아이템에 적힌 값을 그대로 씁니다
+              span={item.span} 
               onOpen={() => openAt(i)}
               priority={i < 6}
             />
@@ -302,9 +323,9 @@ export default function WorkPage() {
               onClick={(e) => e.stopPropagation()}
             >
               {active.type === "gallery" ? (
-                <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-4 md:p-8">
+                <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-2 md:p-4">
                   {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
-                    <div key={index} className="relative w-full max-w-5xl shadow-2xl bg-black">
+                    <div key={index} className="relative w-[90%] shadow-2xl bg-black">
                       {content.type === "youtube" ? (
                         <div className="w-full aspect-video">
                           <iframe

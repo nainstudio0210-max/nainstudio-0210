@@ -35,25 +35,26 @@ export default function WorkPage() {
   const items: MediaItem[] = useMemo(
     () => [
       { 
-     id: "gold coast", 
-     type: "gallery", 
-     title: "Gold Coast", // 제목 (원하는 대로 수정하세요)
-     caption: "Portfolio", 
-      span: "md:col-span-4 md:row-span-2", // 가로로 넓은 배치 (작게 하려면 col-span-2 로 수정)
-     poster: "/work/Gold Coast.jpg", // 목록에서 보여질 대표 썸네일
-     galleryContents: [
-       { type: "youtube", youtubeId: "3i984k1CbJ4" }, // 1. 영상
-       { type: "image", src: "/work/Gold Coast.jpg" }, // 2. 메인 이미지
-       { type: "image", src: "/work/Gold Coast_vp.jpg" } // 3. VP 이미지
-      ]
-    },
-     { 
+        id: "gold coast", 
+        type: "gallery", 
+        title: "Gold Coast", 
+        caption: "Portfolio", 
+        span: "md:col-span-4 md:row-span-2",
+        poster: "/work/Gold Coast.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "3i984k1CbJ4" }, 
+          { type: "image", src: "/work/Gold Coast.jpg" }, 
+          { type: "image", src: "/work/Gold Coast_vp.jpg" } 
+        ]
+      },
+      { 
         id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
         span: "md:col-span-2 md:row-span-2",
         images: [
           "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg"
         ]
       },
+      
       // [Row 1] 3칸 + 3칸 (반반)
       { 
         id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
@@ -100,8 +101,6 @@ export default function WorkPage() {
         id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality",
         span: "md:col-span-3 md:row-span-2"
       },
-      
-      // ▼▼▼ 여기가 문제였던 부분! 완벽하게 고쳤습니다 ▼▼▼
       { 
         id: "IFC02", 
         type: "gallery", 
@@ -115,7 +114,6 @@ export default function WorkPage() {
           { type: "image", src: "/work/IFC02_Train_VP.jpg" }
         ]
       },
-      // ▲▲▲ 괄호와 콤마를 정확하게 닫았습니다 ▲▲▲
 
       // [Row 5] 2칸 + 4칸 (좁은 것 + 넓은 것)
       { 
@@ -343,7 +341,7 @@ export default function WorkPage() {
                           width={0}
                           height={0}
                           sizes="100vw"
-                          className="w-full h-auto object-contain rounded-sm"
+                          className="w-full h-auto object-contain rounded-sm pointer-events-none"
                           priority={index === 0}
                         />
                       )}
@@ -358,7 +356,7 @@ export default function WorkPage() {
                   fill
                   sizes="100vw"
                   draggable={false}
-                  className="object-contain bg-black select-none"
+                  className="object-contain bg-black select-none pointer-events-none"
                   priority
                 />
               ) : active.type === "youtube" ? (
@@ -451,7 +449,7 @@ function Tile({
             sizes="(max-width: 768px) 100vw, 33vw"
             priority={priority}
             draggable={false}
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03] pointer-events-none"
           />
         ) : (
           <>
@@ -462,7 +460,7 @@ function Tile({
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 draggable={false}
-                className="object-cover"
+                className="object-cover pointer-events-none"
                 priority={priority}
               />
             ) : (
