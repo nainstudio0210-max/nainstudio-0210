@@ -111,14 +111,23 @@ export default function WorkPage() {
         galleryContents: [
           { type: "youtube", youtubeId: "Hgnd9kO2DTw" },
           { type: "image", src: "/work/IFC02_Train.jpg" },
-          { type: "image", src: "/work/IFC02_Train_VP.jpg" }
+          { type: "image", src: "/work/Yeouido_Train_VP.jpg" }
         ]
       },
 
       // [Row 5] 2칸 + 4칸 (좁은 것 + 넓은 것)
       { 
-        id: "IFC01", type: "youtube", youtubeId: "LRPn_SX0i-I", poster: "/work/IFC Seoul Nightscape_poster.jpg", title: "IFC Seoul Nightscape", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+        id: "IFC01", 
+        type: "gallery", 
+        title: "IFC Seoul Nightscape", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "F-2OZ3er6gg" },
+          { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
+          { type: "image", src: "/work/IFC01_vp.jpg" }
+        ]
       },
       { 
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
