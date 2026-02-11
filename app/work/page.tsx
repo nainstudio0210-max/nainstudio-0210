@@ -150,12 +150,31 @@ export default function WorkPage() {
 
       // [Row 7] 3칸 + 3칸 (패턴 반복 시작)
       { 
-        id: "Hannam01", type: "youtube", youtubeId: "fzvrlfouD54", poster: "/work/SOYO Hannam Reference_poster.jpg", title: "SOYO Hannam Reference", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2"
+        id: "Hannam01", 
+        type: "gallery", 
+        title: "SOYO Hannam Reference Vol.01", 
+        caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "fzvrlfouD54" },
+          { type: "image", src: "/work/SOYO Hannam Reference_01.jpg" },
+          { type: "image", src: "/work/SOYO Hannam Reference_01_vp.jpg" }
+        ]
       },
       { 
-        id: "Hannam02", type: "image", src: "/work/10.jpg", title: "SOYO Hannam Reference", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2"
+        id: "Hannam02", 
+        type: "gallery", 
+        title: "SOYO Hannam Reference Vol.02", 
+        caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "CMAMGmCGLZo" },
+          { type: "youtube", youtubeId: "nnpP5N0rQPM" },
+          { type: "image", src: "/work/SOYO 02.jpg" },
+          { type: "image", src: "/work/SOYO 02_vp.jpg" }
+        ]
       },
 
       // [Row 8] 2칸 + 2칸 + 2칸
@@ -164,9 +183,18 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2",
         images: [ "/work/07.jpg" ] 
       },
-      { 
-        id: "13", type: "image", src: "/work/13.jpg", title: "Kistefos The Twist Reference", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+            { 
+        id: "Mist Twist", 
+        type: "gallery", 
+        title: "Kistefos The Twist Reference", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "D9VjQJGSYO0" },
+          { type: "image", src: "/work/Mist Twist.jpg" },
+          { type: "image", src: "/work/Mist Twist_vp.jpg" }
+        ]
       },
       { 
         id: "14", type: "image", src: "/work/14.jpg", title: "A snowy forest path", caption: "Portfolio",
