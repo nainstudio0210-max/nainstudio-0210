@@ -109,7 +109,7 @@ export default function WorkPage() {
         span: "md:col-span-3 md:row-span-2",
         poster: "/work/Seoul Nightscape Drone View_poster.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "Hgnd9kO2DTw" },
+          { type: "youtube", youtubeId: "NAc1dDK-_U8" },
           { type: "image", src: "/work/IFC02_Train.jpg" },
           { type: "image", src: "/work/Yeouido_Train_VP.jpg" }
         ]
@@ -124,7 +124,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2",
         poster: "/work/IFC Seoul Nightscape_poster.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "F-2OZ3er6gg" },
+          { type: "youtube", youtubeId: "79ijGHoedPY" },
           { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
           { type: "image", src: "/work/IFC01_vp.jpg" }
         ]
