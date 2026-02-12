@@ -143,9 +143,18 @@ export default function WorkPage() {
         id: "Splash Vol.2", type: "youtube", youtubeId: "guC-rwfJ4bY", poster: "/work/12_poster.jpg", title: "Forest Splash Vol.2", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
-      { 
-        id: "Glass Villa", type: "youtube", youtubeId: "A7LAPEA3X3o", poster: "/work/06_poster.jpg", title: "Forest Glass Villa", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+            { 
+        id: "Forest Glass Villa", 
+        type: "gallery", 
+        title: "Forest Glass Villa", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Forest Glass Villa.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "YIG6xQn8Gok" },
+          { type: "image", src: "/work/Forest Glass Villa.jpg" },
+          { type: "image", src: "/work/Forest Glass Villa_vp.jpg" }
+        ]
       },
 
       // [Row 7] 3칸 + 3칸 (패턴 반복 시작)
