@@ -124,7 +124,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2",
         poster: "/work/IFC Seoul Nightscape_poster.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "79ijGHoedPY" },
+          { type: "youtube", youtubeId: "PHz9ZO2t8zY" },
           { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
           { type: "image", src: "/work/IFC01_vp.jpg" }
         ]
@@ -191,7 +191,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2",
         poster: "/work/Mist Twist.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "D9VjQJGSYO0" },
+          { type: "youtube", youtubeId: "A3995JcwZKE" },
           { type: "image", src: "/work/Mist Twist.jpg" },
           { type: "image", src: "/work/Mist Twist_vp.jpg" }
         ]
