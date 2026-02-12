@@ -179,9 +179,9 @@ export default function WorkPage() {
 
       // [Row 8] 2칸 + 2칸 + 2칸
       { 
-        id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/07.jpg", 
+        id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
         span: "md:col-span-2 md:row-span-2",
-        images: [ "/work/07.jpg" ] 
+        images: [ "/work/Boulangerie.jpg", "/work/Boulangerie_vp.jpg" ] 
       },
             { 
         id: "Mist Twist", 
