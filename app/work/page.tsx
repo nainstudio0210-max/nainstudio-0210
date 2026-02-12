@@ -367,7 +367,7 @@ export default function WorkPage() {
               onClick={(e) => e.stopPropagation()}
             >
               {active.type === "gallery" ? (
-                <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-2 md:p-4">
+                <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-3 md:p-6">
                   {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
                     <div key={index} className="relative w-[90%] shadow-2xl bg-black">
                       {content.type === "youtube" ? (
