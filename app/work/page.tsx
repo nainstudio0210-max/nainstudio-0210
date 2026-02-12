@@ -122,7 +122,7 @@ export default function WorkPage() {
         title: "IFC Seoul Nightscape", 
         caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        poster: "/work/IFC Seoul Nightscape_poster.jpg",
         galleryContents: [
           { type: "youtube", youtubeId: "F-2OZ3er6gg" },
           { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
@@ -155,7 +155,7 @@ export default function WorkPage() {
         title: "SOYO Hannam Reference Vol.01", 
         caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2",
-        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        poster: "/work/SOYO Hannam Reference_01.jpg",
         galleryContents: [
           { type: "youtube", youtubeId: "fzvrlfouD54" },
           { type: "image", src: "/work/SOYO Hannam Reference_01.jpg" },
@@ -168,7 +168,7 @@ export default function WorkPage() {
         title: "SOYO Hannam Reference Vol.02", 
         caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2",
-        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        poster: "/work/SOYO 02.jpg",
         galleryContents: [
           { type: "youtube", youtubeId: "CMAMGmCGLZo" },
           { type: "youtube", youtubeId: "nnpP5N0rQPM" },
@@ -189,7 +189,7 @@ export default function WorkPage() {
         title: "Kistefos The Twist Reference", 
         caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
+        poster: "/work/Mist Twist.jpg",
         galleryContents: [
           { type: "youtube", youtubeId: "D9VjQJGSYO0" },
           { type: "image", src: "/work/Mist Twist.jpg" },
