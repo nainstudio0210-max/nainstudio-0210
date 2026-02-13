@@ -92,7 +92,7 @@ export default function WorkPage() {
         span: "md:col-span-4 md:row-span-2"
       },
       { 
-        id: "05", type: "youtube", youtubeId: "NbcLyvo1MV0", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
+        id: "Fallingwater", type: "youtube", youtubeId: "aqDyOVV1Twc", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
 
