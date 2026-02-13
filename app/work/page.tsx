@@ -166,7 +166,7 @@ export default function WorkPage() {
         span: "md:col-span-3 md:row-span-2",
         poster: "/work/SOYO Hannam Reference_01.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "fzvrlfouD54" },
+          { type: "youtube", youtubeId: "jkJiAkCQtvw" },
           { type: "image", src: "/work/SOYO Hannam Reference_01.jpg" },
           { type: "image", src: "/work/SOYO Hannam Reference_01_vp.jpg" }
         ]
