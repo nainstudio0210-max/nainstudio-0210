@@ -42,7 +42,7 @@ export default function WorkPage() {
         span: "md:col-span-4 md:row-span-2",
         poster: "/work/Gold Coast.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "3i984k1CbJ4" }, 
+          { type: "youtube", youtubeId: "48wFptFkamc" }, 
           { type: "image", src: "/work/Gold Coast.jpg" }, 
           { type: "image", src: "/work/Gold Coast_vp.jpg" } 
         ]
@@ -57,7 +57,7 @@ export default function WorkPage() {
       
       // [Row 1] 3칸 + 3칸 (반반)
       { 
-        id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
+        id: "ocean_road", type: "youtube", youtubeId: "499vvzQnqiE", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2" 
       },
       { 
