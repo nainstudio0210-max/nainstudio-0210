@@ -50,8 +50,11 @@ export default function WorkPage() {
       { 
         id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
         span: "md:col-span-2 md:row-span-2",
-        images: [
-          "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg"
+        galleryContents: [
+          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg" }, 
+          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg" }, 
+          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg" }, 
+          { type: "youtube", youtubeId: "48wFptFkamc" }, 
         ]
       },
       
