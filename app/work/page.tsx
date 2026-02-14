@@ -54,7 +54,7 @@ export default function WorkPage() {
           { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg" }, 
           { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg" }, 
           { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg" }, 
-          { type: "youtube", youtubeId: "48wFptFkamc" }, 
+          { type: "youtube", youtubeId: "IWqxiGE4Cl0" }, 
         ]
       },
       
