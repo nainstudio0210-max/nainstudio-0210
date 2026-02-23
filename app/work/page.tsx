@@ -4,7 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers } from "lucide-react"
+// ★ Menu 아이콘 추가됨
+import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn, Menu } from "lucide-react"
 
 // 1. 갤러리/유튜브 혼합용 타입 정의
 type GalleryContent = {
@@ -28,6 +29,7 @@ type MediaItem = {
 }
 
 export default function WorkPage() {
+  // 모바일 사이드바 축소 (w-20), PC는 넓게 (w-36)
   const SIDEBAR_W = "w-20 md:w-36"
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
@@ -218,8 +220,11 @@ export default function WorkPage() {
   
   // 2. 모바일 쿠팡 스타일 전체화면(스와이프) 상태
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+  // ★ 3. 신규: 전체화면 햄버거 메뉴 상태
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   
-  // 3. 스와이프 터치 좌표 기록
+  // 4. 스와이프 터치 좌표 기록
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
@@ -303,7 +308,8 @@ export default function WorkPage() {
     const prevent = (e: Event) => e.preventDefault()
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (lightboxIndex !== null) setLightboxIndex(null) // 라이트박스 닫기
+        if (isMenuOpen) setIsMenuOpen(false) // ★ 햄버거 메뉴 닫기 추가
+        else if (lightboxIndex !== null) setLightboxIndex(null) // 라이트박스 닫기
         else if (activeIndex !== null) close() // 메인 팝업 닫기
       }
       if (e.key === "ArrowLeft") {
@@ -322,26 +328,89 @@ export default function WorkPage() {
       document.removeEventListener("contextmenu", prevent)
       window.removeEventListener("keydown", onKeyDown)
     }
-  }, [activeIndex, lightboxIndex, close, goNext, goPrev, goLightboxNext, goLightboxPrev])
+  }, [activeIndex, lightboxIndex, close, goNext, goPrev, goLightboxNext, goLightboxPrev, isMenuOpen])
 
   return (
     <div className="relative min-h-screen bg-black text-white">
-      {/* --- 사이드바 --- */}
+      
+      {/* ---------------- ★ 신규: 우측 상단 햄버거 메뉴 버튼 ★ ---------------- */}
+      <button 
+        onClick={() => setIsMenuOpen(true)}
+        className="fixed top-5 right-5 md:top-8 md:right-8 z-40 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+      >
+        <span className="hidden md:block text-sm font-medium tracking-widest uppercase mt-1">Works</span>
+        <Menu className="w-7 h-7 md:w-8 md:h-8" />
+      </button>
+
+      {/* ---------------- ★ 신규: 전체화면 메뉴 모달 (Brick 스타일) ★ ---------------- */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-[200] bg-black text-white flex flex-col"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            {/* 메뉴 닫기 버튼 */}
+            <div className="absolute top-5 right-5 md:top-8 md:right-8">
+              <button 
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+              >
+                <span className="hidden md:block text-sm font-medium tracking-widest uppercase mt-1">Close</span>
+                <XIcon className="w-7 h-7 md:w-8 md:h-8" />
+              </button>
+            </div>
+
+            {/* 거대한 텍스트 메뉴 항목 */}
+            <div className="flex-1 flex items-center justify-start pl-8 md:pl-[15%]">
+              <div className="flex flex-col gap-6 md:gap-10 text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter">
+                <Link href="/" onClick={() => setIsMenuOpen(false)} className="hover:text-white/50 transition-colors">Home</Link>
+                <Link href="/work" onClick={() => setIsMenuOpen(false)} className="hover:text-white/50 transition-colors">Works</Link>
+                <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="hover:text-white/50 transition-colors">Contact</Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
+      {/* --- 사이드바 영역 (Brick 스타일 필터 적용) --- */}
       <aside className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-black/95 border-r border-white/10 flex flex-col items-center select-none`}>
         <Link href="/" className="mt-6 block" aria-label="Go to Home">
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
-        <nav className="w-full flex flex-col items-center text-[10px] md:text-sm tracking-wide" style={{ marginTop: NAV_OFFSET_PX, gap: NAV_GAP_PX }}>
-          <Link href="/" className="text-white/70 hover:text-white">Home</Link>
-          <Link href="/work" className="text-white/70 hover:text-white">Work</Link>
-          <Link href="/contact" className="text-white/70 hover:text-white">Contact</Link>
-        </nav>
+        
+        {/* ★ 기존 메뉴 삭제 후 Brick 스타일 필터 적용 */}
+        <div className="w-full px-3 md:px-6 mt-12 md:mt-16 flex flex-col gap-6 md:gap-8">
+          <h1 className="text-xl md:text-3xl font-bold tracking-wide pl-1">Works</h1>
+          
+          <div className="flex flex-col gap-4 md:gap-5 pl-1">
+            {/* 활성화된 버튼: Projects & Portfolio (체크박스 스타일) */}
+            <Link href="/work" className="flex items-start gap-2.5 text-white group">
+              <div className="mt-[3px] md:mt-1.5 flex-shrink-0 w-2.5 h-2.5 bg-white border border-white rounded-[1px]" />
+              <span className="text-[10px] md:text-sm font-medium leading-tight group-hover:opacity-80 transition-opacity tracking-wide">
+                Projects<br className="md:hidden"/> & Portfolio
+              </span>
+            </Link>
+
+            {/* 비활성화된 버튼: Media Art (빈 박스 스타일) */}
+            <Link href="/media-art" className="flex items-start gap-2.5 text-white/40 group hover:text-white transition-colors">
+              <div className="mt-[3px] md:mt-1.5 flex-shrink-0 w-2.5 h-2.5 border border-white/40 rounded-[1px] group-hover:border-white transition-colors" />
+              <span className="text-[10px] md:text-sm font-medium leading-tight tracking-wide">
+                Media Art
+              </span>
+            </Link>
+          </div>
+        </div>
+
         <div className="w-full px-1 md:px-4 mt-auto mb-4 md:mb-6 flex flex-col items-center md:items-start">
-          <div className="flex items-center gap-2 md:gap-3 text-white/70 justify-center md:justify-start pl-0 md:pl-1">
+          <div className="flex items-center gap-2 md:gap-3 text-white/70 justify-center md:justify-start pl-0 md:pl-2">
             <a href="https://www.instagram.com/nainstudio0210/" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:text-white"><Instagram className="w-4 h-4 md:w-5 md:h-5" /></a>
             <a href="https://www.youtube.com/@Nainstudio-v5x" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:text-white"><Youtube className="w-4 h-4 md:w-5 md:h-5" /></a>
           </div>
-          <p className="mt-2 md:mt-3 text-[8px] md:text-[11px] leading-3 md:leading-5 text-white/50 md:text-white/60 text-center md:text-left md:max-w-[11.5rem] md:pl-1 break-keep px-1 md:px-0">
+          <p className="mt-2 md:mt-3 text-[8px] md:text-[11px] leading-3 md:leading-5 text-white/50 md:text-white/60 text-center md:text-left md:max-w-[11.5rem] md:pl-2 break-keep px-1 md:px-0">
             We are a creative visualization studio specializing in architectural imagery, animation, and realtime experiences.
           </p>
         </div>
@@ -388,24 +457,33 @@ export default function WorkPage() {
                             <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${content.youtubeId}?autoplay=0&controls=1`} allowFullScreen />
                           </div>
                         ) : (
-                          <Image
-                            src={content.src || ""} alt={`Gallery Item ${index}`}
-                            width={0} height={0} sizes="100vw"
-                            className="w-full h-auto object-contain rounded-sm select-none"
-                            style={{ WebkitTouchCallout: 'none' }} draggable={false} priority={index === 0}
-                          />
+                          <div className="relative w-full">
+                            <Image
+                              src={content.src || ""} alt={`Gallery Item ${index}`}
+                              width={0} height={0} sizes="100vw"
+                              className="w-full h-auto object-contain rounded-sm select-none"
+                              style={{ WebkitTouchCallout: 'none' }} draggable={false} priority={index === 0}
+                            />
+                            {/* 모바일 확대 돋보기 아이콘 */}
+                            <div className="absolute bottom-3 right-3 md:hidden bg-black/60 p-2 rounded-full pointer-events-none">
+                              <ZoomIn className="w-5 h-5 text-white/90" />
+                            </div>
+                          </div>
                         )}
                       </div>
                     ))}
                   </div>
                 ) : active.type === "image" ? (
                   <div 
-                    className="w-full h-full relative cursor-pointer md:cursor-default" 
+                    className="w-full h-full relative cursor-pointer md:cursor-default flex items-center justify-center p-4" 
                     onClick={() => {
                       if (typeof window !== 'undefined' && window.innerWidth < 768) setLightboxIndex(0)
                     }}
                   >
-                    <Image src={active.src || ''} alt={active.title} fill sizes="100vw" draggable={false} className="object-contain bg-black select-none p-2" style={{ WebkitTouchCallout: 'none' }} priority />
+                    <Image src={active.src || ''} alt={active.title} fill sizes="100vw" draggable={false} className="object-contain bg-black select-none" style={{ WebkitTouchCallout: 'none' }} priority />
+                    <div className="absolute bottom-6 right-6 md:hidden bg-black/60 p-3 rounded-full pointer-events-none">
+                      <ZoomIn className="w-6 h-6 text-white/90" />
+                    </div>
                   </div>
                 ) : active.type === "youtube" ? (
                   <div className="w-full h-full bg-black">
@@ -415,10 +493,10 @@ export default function WorkPage() {
                 <div className="h-20" />
               </div>
 
-              {/* 기본 모달 좌우/닫기 버튼 */}
-              <button onClick={close} className="absolute right-3 top-3 md:right-5 md:top-5 bg-black/40 hover:bg-white text-white hover:text-black p-2 md:p-2.5 rounded-full z-10 border border-white/20"><XIcon className="w-5 h-5" /></button>
-              <button onClick={(e) => goPrev(e)} className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-10 border border-white/20"><ChevronLeft className="w-6 h-6 md:w-8 md:h-8" /></button>
-              <button onClick={(e) => goNext(e)} className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-10 border border-white/20"><ChevronRight className="w-6 h-6 md:w-8 md:h-8" /></button>
+              {/* 기본 모달 조작 버튼 */}
+              <button onClick={close} className="absolute right-3 top-3 md:right-5 md:top-5 bg-black/40 hover:bg-white text-white hover:text-black p-2 md:p-2.5 rounded-full z-[60] border border-white/20 transition-colors"><XIcon className="w-5 h-5" /></button>
+              <button onClick={(e) => goPrev(e)} className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-[60] border border-white/20 transition-colors"><ChevronLeft className="w-6 h-6 md:w-8 md:h-8" /></button>
+              <button onClick={(e) => goNext(e)} className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-[60] border border-white/20 transition-colors"><ChevronRight className="w-6 h-6 md:w-8 md:h-8" /></button>
             </motion.div>
           </motion.div>
         )}
@@ -468,7 +546,7 @@ export default function WorkPage() {
               )}
             </div>
 
-            {/* 하단 좌우 점(Dot) 혹은 안내 문구 */}
+            {/* 하단 좌우 점(Dot) */}
             {flatGalleryItems.length > 1 && (
               <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-2 z-[110]">
                 {flatGalleryItems.map((_, idx) => (
