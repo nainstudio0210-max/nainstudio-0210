@@ -216,51 +216,81 @@ export default function WorkPage() {
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   
-  // ★ 모바일에서 이미지를 클릭 시 꽉 차게 보여주기 위한 상태
-  const [isZoomed, setIsZoomed] = useState(false)
-  
+  // ★ 쿠팡 스타일 스와이프 뷰어를 위한 상태값들
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const [touchStartX, setTouchStartX] = useState<number | null>(null)
+
   const active = activeIndex == null ? null : items[activeIndex]
+
+  // 현재 열린 프로젝트의 이미지/영상 목록을 일렬로 모아두는 로직 (스와이프를 위해)
+  const currentGalleryItems = useMemo<GalleryContent[]>(() => {
+    if (!active) return []
+    if (active.type === 'gallery') {
+      return active.galleryContents ?? active.images?.map(src => ({ type: "image" as const, src })) ?? []
+    }
+    if (active.type === 'image' && active.src) return [{ type: 'image', src: active.src }]
+    if (active.type === 'youtube' && active.youtubeId) return [{ type: 'youtube', youtubeId: active.youtubeId }]
+    return []
+  }, [active])
 
   const openAt = useCallback((idx: number) => {
     setActiveIndex(idx)
-    setIsZoomed(false) // 팝업 열 때 초기화
+    setLightboxIndex(null) // 팝업 열 때 라이트박스 초기화
   }, [])
 
   const close = useCallback(() => {
     setActiveIndex(null)
-    setIsZoomed(false)
+    setLightboxIndex(null)
   }, [])
 
+  // 메인 프로젝트 팝업 넘기기
   const goPrev = useCallback(() => {
-    setActiveIndex((idx) => {
-      if (idx == null) return idx
-      return (idx - 1 + items.length) % items.length
-    })
-    setIsZoomed(false) // 넘길 때 확대 뷰 초기화
+    setActiveIndex((idx) => (idx == null ? null : (idx - 1 + items.length) % items.length))
+    setLightboxIndex(null)
   }, [items.length])
 
   const goNext = useCallback(() => {
-    setActiveIndex((idx) => {
-      if (idx == null) return idx
-      return (idx + 1) % items.length
-    })
-    setIsZoomed(false) // 넘길 때 확대 뷰 초기화
+    setActiveIndex((idx) => (idx == null ? null : (idx + 1) % items.length))
+    setLightboxIndex(null)
   }, [items.length])
 
+  // 쿠팡 스타일 라이트박스 내부 사진 넘기기
+  const prevLightbox = useCallback(() => {
+    setLightboxIndex(prev => prev !== null ? (prev - 1 + currentGalleryItems.length) % currentGalleryItems.length : null)
+  }, [currentGalleryItems.length])
+
+  const nextLightbox = useCallback(() => {
+    setLightboxIndex(prev => prev !== null ? (prev + 1) % currentGalleryItems.length : null)
+  }, [currentGalleryItems.length])
+
+  // 모바일 터치(스와이프) 이벤트 핸들러
+  const handleTouchStart = (e: React.TouchEvent) => setTouchStartX(e.touches[0].clientX)
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return
+    const touchEndX = e.changedTouches[0].clientX
+    const diff = touchStartX - touchEndX
+    if (diff > 50) nextLightbox() // 왼쪽으로 스와이프하면 다음 사진
+    else if (diff < -50) prevLightbox() // 오른쪽으로 스와이프하면 이전 사진
+    setTouchStartX(null)
+  }
+
+  // 키보드 방향키 조작 (PC)
   useEffect(() => {
     const prevent = (e: Event) => e.preventDefault()
     const onKeyDown = (e: KeyboardEvent) => {
       const k = e.key.toLowerCase()
       const mod = e.ctrlKey || e.metaKey
-      if (
-        k === "contextmenu" ||
-        (mod && (k === "s" || k === "p" || k === "u" || k === "i" || k === "j")) ||
-        k === "printscreen"
-      ) {
+      if (k === "contextmenu" || (mod && (k === "s" || k === "p" || k === "u" || k === "i" || k === "j")) || k === "printscreen") {
         e.preventDefault()
         e.stopPropagation()
       }
-      if (activeIndex != null) {
+      if (lightboxIndex !== null) {
+        // 라이트박스가 열려있을 때는 사진을 넘김
+        if (e.key === "ArrowLeft") prevLightbox()
+        if (e.key === "ArrowRight") nextLightbox()
+        if (e.key === "Escape") setLightboxIndex(null)
+      } else if (activeIndex != null) {
+        // 일반 프로젝트 창일 때는 프로젝트를 넘김
         if (e.key === "ArrowLeft") goPrev()
         if (e.key === "ArrowRight") goNext()
         if (e.key === "Escape") close()
@@ -276,7 +306,7 @@ export default function WorkPage() {
       document.removeEventListener("selectstart", prevent)
       document.removeEventListener("keydown", onKeyDown)
     }
-  }, [activeIndex, close, goNext, goPrev])
+  }, [activeIndex, lightboxIndex, close, goNext, goPrev, nextLightbox, prevLightbox])
 
   return (
     <div className="relative min-h-screen bg-black text-white">
@@ -344,7 +374,7 @@ export default function WorkPage() {
         </div>
       </main>
 
-      {/* ---------------- 팝업 모달 영역 ---------------- */}
+      {/* ---------------- 메인 프로젝트 팝업 모달 영역 ---------------- */}
       <AnimatePresence>
         {active && activeIndex != null && (
           <motion.div
@@ -355,36 +385,33 @@ export default function WorkPage() {
             onClick={close}
           >
             <motion.div
-              // ★ 핵심 로직: isZoomed가 true면 화면에 꽉 차게(inset-0), false면 기존처럼 여백 있게 설정
-              className={`relative overflow-hidden transition-all duration-300 ${
-                isZoomed 
-                  ? "w-full h-full inset-0 rounded-none bg-black" 
-                  : "w-[90%] h-[85%] md:w-[85%] md:h-[90%] rounded-xl bg-zinc-900/50"
-              }`}
+              // PC는 물론, 모바일에서도 여백이 있는 원래의 이쁜 창을 유지합니다.
+              className="relative overflow-hidden w-[90%] h-[85%] md:w-[85%] md:h-[90%] rounded-xl bg-zinc-900/50 shadow-2xl"
               initial={{ scale: 0.98, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.98, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()} // 팝업창 안쪽 클릭 시 닫히는 현상 방지
+              onClick={(e) => e.stopPropagation()} 
             >
               
               <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center">
                 
                 {/* 1. 갤러리 타입 처리 */}
                 {active.type === "gallery" ? (
-                  <div className={`w-full flex flex-col items-center gap-6 ${isZoomed ? "p-0" : "p-4 md:p-8"}`}>
+                  <div className="w-full flex flex-col items-center gap-6 p-4 md:p-8">
                     
-                    {/* 호환성 처리: galleryContents가 있으면 쓰고, 없으면 images 문자열 배열을 객체로 변환해서 매핑 */}
-                    {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
-                      
+                    {currentGalleryItems.map((content, index) => (
                       <div 
                         key={index} 
-                        className={`relative shadow-2xl bg-black cursor-pointer transition-all duration-300 ${isZoomed ? "w-full" : "w-[95%] md:w-[80%] max-w-6xl"}`}
+                        className="relative shadow-2xl bg-black cursor-pointer w-[95%] md:w-[80%] max-w-6xl transition-transform active:scale-[0.98]"
                         onClick={() => {
-                          if (content.type === "image") setIsZoomed(!isZoomed)
+                          // ★ 모바일 화면(너비 768px 미만)일 때만 이미지를 누르면 쿠팡 스타일 스와이프 창이 열립니다! (PC는 영향 없음)
+                          if (typeof window !== 'undefined' && window.innerWidth < 768) {
+                            setLightboxIndex(index)
+                          }
                         }}
                       >
                         {content.type === "youtube" ? (
-                          <div className="w-full aspect-video">
+                          <div className="w-full aspect-video pointer-events-auto">
                             <iframe
                               className="w-full h-full"
                               src={`https://www.youtube.com/embed/${content.youtubeId}?autoplay=0&controls=1`}
@@ -401,21 +428,15 @@ export default function WorkPage() {
                               width={0}
                               height={0}
                               sizes="100vw"
-                              // ★ pointer-events-none 절대 금지! 
-                              // 대신 모바일 다운로드(꾹 누르기) 방지를 위해 select-none 클래스와 WebkitTouchCallout 스타일을 적용합니다.
-                              className={`w-full h-auto select-none transition-all duration-300 ${isZoomed ? "object-contain" : "object-contain rounded-sm"}`}
+                              className="w-full h-auto object-contain rounded-sm select-none"
                               style={{ WebkitTouchCallout: 'none' }}
-                              onContextMenu={(e) => e.preventDefault()}
                               draggable={false}
                               priority={index === 0}
                             />
-                            
-                            {/* 모바일에서만 우측 하단에 돋보기 아이콘 표시 (확대 유도) */}
-                            {!isZoomed && (
-                              <div className="absolute bottom-3 right-3 md:hidden bg-black/60 p-2 rounded-full pointer-events-none">
-                                <ZoomIn className="w-5 h-5 text-white/90" />
-                              </div>
-                            )}
+                            {/* 모바일에서만 돋보기 아이콘 표시 (확대할 수 있다는 신호) */}
+                            <div className="absolute bottom-3 right-3 md:hidden bg-black/60 p-2 rounded-full pointer-events-none">
+                              <ZoomIn className="w-5 h-5 text-white/90" />
+                            </div>
                           </div>
                         )}
                       </div>
@@ -426,23 +447,27 @@ export default function WorkPage() {
                 ) : active.type === "image" ? (
                   
                   // 2. 단일 이미지 타입 처리
-                  <div className="w-full h-full relative cursor-pointer" onClick={() => setIsZoomed(!isZoomed)}>
+                  <div 
+                    className="w-full h-full relative cursor-pointer" 
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && window.innerWidth < 768) {
+                        setLightboxIndex(0)
+                      }
+                    }}
+                  >
                     <Image
                       src={active.src || ''}
                       alt={active.title}
                       fill
                       sizes="100vw"
                       draggable={false}
-                      className="object-contain bg-black select-none"
+                      className="object-contain bg-black select-none p-4"
                       style={{ WebkitTouchCallout: 'none' }}
-                      onContextMenu={(e) => e.preventDefault()}
                       priority
                     />
-                    {!isZoomed && (
-                      <div className="absolute bottom-6 right-6 md:hidden bg-black/60 p-3 rounded-full pointer-events-none">
-                        <ZoomIn className="w-6 h-6 text-white/90" />
-                      </div>
-                    )}
+                    <div className="absolute bottom-6 right-6 md:hidden bg-black/60 p-3 rounded-full pointer-events-none">
+                      <ZoomIn className="w-6 h-6 text-white/90" />
+                    </div>
                   </div>
                   
                 ) : active.type === "youtube" ? (
@@ -474,8 +499,7 @@ export default function WorkPage() {
                 )}
               </div>
 
-              {/* ---------------- 닫기 및 이동 버튼 영역 ---------------- */}
-              {/* 확대(isZoomed) 상태에서도 버튼들은 항상 위에(z-60) 보입니다. */}
+              {/* 메인 팝업 닫기 및 이동 버튼 */}
               <button
                 onClick={close}
                 aria-label="Close"
@@ -483,27 +507,81 @@ export default function WorkPage() {
               >
                 <XIcon className="w-5 h-5" />
               </button>
-
               <button
                 onClick={(e) => { e.stopPropagation(); goPrev() }}
-                aria-label="Previous"
                 className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-14 md:h-14 rounded-full bg-black/40 hover:bg-black/80 border border-white/20 z-[60] transition-colors"
               >
                 <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </button>
-              
               <button
                 onClick={(e) => { e.stopPropagation(); goNext() }}
-                aria-label="Next"
                 className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-14 md:h-14 rounded-full bg-black/40 hover:bg-black/80 border border-white/20 z-[60] transition-colors"
               >
                 <ChevronRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </button>
-              
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ---------------- ★ 핵심: 쿠팡 스타일 모바일 전체화면 스와이프 뷰어 (Lightbox) ★ ---------------- */}
+      <AnimatePresence>
+        {lightboxIndex !== null && currentGalleryItems.length > 0 && (
+          <motion.div
+            className="fixed inset-0 z-[100] bg-black flex flex-col md:hidden touch-none"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            {/* 상단 컨트롤 바 */}
+            <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-[110] bg-gradient-to-b from-black/80 to-transparent">
+              <span className="text-white/90 font-semibold tracking-wider px-2">
+                {lightboxIndex + 1} <span className="text-white/50 text-xs">/ {currentGalleryItems.length}</span>
+              </span>
+              <button onClick={() => setLightboxIndex(null)} className="p-2 bg-white/10 hover:bg-white/20 rounded-full text-white">
+                <XIcon size={24} />
+              </button>
+            </div>
+
+            {/* 메인 이미지/영상 렌더링 영역 */}
+            <div className="w-full h-full relative flex items-center justify-center">
+              {currentGalleryItems[lightboxIndex].type === "youtube" ? (
+                <div className="w-full aspect-video pointer-events-auto">
+                  <iframe 
+                    className="w-full h-full" 
+                    src={`https://www.youtube.com/embed/${currentGalleryItems[lightboxIndex].youtubeId}?autoplay=1`} 
+                    allowFullScreen 
+                  />
+                </div>
+              ) : (
+                <Image
+                  src={currentGalleryItems[lightboxIndex].src || ""}
+                  alt="Full Screen View"
+                  fill
+                  className="object-contain select-none"
+                  draggable={false}
+                  style={{ WebkitTouchCallout: 'none' }}
+                  onContextMenu={(e) => e.preventDefault()}
+                  priority
+                />
+              )}
+            </div>
+            
+            {/* 하단 스와이프 안내 문구 */}
+            {currentGalleryItems.length > 1 && (
+              <div className="absolute bottom-10 left-0 right-0 text-center pointer-events-none">
+                <span className="text-white/50 text-xs bg-black/50 px-4 py-2 rounded-full">
+                  좌우로 넘겨서 확인하세요
+                </span>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   )
 }
@@ -534,7 +612,7 @@ function Tile({
         span,
       ].join(" ")}
       onClick={onOpen}
-      onContextMenu={(e) => e.preventDefault()} // 타일 꾹 누르기 방지
+      onContextMenu={(e) => e.preventDefault()}
     >
       <div className="absolute inset-0">
         {(item.type === "image" || item.type === "gallery") && posterSrc ? (
@@ -545,7 +623,6 @@ function Tile({
             sizes="(max-width: 768px) 100vw, 33vw"
             priority={priority}
             draggable={false}
-            // ★ Tile에서도 pointer-events-none은 삭제하고 select-none 및 WebkitTouchCallout 속성을 사용합니다.
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03] select-none"
             style={{ WebkitTouchCallout: 'none' }}
           />
