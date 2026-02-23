@@ -3,7 +3,6 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState, useRef } from "react"
-// ★ 수정: Vercel 타입 에러 방지를 위해 Variants 타입을 명시적으로 임포트합니다.
 import { AnimatePresence, motion, Variants } from "framer-motion"
 import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn, Menu } from "lucide-react"
 
@@ -339,7 +338,7 @@ export default function WorkPage() {
     }
   }, [activeIndex, lightboxIndex, close, goNext, goPrev, goLightboxNext, goLightboxPrev, isMenuOpen])
 
-  // ★ 수정: Vercel 에러를 해결하기 위해 Variants 타입을 명시적으로 지정
+  // 드롭다운 메뉴 애니메이션 설정 (주루룩 효과)
   const menuVariants: Variants = {
     hidden: { opacity: 0, y: -15, scale: 0.97, transition: { duration: 0.2 } },
     visible: { 
@@ -367,11 +366,11 @@ export default function WorkPage() {
           className="flex items-center justify-center text-white/80 hover:text-white transition-colors focus:outline-none"
           aria-label="Open Menu"
         >
+          {/* ★ 수정: WORKS 글씨 없이, 햄버거 아이콘으로만 깔끔하게 복구 */}
           {isMenuOpen ? (
             <XIcon className="w-7 h-7 md:w-8 md:h-8" />
           ) : (
-            // 주황색 빈 원형 메뉴 버튼 적용
-            <div className="w-6 h-6 md:w-7 md:h-7 rounded-full border-[2px] border-[#e85d22] bg-transparent" />
+            <Menu className="w-7 h-7 md:w-8 md:h-8" />
           )}
         </button>
 
@@ -410,7 +409,7 @@ export default function WorkPage() {
           <h1 className="text-xl md:text-2xl font-medium tracking-wide pl-1">Works</h1>
           
           <div className="flex flex-col gap-4 md:gap-5 pl-1">
-            {/* 활성화된 버튼: 주황색 속이 빈 원 */}
+            {/* 활성화된 버튼: 주황색 속이 빈 원 (크기 축소 반영 완료) */}
             <Link href="/work" className="flex items-start gap-2.5 text-white group">
               <div className="mt-[5px] md:mt-[7px] flex-shrink-0 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full border-[2px] border-[#e85d22] bg-transparent" />
               <span className="text-[10px] md:text-sm font-medium leading-tight group-hover:opacity-80 transition-opacity tracking-wide">
@@ -418,7 +417,7 @@ export default function WorkPage() {
               </span>
             </Link>
 
-            {/* 비활성화된 버튼: 회색 속이 빈 원 */}
+            {/* 비활성화된 버튼: 회색 속이 빈 원 (크기 축소 반영 완료) */}
             <Link href="/media-art" className="flex items-start gap-2.5 text-white/40 group hover:text-white transition-colors">
               <div className="mt-[5px] md:mt-[7px] flex-shrink-0 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
               <span className="text-[10px] md:text-sm font-medium leading-tight tracking-wide">
