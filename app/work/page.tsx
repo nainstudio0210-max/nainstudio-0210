@@ -3,8 +3,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState, useRef } from "react"
-import { AnimatePresence, motion } from "framer-motion"
-import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn } from "lucide-react"
+// ★ 수정: Vercel 타입 에러 방지를 위해 Variants 타입을 명시적으로 임포트합니다.
+import { AnimatePresence, motion, Variants } from "framer-motion"
+import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn, Menu } from "lucide-react"
 
 // 1. 갤러리/유튜브 혼합용 타입 정의
 type GalleryContent = {
@@ -338,20 +339,20 @@ export default function WorkPage() {
     }
   }, [activeIndex, lightboxIndex, close, goNext, goPrev, goLightboxNext, goLightboxPrev, isMenuOpen])
 
-  // 드롭다운 메뉴 애니메이션 설정 (주루룩 효과)
-  const menuVariants = {
+  // ★ 수정: Vercel 에러를 해결하기 위해 Variants 타입을 명시적으로 지정
+  const menuVariants: Variants = {
     hidden: { opacity: 0, y: -15, scale: 0.97, transition: { duration: 0.2 } },
     visible: { 
       opacity: 1, y: 0, scale: 1, 
       transition: { 
         duration: 0.3, ease: "easeOut",
-        when: "beforeChildren", staggerChildren: 0.08 // 메뉴 항목 순차 등장
+        when: "beforeChildren", staggerChildren: 0.08 
       } 
     },
     exit: { opacity: 0, y: -15, scale: 0.97, transition: { duration: 0.2 } }
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: -10 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.25 } }
   }
@@ -359,15 +360,19 @@ export default function WorkPage() {
   return (
     <div className="relative min-h-screen bg-black text-white">
       
-      {/* ---------------- ★ 우측 상단 드롭다운 메뉴 (버튼 교체) ★ ---------------- */}
+      {/* ---------------- ★ 우측 상단 드롭다운 메뉴 ★ ---------------- */}
       <div className="fixed top-5 right-5 md:top-8 md:right-8 z-[200]" ref={menuRef}>
         <button 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors focus:outline-none"
+          className="flex items-center justify-center text-white/80 hover:text-white transition-colors focus:outline-none"
           aria-label="Open Menu"
         >
-          {/* WORKS 글씨 삭제 및 주황색 빈 원형 버튼으로 교체 */}
-          {isMenuOpen ? <XIcon className="w-7 h-7 md:w-8 md:h-8" /> : <div className="w-6 h-6 md:w-7 md:h-7 rounded-full border-[2px] border-[#e85d22] bg-transparent" />}
+          {isMenuOpen ? (
+            <XIcon className="w-7 h-7 md:w-8 md:h-8" />
+          ) : (
+            // 주황색 빈 원형 메뉴 버튼 적용
+            <div className="w-6 h-6 md:w-7 md:h-7 rounded-full border-[2px] border-[#e85d22] bg-transparent" />
+          )}
         </button>
 
         {/* 쪼르륵 내려오는 드롭다운 애니메이션 영역 */}
@@ -400,11 +405,12 @@ export default function WorkPage() {
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
+        {/* 나인 스타일 주황색 원형 필터 버튼 적용 */}
         <div className="w-full px-3 md:px-6 mt-12 md:mt-16 flex flex-col gap-6 md:gap-8">
           <h1 className="text-xl md:text-2xl font-medium tracking-wide pl-1">Works</h1>
           
           <div className="flex flex-col gap-4 md:gap-5 pl-1">
-            {/* ★ 수정: 주황색 빈 원 버튼 크기 축소 (w-2.5 h-2.5 -> w-2 h-2) */}
+            {/* 활성화된 버튼: 주황색 속이 빈 원 */}
             <Link href="/work" className="flex items-start gap-2.5 text-white group">
               <div className="mt-[5px] md:mt-[7px] flex-shrink-0 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full border-[2px] border-[#e85d22] bg-transparent" />
               <span className="text-[10px] md:text-sm font-medium leading-tight group-hover:opacity-80 transition-opacity tracking-wide">
@@ -412,7 +418,7 @@ export default function WorkPage() {
               </span>
             </Link>
 
-            {/* ★ 수정: 비활성화 원 버튼 크기 축소 */}
+            {/* 비활성화된 버튼: 회색 속이 빈 원 */}
             <Link href="/media-art" className="flex items-start gap-2.5 text-white/40 group hover:text-white transition-colors">
               <div className="mt-[5px] md:mt-[7px] flex-shrink-0 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
               <span className="text-[10px] md:text-sm font-medium leading-tight tracking-wide">
@@ -442,7 +448,7 @@ export default function WorkPage() {
         </div>
       </main>
 
-      {/* ---------------- Layer 1: 메인 프로젝트 팝업 ---------------- */}
+      {/* ---------------- Layer 1: 메인 프로젝트 모달 ---------------- */}
       <AnimatePresence>
         {active && activeIndex != null && (
           <motion.div
