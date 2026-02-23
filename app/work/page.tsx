@@ -2,9 +2,8 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState, useRef } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-// ★ Menu 아이콘이 추가되었습니다.
 import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn, Menu } from "lucide-react"
 
 // 1. 갤러리/유튜브 혼합용 타입 정의
@@ -214,22 +213,23 @@ export default function WorkPage() {
     []
   )
 
-  // 1. 메인 팝업창 상태 (기존 세로창)
+  // 1. 메인 팝업창 상태
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   
-  // 2. 모바일 쿠팡 스타일 전체화면(스와이프) 상태
+  // 2. 모바일 쿠팡 스타일 스와이프 상태
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-
-  // ★ 3. 신규: 전체화면 햄버거 메뉴 상태 추가
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   
+  // 3. 우측 상단 햄버거 메뉴 및 외부 클릭 감지 상태
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+
   // 4. 스와이프 터치 좌표 기록
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
   const active = activeIndex == null ? null : items[activeIndex]
 
-  // 모바일 스와이프를 위해 현재 프로젝트의 모든 콘텐츠를 평면 배열로 만듦
+  // 모바일 스와이프용 배열 변환
   const flatGalleryItems = useMemo<GalleryContent[]>(() => {
     if (!active) return []
     if (active.type === 'gallery') {
@@ -289,8 +289,8 @@ export default function WorkPage() {
   const handleTouchEnd = () => {
     if (!touchStartX || !touchEndX) return
     const distance = touchStartX - touchEndX
-    const isLeftSwipe = distance > 50 // 왼쪽으로 스와이프 (다음 사진)
-    const isRightSwipe = distance < -50 // 오른쪽으로 스와이프 (이전 사진)
+    const isLeftSwipe = distance > 50 // 왼쪽으로 스와이프
+    const isRightSwipe = distance < -50 // 오른쪽으로 스와이프
 
     if (isLeftSwipe) {
       goLightboxNext()
@@ -302,14 +302,21 @@ export default function WorkPage() {
     setTouchEndX(null)
   }
 
-  // 키보드 조작 핸들러
+  // 키보드 조작 & 메뉴 바깥영역 클릭 시 닫기
   useEffect(() => {
     const prevent = (e: Event) => e.preventDefault()
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false)
+      }
+    }
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (isMenuOpen) setIsMenuOpen(false) // ★ 메뉴 열려있으면 메뉴 닫기
-        else if (lightboxIndex !== null) setLightboxIndex(null) // 라이트박스 닫기
-        else if (activeIndex !== null) close() // 메인 팝업 닫기
+        if (isMenuOpen) setIsMenuOpen(false)
+        else if (lightboxIndex !== null) setLightboxIndex(null)
+        else if (activeIndex !== null) close()
       }
       if (e.key === "ArrowLeft") {
         if (lightboxIndex !== null) goLightboxPrev()
@@ -323,79 +330,85 @@ export default function WorkPage() {
     
     document.addEventListener("contextmenu", prevent)
     window.addEventListener("keydown", onKeyDown)
+    document.addEventListener("mousedown", handleClickOutside)
     return () => {
       document.removeEventListener("contextmenu", prevent)
       window.removeEventListener("keydown", onKeyDown)
+      document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [activeIndex, lightboxIndex, close, goNext, goPrev, goLightboxNext, goLightboxPrev, isMenuOpen])
 
   return (
     <div className="relative min-h-screen bg-black text-white">
       
-      {/* ---------------- ★ 신규: 우측 상단 햄버거 메뉴 버튼 ★ ---------------- */}
-      <button 
-        onClick={() => setIsMenuOpen(true)}
-        className="fixed top-5 right-5 md:top-8 md:right-8 z-40 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
-      >
-        <span className="hidden md:block text-sm font-medium tracking-widest uppercase mt-1">Works</span>
-        <Menu className="w-7 h-7 md:w-8 md:h-8" />
-      </button>
+      {/* ---------------- ★ 우측 상단 햄버거 메뉴 (드롭다운 방식) ★ ---------------- */}
+      <div className="fixed top-5 right-5 md:top-8 md:right-8 z-[200]" ref={menuRef}>
+        <button 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+        >
+          <span className="hidden md:block text-sm font-medium tracking-widest uppercase mt-1">Works</span>
+          {isMenuOpen ? <XIcon className="w-7 h-7 md:w-8 md:h-8" /> : <Menu className="w-7 h-7 md:w-8 md:h-8" />}
+        </button>
 
-      {/* ---------------- ★ 신규: 전체화면 메뉴 모달 (Brick 스타일) ★ ---------------- */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            className="fixed inset-0 z-[200] bg-black text-white flex flex-col"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            {/* 메뉴 닫기 버튼 */}
-            <div className="absolute top-5 right-5 md:top-8 md:right-8">
-              <button 
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+        {/* 쪼르륵 내려오는 드롭다운 애니메이션 영역 */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="absolute right-0 mt-4 w-44 md:w-52 bg-[#111] border border-white/10 rounded-lg shadow-2xl flex flex-col py-2 overflow-hidden"
+            >
+              <Link 
+                href="/" 
+                onClick={() => setIsMenuOpen(false)} 
+                className="px-5 py-3 text-sm md:text-base text-white/70 hover:text-white hover:bg-white/10 transition-colors"
               >
-                <span className="hidden md:block text-sm font-medium tracking-widest uppercase mt-1">Close</span>
-                <XIcon className="w-7 h-7 md:w-8 md:h-8" />
-              </button>
-            </div>
+                Home
+              </Link>
+              <Link 
+                href="/work" 
+                onClick={() => setIsMenuOpen(false)} 
+                className="px-5 py-3 text-sm md:text-base text-white font-medium bg-white/10 transition-colors"
+              >
+                Works
+              </Link>
+              <Link 
+                href="/contact" 
+                onClick={() => setIsMenuOpen(false)} 
+                className="px-5 py-3 text-sm md:text-base text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                Contact
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
-            {/* 거대한 텍스트 메뉴 항목 */}
-            <div className="flex-1 flex items-center justify-start pl-8 md:pl-[15%]">
-              <div className="flex flex-col gap-6 md:gap-10 text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter">
-                <Link href="/" onClick={() => setIsMenuOpen(false)} className="hover:text-white/50 transition-colors">Home</Link>
-                <Link href="/work" onClick={() => setIsMenuOpen(false)} className="hover:text-white/50 transition-colors">Works</Link>
-                <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="hover:text-white/50 transition-colors">Contact</Link>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* --- 사이드바 --- */}
+      {/* ---------------- 사이드바 ---------------- */}
       <aside className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-black/95 border-r border-white/10 flex flex-col items-center select-none`}>
         <Link href="/" className="mt-6 block" aria-label="Go to Home">
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
-        {/* ★ 개편: 기존 nav를 삭제하고 Brick 스타일 필터 적용 */}
+        {/* ★ 수정 1: Works 글씨 굵기 완화, 나인 로고 속이 빈 주황색 원 적용 */}
         <div className="w-full px-3 md:px-6 mt-12 md:mt-16 flex flex-col gap-6 md:gap-8">
-          <h1 className="text-xl md:text-3xl font-bold tracking-wide pl-1">Works</h1>
+          <h1 className="text-xl md:text-2xl font-medium tracking-wide pl-1">Works</h1>
           
           <div className="flex flex-col gap-4 md:gap-5 pl-1">
-            {/* 활성화된 버튼: Projects & Portfolio (체크박스 스타일) */}
+            {/* 활성화된 버튼: 속이 빈 주황색 원 (#e85d22) */}
             <Link href="/work" className="flex items-start gap-2.5 text-white group">
-              <div className="mt-[3px] md:mt-1.5 flex-shrink-0 w-2.5 h-2.5 bg-white border border-white rounded-[1px]" />
+              <div className="mt-[4px] md:mt-[6px] flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border-[2px] border-[#e85d22] bg-transparent" />
               <span className="text-[10px] md:text-sm font-medium leading-tight group-hover:opacity-80 transition-opacity tracking-wide">
                 Projects<br className="md:hidden"/> & Portfolio
               </span>
             </Link>
 
-            {/* 비활성화된 버튼: Media Art (빈 박스 스타일) */}
+            {/* 비활성화된 버튼: 얇은 투명/회색 빈 원 */}
             <Link href="/media-art" className="flex items-start gap-2.5 text-white/40 group hover:text-white transition-colors">
-              <div className="mt-[3px] md:mt-1.5 flex-shrink-0 w-2.5 h-2.5 border border-white/40 rounded-[1px] group-hover:border-white transition-colors" />
+              <div className="mt-[4px] md:mt-[6px] flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
               <span className="text-[10px] md:text-sm font-medium leading-tight tracking-wide">
                 Media Art
               </span>
@@ -414,7 +427,7 @@ export default function WorkPage() {
         </div>
       </aside>
 
-      {/* --- 메인 프로젝트 타일 --- */}
+      {/* ---------------- 메인 프로젝트 타일 ---------------- */}
       <main className="pl-20 md:pl-36">
         <div className="mx-auto max-w-[1700px] grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-6 auto-rows-[120px] md:auto-rows-[170px] lg:auto-rows-[190px] p-3 md:p-6">
           {items.map((item, i) => (
@@ -423,7 +436,7 @@ export default function WorkPage() {
         </div>
       </main>
 
-      {/* --- Layer 1: 메인 프로젝트 모달 (PC & 모바일 기본뷰) --- */}
+      {/* ---------------- Layer 1: 메인 프로젝트 팝업 ---------------- */}
       <AnimatePresence>
         {active && activeIndex != null && (
           <motion.div
@@ -442,7 +455,6 @@ export default function WorkPage() {
                     {flatGalleryItems.map((content, index) => (
                       <div 
                         key={index} 
-                        // ★ 모바일에서 이미지를 탭하면 쿠팡처럼 꽉 찬 새 창이 열림
                         onClick={() => {
                           if (typeof window !== 'undefined' && window.innerWidth < 768 && content.type === 'image') {
                             setLightboxIndex(index)
@@ -462,7 +474,6 @@ export default function WorkPage() {
                               className="w-full h-auto object-contain rounded-sm select-none"
                               style={{ WebkitTouchCallout: 'none' }} draggable={false} priority={index === 0}
                             />
-                            {/* 모바일 돋보기 아이콘 */}
                             <div className="absolute bottom-3 right-3 md:hidden bg-black/60 p-2 rounded-full pointer-events-none">
                               <ZoomIn className="w-5 h-5 text-white/90" />
                             </div>
@@ -491,7 +502,6 @@ export default function WorkPage() {
                 <div className="h-20" />
               </div>
 
-              {/* 기본 모달 좌우/닫기 버튼 */}
               <button onClick={close} className="absolute right-3 top-3 md:right-5 md:top-5 bg-black/40 hover:bg-white text-white hover:text-black p-2 md:p-2.5 rounded-full z-10 border border-white/20 transition-colors"><XIcon className="w-5 h-5" /></button>
               <button onClick={(e) => goPrev(e)} className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-10 border border-white/20 transition-colors"><ChevronLeft className="w-6 h-6 md:w-8 md:h-8" /></button>
               <button onClick={(e) => goNext(e)} className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-10 border border-white/20 transition-colors"><ChevronRight className="w-6 h-6 md:w-8 md:h-8" /></button>
@@ -500,7 +510,7 @@ export default function WorkPage() {
         )}
       </AnimatePresence>
 
-      {/* --- Layer 2: ★ 모바일 전용 쿠팡 스타일 스와이프 뷰어 (Lightbox) ★ --- */}
+      {/* ---------------- Layer 2: 모바일 쿠팡 스타일 스와이프 뷰어 ---------------- */}
       <AnimatePresence>
         {lightboxIndex !== null && flatGalleryItems.length > 0 && (
           <motion.div
@@ -510,7 +520,6 @@ export default function WorkPage() {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: "tween", duration: 0.2 }}
           >
-            {/* 상단 닫기 및 인디케이터 */}
             <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-[110] bg-gradient-to-b from-black/80 to-transparent pt-8">
               <span className="text-white/90 font-semibold tracking-widest pl-2">
                 {lightboxIndex + 1} <span className="text-white/50 text-sm">/ {flatGalleryItems.length}</span>
@@ -520,7 +529,6 @@ export default function WorkPage() {
               </button>
             </div>
 
-            {/* 메인 스와이프 영역 */}
             <div 
               className="w-full h-full relative flex items-center justify-center"
               onTouchStart={handleTouchStart}
@@ -544,11 +552,10 @@ export default function WorkPage() {
               )}
             </div>
 
-            {/* 하단 좌우 점(Dot) 혹은 안내 문구 */}
             {flatGalleryItems.length > 1 && (
               <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-2 z-[110]">
                 {flatGalleryItems.map((_, idx) => (
-                  <div key={idx} className={`w-1.5 h-1.5 rounded-full ${idx === lightboxIndex ? 'bg-white' : 'bg-white/30'}`} />
+                  <div key={idx} className={`w-1.5 h-1.5 rounded-full ${idx === lightboxIndex ? 'bg-[#e85d22]' : 'bg-white/30'}`} />
                 ))}
               </div>
             )}
