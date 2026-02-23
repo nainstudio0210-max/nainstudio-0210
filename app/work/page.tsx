@@ -4,9 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers } from "lucide-react"
+import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn } from "lucide-react"
 
-// 1. 갤러리/유튜브 혼합용 타입
+// 1. 갤러리/유튜브 혼합용 타입 정의
 type GalleryContent = {
   type: "image" | "youtube"
   src?: string       
@@ -28,11 +28,12 @@ type MediaItem = {
 }
 
 export default function WorkPage() {
-  // ★ 수정됨: 모바일에서는 너비를 대폭 줄임 (w-20), PC는 그대로(w-36)
+  // 모바일 사이드바 축소 (w-20), PC는 넓게 (w-36)
   const SIDEBAR_W = "w-20 md:w-36"
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
+  // 3. 전체 데이터 리스트 (누락 없이 모두 포함)
   const items: MediaItem[] = useMemo(
     () => [
       { 
@@ -58,8 +59,6 @@ export default function WorkPage() {
           { type: "youtube", youtubeId: "IWqxiGE4Cl0" }, 
         ]
       },
-      
-      // [Row 1] 3칸 + 3칸 (반반)
       { 
         id: "ocean_road", type: "youtube", youtubeId: "499vvzQnqiE", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2" 
@@ -75,8 +74,6 @@ export default function WorkPage() {
           "/work/Shake Shake_17.jpg",
         ]
       },
-
-      // [Row 2] 2칸 + 2칸 + 2칸 (3등분)
       { 
         id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
@@ -89,8 +86,6 @@ export default function WorkPage() {
         id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
-
-      // [Row 3] 4칸 + 2칸 (넓은 것 + 좁은 것)
       { 
         id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
@@ -99,8 +94,6 @@ export default function WorkPage() {
         id: "Fallingwater", type: "youtube", youtubeId: "aqDyOVV1Twc", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
-
-      // [Row 4] 3칸 + 3칸 (반반)
       { 
         id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality",
         span: "md:col-span-3 md:row-span-2"
@@ -118,8 +111,6 @@ export default function WorkPage() {
           { type: "image", src: "/work/Yeouido_Train_VP.jpg" }
         ]
       },
-
-      // [Row 5] 2칸 + 4칸 (좁은 것 + 넓은 것)
       { 
         id: "IFC01", 
         type: "gallery", 
@@ -137,8 +128,6 @@ export default function WorkPage() {
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
-
-      // [Row 6] 2칸 + 2칸 + 2칸 (3등분)
       { 
         id: "Splash Vol.1", type: "youtube", youtubeId: "n23M7AvNRDg", poster: "/work/11_poster.jpg", title: "Forest Splash Vol.1", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
@@ -160,8 +149,6 @@ export default function WorkPage() {
           { type: "image", src: "/work/Forest Glass Villa_vp.jpg" }
         ]
       },
-
-      // [Row 7] 3칸 + 3칸 (패턴 반복 시작)
       { 
         id: "Hannam01", 
         type: "gallery", 
@@ -189,8 +176,6 @@ export default function WorkPage() {
           { type: "image", src: "/work/SOYO 02_vp.jpg" }
         ]
       },
-
-      // [Row 8] 2칸 + 2칸 + 2칸
       { 
         id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
         span: "md:col-span-2 md:row-span-2",
@@ -213,8 +198,6 @@ export default function WorkPage() {
         id: "14", type: "image", src: "/work/14.jpg", title: "A snowy forest path", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
-
-      // [Row 9] 4칸 + 2칸
       { 
         id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
@@ -232,16 +215,28 @@ export default function WorkPage() {
   )
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  
+  // ★ 모바일에서 이미지를 클릭 시 꽉 차게 보여주기 위한 상태
+  const [isZoomed, setIsZoomed] = useState(false)
+  
   const active = activeIndex == null ? null : items[activeIndex]
 
-  const openAt = useCallback((idx: number) => setActiveIndex(idx), [])
-  const close = useCallback(() => setActiveIndex(null), [])
+  const openAt = useCallback((idx: number) => {
+    setActiveIndex(idx)
+    setIsZoomed(false) // 팝업 열 때 초기화
+  }, [])
+
+  const close = useCallback(() => {
+    setActiveIndex(null)
+    setIsZoomed(false)
+  }, [])
 
   const goPrev = useCallback(() => {
     setActiveIndex((idx) => {
       if (idx == null) return idx
       return (idx - 1 + items.length) % items.length
     })
+    setIsZoomed(false) // 넘길 때 확대 뷰 초기화
   }, [items.length])
 
   const goNext = useCallback(() => {
@@ -249,6 +244,7 @@ export default function WorkPage() {
       if (idx == null) return idx
       return (idx + 1) % items.length
     })
+    setIsZoomed(false) // 넘길 때 확대 뷰 초기화
   }, [items.length])
 
   useEffect(() => {
@@ -284,6 +280,7 @@ export default function WorkPage() {
 
   return (
     <div className="relative min-h-screen bg-black text-white">
+      {/* ---------------- 사이드바 영역 ---------------- */}
       <aside
         className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-black/95 border-r border-white/10 flex flex-col items-center select-none`}
       >
@@ -294,13 +291,11 @@ export default function WorkPage() {
             width={200}
             height={22}
             draggable={false}
-            // ★ 수정됨: 모바일 로고 크기 축소 (w-12), PC 유지 (w-auto)
             className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition"
           />
         </Link>
 
         <nav
-          // ★ 수정됨: 모바일 메뉴 글씨 축소 (text-[10px]), PC 유지 (text-sm)
           className="w-full flex flex-col items-center text-[10px] md:text-sm tracking-wide"
           style={{ marginTop: NAV_OFFSET_PX, gap: NAV_GAP_PX }}
         >
@@ -309,7 +304,6 @@ export default function WorkPage() {
           <Link href="/contact" className="text-white/70 hover:text-white">Contact</Link>
         </nav>
 
-        {/* ★ 수정됨: 모바일 하단 아이콘/글씨 중앙 정렬 및 여백 축소 */}
         <div className="w-full px-1 md:px-4 mt-auto mb-4 md:mb-6 flex flex-col items-center md:items-start">
           <div className="flex items-center gap-2 md:gap-3 text-white/70 justify-center md:justify-start pl-0 md:pl-1">
             <a href="https://www.instagram.com/nainstudio0210/" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:text-white">
@@ -327,7 +321,7 @@ export default function WorkPage() {
         </div>
       </aside>
 
-      {/* ★ 수정됨: 사이드바가 줄어든 만큼 모바일 패딩 축소 (pl-20) */}
+      {/* ---------------- 메인 타일 갤러리 영역 ---------------- */}
       <main className="pl-20 md:pl-36">
         <div
           className="
@@ -350,89 +344,142 @@ export default function WorkPage() {
         </div>
       </main>
 
+      {/* ---------------- 팝업 모달 영역 ---------------- */}
       <AnimatePresence>
         {active && activeIndex != null && (
           <motion.div
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={close}
           >
             <motion.div
-              className="absolute inset-6 md:inset-10 lg:inset-14 rounded-xl overflow-hidden bg-zinc-900/50"
+              // ★ 핵심 로직: isZoomed가 true면 화면에 꽉 차게(inset-0), false면 기존처럼 여백 있게 설정
+              className={`relative overflow-hidden transition-all duration-300 ${
+                isZoomed 
+                  ? "w-full h-full inset-0 rounded-none bg-black" 
+                  : "w-[90%] h-[85%] md:w-[85%] md:h-[90%] rounded-xl bg-zinc-900/50"
+              }`}
               initial={{ scale: 0.98, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.98, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()} // 팝업창 안쪽 클릭 시 닫히는 현상 방지
             >
-              {active.type === "gallery" ? (
-                <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-2 md:p-4">
-                  {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
-                    <div key={index} className="relative w-[80%] shadow-2xl bg-black">
-                      {content.type === "youtube" ? (
-                        <div className="w-full aspect-video">
-                          <iframe
-                            className="w-full h-full"
-                            src={`https://www.youtube.com/embed/${content.youtubeId}?autoplay=0&controls=1`}
-                            title={`Gallery Video ${index}`}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
-                        </div>
-                      ) : (
-                        <Image
-                          src={content.src || ""}
-                          alt={`${active.title} - ${index + 1}`}
-                          width={0}
-                          height={0}
-                          sizes="100vw"
-                          className="w-full h-auto object-contain rounded-sm pointer-events-none"
-                          priority={index === 0}
-                        />
-                      )}
-                    </div>
-                  ))}
-                  <div className="h-20" />
-                </div>
-              ) : active.type === "image" ? (
-                <Image
-                  src={active.src || ''}
-                  alt={active.title}
-                  fill
-                  sizes="100vw"
-                  draggable={false}
-                  className="object-contain bg-black select-none pointer-events-none"
-                  priority
-                />
-              ) : active.type === "youtube" ? (
-                <div className="w-full h-full bg-black">
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${active.youtubeId}?autoplay=1&controls=1`}
-                    title={active.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              ) : (
-                <video
-                  className="w-full h-full object-contain bg-black"
-                  controls
-                  autoPlay
-                  playsInline
-                  controlsList="nodownload noplaybackrate"
-                  poster={active.poster}
-                >
-                  <source src={active.src || ''} type="video/mp4" />
-                </video>
-              )}
+              
+              <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center">
+                
+                {/* 1. 갤러리 타입 처리 */}
+                {active.type === "gallery" ? (
+                  <div className={`w-full flex flex-col items-center gap-6 ${isZoomed ? "p-0" : "p-4 md:p-8"}`}>
+                    
+                    {/* 호환성 처리: galleryContents가 있으면 쓰고, 없으면 images 문자열 배열을 객체로 변환해서 매핑 */}
+                    {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
+                      
+                      <div 
+                        key={index} 
+                        className={`relative shadow-2xl bg-black cursor-pointer transition-all duration-300 ${isZoomed ? "w-full" : "w-[95%] md:w-[80%] max-w-6xl"}`}
+                        onClick={() => {
+                          if (content.type === "image") setIsZoomed(!isZoomed)
+                        }}
+                      >
+                        {content.type === "youtube" ? (
+                          <div className="w-full aspect-video">
+                            <iframe
+                              className="w-full h-full"
+                              src={`https://www.youtube.com/embed/${content.youtubeId}?autoplay=0&controls=1`}
+                              title={`Gallery Video ${index}`}
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            />
+                          </div>
+                        ) : (
+                          <div className="relative w-full">
+                            <Image
+                              src={content.src || ""}
+                              alt={`${active.title} - ${index + 1}`}
+                              width={0}
+                              height={0}
+                              sizes="100vw"
+                              // ★ pointer-events-none 절대 금지! 
+                              // 대신 모바일 다운로드(꾹 누르기) 방지를 위해 select-none 클래스와 WebkitTouchCallout 스타일을 적용합니다.
+                              className={`w-full h-auto select-none transition-all duration-300 ${isZoomed ? "object-contain" : "object-contain rounded-sm"}`}
+                              style={{ WebkitTouchCallout: 'none' }}
+                              onContextMenu={(e) => e.preventDefault()}
+                              draggable={false}
+                              priority={index === 0}
+                            />
+                            
+                            {/* 모바일에서만 우측 하단에 돋보기 아이콘 표시 (확대 유도) */}
+                            {!isZoomed && (
+                              <div className="absolute bottom-3 right-3 md:hidden bg-black/60 p-2 rounded-full pointer-events-none">
+                                <ZoomIn className="w-5 h-5 text-white/90" />
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    <div className="h-20" /> {/* 하단 여백 */}
+                  </div>
+                  
+                ) : active.type === "image" ? (
+                  
+                  // 2. 단일 이미지 타입 처리
+                  <div className="w-full h-full relative cursor-pointer" onClick={() => setIsZoomed(!isZoomed)}>
+                    <Image
+                      src={active.src || ''}
+                      alt={active.title}
+                      fill
+                      sizes="100vw"
+                      draggable={false}
+                      className="object-contain bg-black select-none"
+                      style={{ WebkitTouchCallout: 'none' }}
+                      onContextMenu={(e) => e.preventDefault()}
+                      priority
+                    />
+                    {!isZoomed && (
+                      <div className="absolute bottom-6 right-6 md:hidden bg-black/60 p-3 rounded-full pointer-events-none">
+                        <ZoomIn className="w-6 h-6 text-white/90" />
+                      </div>
+                    )}
+                  </div>
+                  
+                ) : active.type === "youtube" ? (
+                  
+                  // 3. 단일 유튜브 타입 처리
+                  <div className="w-full h-full bg-black">
+                    <iframe
+                      className="w-full h-full"
+                      src={`https://www.youtube.com/embed/${active.youtubeId}?autoplay=1&controls=1`}
+                      title={active.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  
+                ) : (
+                  
+                  // 4. 일반 비디오 처리
+                  <video
+                    className="w-full h-full object-contain bg-black"
+                    controls
+                    autoPlay
+                    playsInline
+                    controlsList="nodownload noplaybackrate"
+                    poster={active.poster}
+                  >
+                    <source src={active.src || ''} type="video/mp4" />
+                  </video>
+                )}
+              </div>
 
+              {/* ---------------- 닫기 및 이동 버튼 영역 ---------------- */}
+              {/* 확대(isZoomed) 상태에서도 버튼들은 항상 위에(z-60) 보입니다. */}
               <button
                 onClick={close}
                 aria-label="Close"
-                className="absolute right-4 top-4 grid place-items-center rounded-full bg-white/90 text-black hover:bg-white w-9 h-9 z-20"
-                title="Close"
+                className="absolute right-3 top-3 md:right-5 md:top-5 grid place-items-center rounded-full bg-black/40 hover:bg-white text-white hover:text-black border border-white/20 w-10 h-10 z-[60] transition-colors"
               >
                 <XIcon className="w-5 h-5" />
               </button>
@@ -440,17 +487,19 @@ export default function WorkPage() {
               <button
                 onClick={(e) => { e.stopPropagation(); goPrev() }}
                 aria-label="Previous"
-                className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20 z-20"
+                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-14 md:h-14 rounded-full bg-black/40 hover:bg-black/80 border border-white/20 z-[60] transition-colors"
               >
-                <ChevronLeft className="w-6 h-6 text-white" />
+                <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </button>
+              
               <button
                 onClick={(e) => { e.stopPropagation(); goNext() }}
                 aria-label="Next"
-                className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-black/45 hover:bg-black/65 border border-white/20 z-20"
+                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 grid place-items-center w-11 h-11 md:w-14 md:h-14 rounded-full bg-black/40 hover:bg-black/80 border border-white/20 z-[60] transition-colors"
               >
-                <ChevronRight className="w-6 h-6 text-white" />
+                <ChevronRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </button>
+              
             </motion.div>
           </motion.div>
         )}
@@ -459,6 +508,7 @@ export default function WorkPage() {
   )
 }
 
+// ---------------- Tile 컴포넌트 (메인 화면의 이미지 썸네일) ----------------
 function Tile({
   item,
   span,
@@ -484,7 +534,7 @@ function Tile({
         span,
       ].join(" ")}
       onClick={onOpen}
-      onContextMenu={(e) => e.preventDefault()}
+      onContextMenu={(e) => e.preventDefault()} // 타일 꾹 누르기 방지
     >
       <div className="absolute inset-0">
         {(item.type === "image" || item.type === "gallery") && posterSrc ? (
@@ -495,7 +545,9 @@ function Tile({
             sizes="(max-width: 768px) 100vw, 33vw"
             priority={priority}
             draggable={false}
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03] pointer-events-none"
+            // ★ Tile에서도 pointer-events-none은 삭제하고 select-none 및 WebkitTouchCallout 속성을 사용합니다.
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03] select-none"
+            style={{ WebkitTouchCallout: 'none' }}
           />
         ) : (
           <>
@@ -506,7 +558,8 @@ function Tile({
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 draggable={false}
-                className="object-cover pointer-events-none"
+                className="object-cover select-none"
+                style={{ WebkitTouchCallout: 'none' }}
                 priority={priority}
               />
             ) : (
