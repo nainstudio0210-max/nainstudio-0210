@@ -28,7 +28,8 @@ type MediaItem = {
 }
 
 export default function WorkPage() {
-  const SIDEBAR_W = "w-32 md:w-36"
+  // ★ 수정됨: 모바일에서는 너비를 대폭 줄임 (w-20), PC는 그대로(w-36)
+  const SIDEBAR_W = "w-20 md:w-36"
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
@@ -146,7 +147,7 @@ export default function WorkPage() {
         id: "Splash Vol.2", type: "youtube", youtubeId: "guC-rwfJ4bY", poster: "/work/12_poster.jpg", title: "Forest Splash Vol.2", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
-            { 
+      { 
         id: "Forest Glass Villa", 
         type: "gallery", 
         title: "Forest Glass Villa", 
@@ -195,7 +196,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2",
         images: [ "/work/Boulangerie.jpg", "/work/Boulangerie_vp.jpg" ] 
       },
-            { 
+      { 
         id: "Mist Twist", 
         type: "gallery", 
         title: "Kistefos The Twist Reference", 
@@ -293,12 +294,14 @@ export default function WorkPage() {
             width={200}
             height={22}
             draggable={false}
-            className="opacity-90 hover:opacity-100 transition"
+            // ★ 수정됨: 모바일 로고 크기 축소 (w-12), PC 유지 (w-auto)
+            className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition"
           />
         </Link>
 
         <nav
-          className="w-full flex flex-col items-center text-xs md:text-sm tracking-wide"
+          // ★ 수정됨: 모바일 메뉴 글씨 축소 (text-[10px]), PC 유지 (text-sm)
+          className="w-full flex flex-col items-center text-[10px] md:text-sm tracking-wide"
           style={{ marginTop: NAV_OFFSET_PX, gap: NAV_GAP_PX }}
         >
           <Link href="/" className="text-white/70 hover:text-white">Home</Link>
@@ -306,36 +309,26 @@ export default function WorkPage() {
           <Link href="/contact" className="text-white/70 hover:text-white">Contact</Link>
         </nav>
 
-        <div className="w-full px-3 md:px-4 mt-auto mb-6">
-          <div className="flex items-center gap-3 text-white/70 justify-start pl-1">
-            <a
-              href="https://www.instagram.com/nainstudio0210/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram"
-              className="hover:text-white"
-            >
-              <Instagram className="w-5 h-5" />
+        {/* ★ 수정됨: 모바일 하단 아이콘/글씨 중앙 정렬 및 여백 축소 */}
+        <div className="w-full px-1 md:px-4 mt-auto mb-4 md:mb-6 flex flex-col items-center md:items-start">
+          <div className="flex items-center gap-2 md:gap-3 text-white/70 justify-center md:justify-start pl-0 md:pl-1">
+            <a href="https://www.instagram.com/nainstudio0210/" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:text-white">
+              <Instagram className="w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a
-              href="https://www.youtube.com/@Nainstudio-v5x"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="YouTube"
-              className="hover:text-white"
-            >
-              <Youtube className="w-5 h-5" />
+            <a href="https://www.youtube.com/@Nainstudio-v5x" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:text-white">
+              <Youtube className="w-4 h-4 md:w-5 md:h-5" />
             </a>
           </div>
 
-          <p className="mt-3 text-[11px] leading-5 text-white/60 max-w-[11.5rem] pl-1">
+          <p className="mt-2 md:mt-3 text-[8px] md:text-[11px] leading-3 md:leading-5 text-white/50 md:text-white/60 text-center md:text-left md:max-w-[11.5rem] md:pl-1 break-keep px-1 md:px-0">
             We are a creative visualization studio specializing in architectural imagery,
             animation, and realtime experiences.
           </p>
         </div>
       </aside>
 
-      <main className="pl-32 md:pl-36">
+      {/* ★ 수정됨: 사이드바가 줄어든 만큼 모바일 패딩 축소 (pl-20) */}
+      <main className="pl-20 md:pl-36">
         <div
           className="
             mx-auto max-w-[1700px]
