@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-// ★ Menu 아이콘 추가됨
+// ★ Menu 아이콘이 추가되었습니다.
 import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn, Menu } from "lucide-react"
 
 // 1. 갤러리/유튜브 혼합용 타입 정의
@@ -29,7 +29,6 @@ type MediaItem = {
 }
 
 export default function WorkPage() {
-  // 모바일 사이드바 축소 (w-20), PC는 넓게 (w-36)
   const SIDEBAR_W = "w-20 md:w-36"
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
@@ -221,7 +220,7 @@ export default function WorkPage() {
   // 2. 모바일 쿠팡 스타일 전체화면(스와이프) 상태
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
-  // ★ 3. 신규: 전체화면 햄버거 메뉴 상태
+  // ★ 3. 신규: 전체화면 햄버거 메뉴 상태 추가
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   
   // 4. 스와이프 터치 좌표 기록
@@ -308,7 +307,7 @@ export default function WorkPage() {
     const prevent = (e: Event) => e.preventDefault()
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (isMenuOpen) setIsMenuOpen(false) // ★ 햄버거 메뉴 닫기 추가
+        if (isMenuOpen) setIsMenuOpen(false) // ★ 메뉴 열려있으면 메뉴 닫기
         else if (lightboxIndex !== null) setLightboxIndex(null) // 라이트박스 닫기
         else if (activeIndex !== null) close() // 메인 팝업 닫기
       }
@@ -375,14 +374,13 @@ export default function WorkPage() {
         )}
       </AnimatePresence>
 
-
-      {/* --- 사이드바 영역 (Brick 스타일 필터 적용) --- */}
+      {/* --- 사이드바 --- */}
       <aside className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-black/95 border-r border-white/10 flex flex-col items-center select-none`}>
         <Link href="/" className="mt-6 block" aria-label="Go to Home">
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
-        {/* ★ 기존 메뉴 삭제 후 Brick 스타일 필터 적용 */}
+        {/* ★ 개편: 기존 nav를 삭제하고 Brick 스타일 필터 적용 */}
         <div className="w-full px-3 md:px-6 mt-12 md:mt-16 flex flex-col gap-6 md:gap-8">
           <h1 className="text-xl md:text-3xl font-bold tracking-wide pl-1">Works</h1>
           
@@ -464,7 +462,7 @@ export default function WorkPage() {
                               className="w-full h-auto object-contain rounded-sm select-none"
                               style={{ WebkitTouchCallout: 'none' }} draggable={false} priority={index === 0}
                             />
-                            {/* 모바일 확대 돋보기 아이콘 */}
+                            {/* 모바일 돋보기 아이콘 */}
                             <div className="absolute bottom-3 right-3 md:hidden bg-black/60 p-2 rounded-full pointer-events-none">
                               <ZoomIn className="w-5 h-5 text-white/90" />
                             </div>
@@ -480,7 +478,7 @@ export default function WorkPage() {
                       if (typeof window !== 'undefined' && window.innerWidth < 768) setLightboxIndex(0)
                     }}
                   >
-                    <Image src={active.src || ''} alt={active.title} fill sizes="100vw" draggable={false} className="object-contain bg-black select-none" style={{ WebkitTouchCallout: 'none' }} priority />
+                    <Image src={active.src || ''} alt={active.title} fill sizes="100vw" draggable={false} className="object-contain bg-black select-none p-2" style={{ WebkitTouchCallout: 'none' }} priority />
                     <div className="absolute bottom-6 right-6 md:hidden bg-black/60 p-3 rounded-full pointer-events-none">
                       <ZoomIn className="w-6 h-6 text-white/90" />
                     </div>
@@ -493,10 +491,10 @@ export default function WorkPage() {
                 <div className="h-20" />
               </div>
 
-              {/* 기본 모달 조작 버튼 */}
-              <button onClick={close} className="absolute right-3 top-3 md:right-5 md:top-5 bg-black/40 hover:bg-white text-white hover:text-black p-2 md:p-2.5 rounded-full z-[60] border border-white/20 transition-colors"><XIcon className="w-5 h-5" /></button>
-              <button onClick={(e) => goPrev(e)} className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-[60] border border-white/20 transition-colors"><ChevronLeft className="w-6 h-6 md:w-8 md:h-8" /></button>
-              <button onClick={(e) => goNext(e)} className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-[60] border border-white/20 transition-colors"><ChevronRight className="w-6 h-6 md:w-8 md:h-8" /></button>
+              {/* 기본 모달 좌우/닫기 버튼 */}
+              <button onClick={close} className="absolute right-3 top-3 md:right-5 md:top-5 bg-black/40 hover:bg-white text-white hover:text-black p-2 md:p-2.5 rounded-full z-10 border border-white/20 transition-colors"><XIcon className="w-5 h-5" /></button>
+              <button onClick={(e) => goPrev(e)} className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-10 border border-white/20 transition-colors"><ChevronLeft className="w-6 h-6 md:w-8 md:h-8" /></button>
+              <button onClick={(e) => goNext(e)} className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/80 text-white p-3 md:p-4 rounded-full z-10 border border-white/20 transition-colors"><ChevronRight className="w-6 h-6 md:w-8 md:h-8" /></button>
             </motion.div>
           </motion.div>
         )}
@@ -546,7 +544,7 @@ export default function WorkPage() {
               )}
             </div>
 
-            {/* 하단 좌우 점(Dot) */}
+            {/* 하단 좌우 점(Dot) 혹은 안내 문구 */}
             {flatGalleryItems.length > 1 && (
               <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-2 z-[110]">
                 {flatGalleryItems.map((_, idx) => (
