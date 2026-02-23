@@ -35,28 +35,32 @@ export default function WorkPage() {
   const items: MediaItem[] = useMemo(
     () => [
       { 
-     id: "gold coast", 
-     type: "gallery", 
-     title: "Gold Coast", // 제목 (원하는 대로 수정하세요)
-     caption: "Portfolio", 
-      span: "md:col-span-4 md:row-span-2", // 가로로 넓은 배치 (작게 하려면 col-span-2 로 수정)
-     poster: "/work/Gold Coast.jpg", // 목록에서 보여질 대표 썸네일
-     galleryContents: [
-       { type: "youtube", youtubeId: "3i984k1CbJ4" }, // 1. 영상
-       { type: "image", src: "/work/Gold Coast.jpg" }, // 2. 메인 이미지
-       { type: "image", src: "/work/Gold Coast_vp.jpg" } // 3. VP 이미지
-      ]
-    },
-     { 
-        id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
-        span: "md:col-span-2 md:row-span-2",
-        images: [
-          "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg", "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg"
+        id: "gold coast", 
+        type: "gallery", 
+        title: "Gold Coast", 
+        caption: "Portfolio", 
+        span: "md:col-span-4 md:row-span-2",
+        poster: "/work/Gold Coast.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "48wFptFkamc" }, 
+          { type: "image", src: "/work/Gold Coast.jpg" }, 
+          { type: "image", src: "/work/Gold Coast_vp.jpg" } 
         ]
       },
+      { 
+        id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
+        span: "md:col-span-2 md:row-span-2",
+        galleryContents: [
+          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg" }, 
+          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg" }, 
+          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg" }, 
+          { type: "youtube", youtubeId: "IWqxiGE4Cl0" }, 
+        ]
+      },
+      
       // [Row 1] 3칸 + 3칸 (반반)
       { 
-        id: "ocean_road", type: "youtube", youtubeId: "OInCCgrO4pA", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
+        id: "ocean_road", type: "youtube", youtubeId: "499vvzQnqiE", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2" 
       },
       { 
@@ -91,7 +95,7 @@ export default function WorkPage() {
         span: "md:col-span-4 md:row-span-2"
       },
       { 
-        id: "05", type: "youtube", youtubeId: "NbcLyvo1MV0", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
+        id: "Fallingwater", type: "youtube", youtubeId: "aqDyOVV1Twc", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
 
@@ -100,8 +104,6 @@ export default function WorkPage() {
         id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality",
         span: "md:col-span-3 md:row-span-2"
       },
-      
-      // ▼▼▼ 여기가 문제였던 부분! 완벽하게 고쳤습니다 ▼▼▼
       { 
         id: "IFC02", 
         type: "gallery", 
@@ -110,17 +112,25 @@ export default function WorkPage() {
         span: "md:col-span-3 md:row-span-2",
         poster: "/work/Seoul Nightscape Drone View_poster.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "Hgnd9kO2DTw" },
+          { type: "youtube", youtubeId: "NAc1dDK-_U8" },
           { type: "image", src: "/work/IFC02_Train.jpg" },
-          { type: "image", src: "/work/IFC02_Train_VP.jpg" }
+          { type: "image", src: "/work/Yeouido_Train_VP.jpg" }
         ]
       },
-      // ▲▲▲ 괄호와 콤마를 정확하게 닫았습니다 ▲▲▲
 
       // [Row 5] 2칸 + 4칸 (좁은 것 + 넓은 것)
       { 
-        id: "IFC01", type: "youtube", youtubeId: "LRPn_SX0i-I", poster: "/work/IFC Seoul Nightscape_poster.jpg", title: "IFC Seoul Nightscape", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+        id: "IFC01", 
+        type: "gallery", 
+        title: "IFC Seoul Nightscape", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/IFC Seoul Nightscape_poster.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "PHz9ZO2t8zY" },
+          { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
+          { type: "image", src: "/work/IFC01_vp.jpg" }
+        ]
       },
       { 
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
@@ -136,30 +146,67 @@ export default function WorkPage() {
         id: "Splash Vol.2", type: "youtube", youtubeId: "guC-rwfJ4bY", poster: "/work/12_poster.jpg", title: "Forest Splash Vol.2", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
-      { 
-        id: "Glass Villa", type: "youtube", youtubeId: "A7LAPEA3X3o", poster: "/work/06_poster.jpg", title: "Forest Glass Villa", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+            { 
+        id: "Forest Glass Villa", 
+        type: "gallery", 
+        title: "Forest Glass Villa", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Forest Glass Villa.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "YIG6xQn8Gok" },
+          { type: "image", src: "/work/Forest Glass Villa.jpg" },
+          { type: "image", src: "/work/Forest Glass Villa_vp.jpg" }
+        ]
       },
 
       // [Row 7] 3칸 + 3칸 (패턴 반복 시작)
       { 
-        id: "Hannam01", type: "youtube", youtubeId: "fzvrlfouD54", poster: "/work/SOYO Hannam Reference_poster.jpg", title: "SOYO Hannam Reference", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2"
+        id: "Hannam01", 
+        type: "gallery", 
+        title: "SOYO Hannam Reference Vol.01", 
+        caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/SOYO Hannam Reference_01.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "jkJiAkCQtvw" },
+          { type: "image", src: "/work/SOYO Hannam Reference_01.jpg" },
+          { type: "image", src: "/work/SOYO Hannam Reference_01_vp.jpg" }
+        ]
       },
       { 
-        id: "Hannam02", type: "image", src: "/work/10.jpg", title: "SOYO Hannam Reference", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2"
+        id: "Hannam02", 
+        type: "gallery", 
+        title: "SOYO Hannam Reference Vol.02", 
+        caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/SOYO 02.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "CMAMGmCGLZo" },
+          { type: "youtube", youtubeId: "nnpP5N0rQPM" },
+          { type: "image", src: "/work/SOYO 02.jpg" },
+          { type: "image", src: "/work/SOYO 02_vp.jpg" }
+        ]
       },
 
       // [Row 8] 2칸 + 2칸 + 2칸
       { 
-        id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/07.jpg", 
+        id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
         span: "md:col-span-2 md:row-span-2",
-        images: [ "/work/07.jpg" ] 
+        images: [ "/work/Boulangerie.jpg", "/work/Boulangerie_vp.jpg" ] 
       },
-      { 
-        id: "13", type: "image", src: "/work/13.jpg", title: "Kistefos The Twist Reference", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+            { 
+        id: "Mist Twist", 
+        type: "gallery", 
+        title: "Kistefos The Twist Reference", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Mist Twist.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "A3995JcwZKE" },
+          { type: "image", src: "/work/Mist Twist.jpg" },
+          { type: "image", src: "/work/Mist Twist_vp.jpg" }
+        ]
       },
       { 
         id: "14", type: "image", src: "/work/14.jpg", title: "A snowy forest path", caption: "Portfolio",
@@ -170,6 +217,10 @@ export default function WorkPage() {
       { 
         id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
+      },
+      { 
+        id: "Concrete Facade", type: "youtube", youtubeId: "n23M7AvNRDg", poster: "/work/11_poster.jpg", title: "Concrete Facade", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
       },
       { 
         id: "16", type: "image", src: "/work/16.jpg", title: "Industrial Loft Office", caption: "Portfolio",
@@ -325,7 +376,7 @@ export default function WorkPage() {
               {active.type === "gallery" ? (
                 <div className="w-full h-full overflow-y-auto no-scrollbar flex flex-col items-center gap-4 p-2 md:p-4">
                   {(active.galleryContents ?? active.images?.map(img => ({ type: "image" as const, src: img })) ?? []).map((content, index) => (
-                    <div key={index} className="relative w-[90%] shadow-2xl bg-black">
+                    <div key={index} className="relative w-[80%] shadow-2xl bg-black">
                       {content.type === "youtube" ? (
                         <div className="w-full aspect-video">
                           <iframe
@@ -343,7 +394,7 @@ export default function WorkPage() {
                           width={0}
                           height={0}
                           sizes="100vw"
-                          className="w-full h-auto object-contain rounded-sm"
+                          className="w-full h-auto object-contain rounded-sm pointer-events-none"
                           priority={index === 0}
                         />
                       )}
@@ -358,7 +409,7 @@ export default function WorkPage() {
                   fill
                   sizes="100vw"
                   draggable={false}
-                  className="object-contain bg-black select-none"
+                  className="object-contain bg-black select-none pointer-events-none"
                   priority
                 />
               ) : active.type === "youtube" ? (
@@ -451,7 +502,7 @@ function Tile({
             sizes="(max-width: 768px) 100vw, 33vw"
             priority={priority}
             draggable={false}
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03] pointer-events-none"
           />
         ) : (
           <>
@@ -462,7 +513,7 @@ function Tile({
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 draggable={false}
-                className="object-cover"
+                className="object-cover pointer-events-none"
                 priority={priority}
               />
             ) : (
