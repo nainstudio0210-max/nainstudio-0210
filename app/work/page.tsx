@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useMemo, useState, useRef } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn, Menu } from "lucide-react"
+import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn } from "lucide-react"
 
 // 1. 갤러리/유튜브 혼합용 타입 정의
 type GalleryContent = {
@@ -219,7 +219,7 @@ export default function WorkPage() {
   // 2. 모바일 쿠팡 스타일 스와이프 상태
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   
-  // 3. 우측 상단 햄버거 메뉴 및 외부 클릭 감지 상태
+  // 3. 우측 상단 드롭다운 메뉴 상태
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -289,8 +289,8 @@ export default function WorkPage() {
   const handleTouchEnd = () => {
     if (!touchStartX || !touchEndX) return
     const distance = touchStartX - touchEndX
-    const isLeftSwipe = distance > 50 // 왼쪽으로 스와이프
-    const isRightSwipe = distance < -50 // 오른쪽으로 스와이프
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
 
     if (isLeftSwipe) {
       goLightboxNext()
@@ -338,50 +338,57 @@ export default function WorkPage() {
     }
   }, [activeIndex, lightboxIndex, close, goNext, goPrev, goLightboxNext, goLightboxPrev, isMenuOpen])
 
+  // 드롭다운 메뉴 애니메이션 설정 (주루룩 효과)
+  const menuVariants = {
+    hidden: { opacity: 0, y: -15, scale: 0.97, transition: { duration: 0.2 } },
+    visible: { 
+      opacity: 1, y: 0, scale: 1, 
+      transition: { 
+        duration: 0.3, ease: "easeOut",
+        when: "beforeChildren", staggerChildren: 0.08 // 메뉴 항목 순차 등장
+      } 
+    },
+    exit: { opacity: 0, y: -15, scale: 0.97, transition: { duration: 0.2 } }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.25 } }
+  }
+
   return (
     <div className="relative min-h-screen bg-black text-white">
       
-      {/* ---------------- ★ 우측 상단 햄버거 메뉴 (드롭다운 방식) ★ ---------------- */}
+      {/* ---------------- ★ 우측 상단 드롭다운 메뉴 (버튼 교체) ★ ---------------- */}
       <div className="fixed top-5 right-5 md:top-8 md:right-8 z-[200]" ref={menuRef}>
         <button 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors focus:outline-none"
+          aria-label="Open Menu"
         >
-          <span className="hidden md:block text-sm font-medium tracking-widest uppercase mt-1">Works</span>
-          {isMenuOpen ? <XIcon className="w-7 h-7 md:w-8 md:h-8" /> : <Menu className="w-7 h-7 md:w-8 md:h-8" />}
+          {/* WORKS 글씨 삭제 및 주황색 빈 원형 버튼으로 교체 */}
+          {isMenuOpen ? <XIcon className="w-7 h-7 md:w-8 md:h-8" /> : <div className="w-6 h-6 md:w-7 md:h-7 rounded-full border-[2px] border-[#e85d22] bg-transparent" />}
         </button>
 
         {/* 쪼르륵 내려오는 드롭다운 애니메이션 영역 */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="absolute right-0 mt-4 w-44 md:w-52 bg-[#111] border border-white/10 rounded-lg shadow-2xl flex flex-col py-2 overflow-hidden"
+              className="absolute right-0 mt-3 w-44 md:w-52 bg-[#111] border border-white/10 rounded-lg shadow-2xl flex flex-col py-2 overflow-hidden"
+              variants={menuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
-              <Link 
-                href="/" 
-                onClick={() => setIsMenuOpen(false)} 
-                className="px-5 py-3 text-sm md:text-base text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                Home
-              </Link>
-              <Link 
-                href="/work" 
-                onClick={() => setIsMenuOpen(false)} 
-                className="px-5 py-3 text-sm md:text-base text-white font-medium bg-white/10 transition-colors"
-              >
-                Works
-              </Link>
-              <Link 
-                href="/contact" 
-                onClick={() => setIsMenuOpen(false)} 
-                className="px-5 py-3 text-sm md:text-base text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                Contact
-              </Link>
+              <motion.div variants={itemVariants}>
+                <Link href="/" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-white/70 hover:text-white hover:bg-white/10 transition-colors">Home</Link>
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <Link href="/work" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-white font-medium bg-white/10 transition-colors">Works</Link>
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-white/70 hover:text-white hover:bg-white/10 transition-colors">Contact</Link>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -393,22 +400,21 @@ export default function WorkPage() {
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
-        {/* ★ 수정 1: Works 글씨 굵기 완화, 나인 로고 속이 빈 주황색 원 적용 */}
         <div className="w-full px-3 md:px-6 mt-12 md:mt-16 flex flex-col gap-6 md:gap-8">
           <h1 className="text-xl md:text-2xl font-medium tracking-wide pl-1">Works</h1>
           
           <div className="flex flex-col gap-4 md:gap-5 pl-1">
-            {/* 활성화된 버튼: 속이 빈 주황색 원 (#e85d22) */}
+            {/* ★ 수정: 주황색 빈 원 버튼 크기 축소 (w-2.5 h-2.5 -> w-2 h-2) */}
             <Link href="/work" className="flex items-start gap-2.5 text-white group">
-              <div className="mt-[4px] md:mt-[6px] flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border-[2px] border-[#e85d22] bg-transparent" />
+              <div className="mt-[5px] md:mt-[7px] flex-shrink-0 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full border-[2px] border-[#e85d22] bg-transparent" />
               <span className="text-[10px] md:text-sm font-medium leading-tight group-hover:opacity-80 transition-opacity tracking-wide">
                 Projects<br className="md:hidden"/> & Portfolio
               </span>
             </Link>
 
-            {/* 비활성화된 버튼: 얇은 투명/회색 빈 원 */}
+            {/* ★ 수정: 비활성화 원 버튼 크기 축소 */}
             <Link href="/media-art" className="flex items-start gap-2.5 text-white/40 group hover:text-white transition-colors">
-              <div className="mt-[4px] md:mt-[6px] flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
+              <div className="mt-[5px] md:mt-[7px] flex-shrink-0 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
               <span className="text-[10px] md:text-sm font-medium leading-tight tracking-wide">
                 Media Art
               </span>
