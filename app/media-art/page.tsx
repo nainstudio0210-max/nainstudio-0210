@@ -39,38 +39,40 @@ export default function MediaArtPage() {
       { 
         id: "media_art_01", 
         type: "youtube", 
-        youtubeId: "8TDOIKj7Ebw", // ★ 유튜브 아이디 부분
-        poster: "/work/01_poster.jpg", // ★ 썸네일 이미지 경로
+        youtubeId: "HDqSteAYnaE", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art01.jpg", // ★ 썸네일 이미지 경로
         title: "Media Art Project 01", 
         caption: "Media Art",
         span: "md:col-span-4 md:row-span-2"
       },
-      { 
+     { 
         id: "media_art_02", 
-        type: "image", 
-        src: "/work/02.jpg", 
+        type: "youtube", 
+        youtubeId: "rJPs07WfYEQ", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art02.jpg", // ★ 썸네일 이미지 경로
         title: "Media Art Project 02", 
         caption: "Media Art",
         span: "md:col-span-2 md:row-span-2"
       },
-      { 
+     { 
         id: "media_art_03", 
         type: "youtube", 
-        youtubeId: "q5WxmdEaxJY", 
-        poster: "/work/03_poster.jpg", 
+        youtubeId: "Kx-CE1LrASg", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art03.jpg", // ★ 썸네일 이미지 경로
         title: "Media Art Project 03", 
         caption: "Media Art",
         span: "md:col-span-3 md:row-span-2"
       },
-      { 
-        id: "media_art_04", 
+     { 
+        id: "media_art_03", 
         type: "youtube", 
-        youtubeId: "plaDbIY6Q3A", 
-        poster: "/work/04_poster.jpg", 
-        title: "Media Art Project 04", 
+        youtubeId: "Kx-CE1LrASg", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art03.jpg", // ★ 썸네일 이미지 경로
+        title: "Media Art Project 03", 
         caption: "Media Art",
         span: "md:col-span-3 md:row-span-2"
       }
+
       // 새로운 미디어 아트 영상이 생기면 이 아래로 계속 추가하시면 됩니다.
     ],
     []
