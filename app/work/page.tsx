@@ -405,7 +405,7 @@ export default function WorkPage() {
         </Link>
         
         {/* 네비게이션 메뉴 영역 */}
-        <nav className="w-full flex flex-col text-[10px] md:text-sm tracking-wide mt-10 md:mt-12">
+        <nav className="w-full flex flex-col text-[10px] md:text-sm tracking-wide mt-8 md:mt-10">
           
           {/* 얇고 희미한 구분선 */}
           <div className="w-[60%] mx-auto border-t border-white/10 mb-5 md:mb-6" />
@@ -445,7 +445,7 @@ export default function WorkPage() {
       </aside>
 
       {/* ---------------- 메인 프로젝트 타일 ---------------- */}
-      <main className="pl-20 md:pl-36">
+      <main className="pl-20 md:pl-40">
         <div className="mx-auto max-w-[1700px] grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-6 auto-rows-[120px] md:auto-rows-[170px] lg:auto-rows-[190px] p-3 md:p-6">
           {items.map((item, i) => (
             <Tile key={item.id} item={item} span={item.span} onOpen={() => openAt(i)} priority={i < 6} />
