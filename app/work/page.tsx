@@ -28,7 +28,8 @@ type MediaItem = {
 }
 
 export default function WorkPage() {
-  const SIDEBAR_W = "w-20 md:w-36"
+  // ★ 수정: PC 환경(md)에서의 사이드바 너비를 w-36 에서 w-52 로 넓게 확장했습니다. (모바일 w-20은 유지)
+  const SIDEBAR_W = "w-20 md:w-52"
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
@@ -338,7 +339,7 @@ export default function WorkPage() {
     }
   }, [activeIndex, lightboxIndex, close, goNext, goPrev, goLightboxNext, goLightboxPrev, isMenuOpen])
 
-  // 드롭다운 메뉴 애니메이션 설정
+  // 드롭다운 메뉴 애니메이션 설정 (주루룩 효과)
   const menuVariants: Variants = {
     hidden: { opacity: 0, y: -15, scale: 0.97, transition: { duration: 0.2 } },
     visible: { 
@@ -403,7 +404,7 @@ export default function WorkPage() {
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
-        {/* ★ 수정: 오리지널 배치, 정렬, 희미한 선 적용 */}
+        {/* 오리지널 배치, 정렬, 희미한 선 적용 */}
         <nav
           className="w-full flex flex-col text-[10px] md:text-sm tracking-wide"
           style={{ marginTop: NAV_OFFSET_PX + 12 }}
@@ -447,7 +448,8 @@ export default function WorkPage() {
       </aside>
 
       {/* ---------------- 메인 프로젝트 타일 ---------------- */}
-      <main className="pl-20 md:pl-36">
+      {/* ★ 수정: 사이드바가 PC에서 늘어난 만큼, 메인 그리드 컨텐츠의 왼쪽 여백(pl)도 md:pl-36 에서 md:pl-52 로 맞추어 늘렸습니다. */}
+      <main className="pl-20 md:pl-52">
         <div className="mx-auto max-w-[1700px] grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-6 auto-rows-[120px] md:auto-rows-[170px] lg:auto-rows-[190px] p-3 md:p-6">
           {items.map((item, i) => (
             <Tile key={item.id} item={item} span={item.span} onOpen={() => openAt(i)} priority={i < 6} />
