@@ -28,8 +28,9 @@ type MediaItem = {
 }
 
 export default function WorkPage() {
-  // ★ 수정: PC 사이드바 너비를 빨간 선 위치(w-36)로 다시 좁혔습니다. (모바일은 w-20 유지)
   const SIDEBAR_W = "w-20 md:w-36"
+  const NAV_OFFSET_PX = 14
+  const NAV_GAP_PX = 8
 
   // 3. 전체 데이터 리스트 (누락 없이 모두 포함)
   const items: MediaItem[] = useMemo(
@@ -215,7 +216,7 @@ export default function WorkPage() {
   // 1. 메인 팝업창 상태
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   
-  // 2. 모바일 스와이프 상태
+  // 2. 모바일 쿠팡 스타일 스와이프 상태
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   
   // 3. 우측 상단 드롭다운 메뉴 상태
@@ -395,41 +396,43 @@ export default function WorkPage() {
         </AnimatePresence>
       </div>
 
-      {/* ---------------- 사이드바 영역 ---------------- */}
-      <aside className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-black/95 border-r border-white/10 flex flex-col items-center select-none pt-10 md:pt-14`}>
+      {/* ---------------- 사이드바 ---------------- */}
+      <aside className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-black/95 border-r border-white/10 flex flex-col items-center select-none`}>
         
-        {/* 상단 로고 */}
-        <Link href="/" className="block" aria-label="Go to Home">
-          <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-[75px] h-auto opacity-90 hover:opacity-100 transition" />
+        {/* 로고 영역 */}
+        <Link href="/" className="mt-6 block" aria-label="Go to Home">
+          <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
-        <nav className="w-full flex flex-col items-center text-[10px] md:text-sm tracking-wide">
+        {/* 네비게이션 메뉴 영역 */}
+        <nav className="w-full flex flex-col text-[10px] md:text-sm tracking-wide mt-10 md:mt-12">
           
-          {/* ★ 간격 3번: 로고와 구분선 사이의 간격 (동일 비율 적용) */}
-          <div className="w-[60%] border-t border-white/10 mt-8 md:mt-12" />
+          {/* 얇고 희미한 구분선 */}
+          <div className="w-[60%] mx-auto border-t border-white/10 mb-5 md:mb-6" />
 
-          {/* ★ 간격 2번: 구분선과 Works 텍스트 사이의 간격 (동일 비율 적용) */}
-          <div className="mt-8 md:mt-12 flex flex-col items-center w-full">
-            <span className="text-white font-medium">Works</span>
+          {/* 하단 메뉴: Works 타이틀(가운데 정렬) 및 하위 메뉴(왼쪽 정렬 그룹) */}
+          <div className="flex flex-col items-center w-full">
             
-            {/* ★ 간격 1번: Works 텍스트와 하위 메뉴 사이의 간격 (동일 비율 적용) */}
-            <div className="mt-8 md:mt-12 flex flex-col items-start gap-3 md:gap-4 pl-1">
-              
+            {/* Works 텍스트 */}
+            <span className="text-white font-medium mb-3 md:mb-4">Works</span>
+            
+            {/* 하위 메뉴 리스트 */}
+            <div className="flex flex-col items-start gap-2.5 md:gap-3">
               <Link href="/work" className="text-white hover:text-white flex items-center gap-2 group">
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
-                <span className="font-light leading-snug group-hover:opacity-80 transition-opacity">Projects<br className="md:hidden"/> & Portfolio</span>
+                <span className="font-light group-hover:opacity-80 transition-opacity">Projects<br className="md:hidden"/> & Portfolio</span>
               </Link>
               
               <Link href="/media-art" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
-                <span className="font-light leading-snug">Media Art</span>
+                <span className="font-light">Media Art</span>
               </Link>
-              
             </div>
+
           </div>
         </nav>
 
-        {/* 하단 SNS 및 설명 */}
+        {/* 하단 푸터 영역 */}
         <div className="w-full px-1 md:px-4 mt-auto mb-4 md:mb-6 flex flex-col items-center md:items-start">
           <div className="flex items-center gap-2 md:gap-3 text-white/70 justify-center md:justify-start pl-0 md:pl-2">
             <a href="https://www.instagram.com/nainstudio0210/" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:text-white"><Instagram className="w-4 h-4 md:w-5 md:h-5" /></a>
@@ -442,7 +445,6 @@ export default function WorkPage() {
       </aside>
 
       {/* ---------------- 메인 프로젝트 타일 ---------------- */}
-      {/* ★ 사이드바 너비를 w-36으로 복구했으므로 여백도 pl-36으로 정확히 맞췄습니다. */}
       <main className="pl-20 md:pl-36">
         <div className="mx-auto max-w-[1700px] grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-6 auto-rows-[120px] md:auto-rows-[170px] lg:auto-rows-[190px] p-3 md:p-6">
           {items.map((item, i) => (
