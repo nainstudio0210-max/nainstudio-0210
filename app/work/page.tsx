@@ -359,14 +359,13 @@ export default function WorkPage() {
   return (
     <div className="relative min-h-screen bg-black text-white">
       
-      {/* ---------------- ★ 우측 상단 드롭다운 메뉴 ★ ---------------- */}
+      {/* ---------------- ★ 우측 상단 드롭다운 메뉴 (햄버거 아이콘 유지) ★ ---------------- */}
       <div className="fixed top-5 right-5 md:top-8 md:right-8 z-[200]" ref={menuRef}>
         <button 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="flex items-center justify-center text-white/80 hover:text-white transition-colors focus:outline-none"
           aria-label="Open Menu"
         >
-          {/* ★ 수정: WORKS 글씨 없이, 햄버거 아이콘으로만 깔끔하게 복구 */}
           {isMenuOpen ? (
             <XIcon className="w-7 h-7 md:w-8 md:h-8" />
           ) : (
@@ -404,28 +403,23 @@ export default function WorkPage() {
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
-        {/* 나인 스타일 주황색 원형 필터 버튼 적용 */}
-        <div className="w-full px-3 md:px-6 mt-12 md:mt-16 flex flex-col gap-6 md:gap-8">
-          <h1 className="text-xl md:text-2xl font-medium tracking-wide pl-1">Works</h1>
+        {/* ★ 수정: 오리지널 디자인 복구 (얇은 폰트, 가운데 정렬, 원래 간격 유지) */}
+        <nav
+          className="w-full flex flex-col items-center text-[10px] md:text-sm tracking-wide"
+          style={{ marginTop: NAV_OFFSET_PX + 12, gap: NAV_GAP_PX + 4 }}
+        >
+          <span className="text-white/70 mb-1">Works</span>
           
-          <div className="flex flex-col gap-4 md:gap-5 pl-1">
-            {/* 활성화된 버튼: 주황색 속이 빈 원 (크기 축소 반영 완료) */}
-            <Link href="/work" className="flex items-start gap-2.5 text-white group">
-              <div className="mt-[5px] md:mt-[7px] flex-shrink-0 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full border-[2px] border-[#e85d22] bg-transparent" />
-              <span className="text-[10px] md:text-sm font-medium leading-tight group-hover:opacity-80 transition-opacity tracking-wide">
-                Projects<br className="md:hidden"/> & Portfolio
-              </span>
-            </Link>
-
-            {/* 비활성화된 버튼: 회색 속이 빈 원 (크기 축소 반영 완료) */}
-            <Link href="/media-art" className="flex items-start gap-2.5 text-white/40 group hover:text-white transition-colors">
-              <div className="mt-[5px] md:mt-[7px] flex-shrink-0 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
-              <span className="text-[10px] md:text-sm font-medium leading-tight tracking-wide">
-                Media Art
-              </span>
-            </Link>
-          </div>
-        </div>
+          <Link href="/work" className="text-white hover:text-white flex items-center justify-center gap-1.5">
+            <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
+            <span className="font-light">Projects & Portfolio</span>
+          </Link>
+          
+          <Link href="/media-art" className="text-white/50 hover:text-white flex items-center justify-center gap-1.5 group transition-colors">
+            <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
+            <span className="font-light">Media Art</span>
+          </Link>
+        </nav>
 
         <div className="w-full px-1 md:px-4 mt-auto mb-4 md:mb-6 flex flex-col items-center md:items-start">
           <div className="flex items-center gap-2 md:gap-3 text-white/70 justify-center md:justify-start pl-0 md:pl-2">
