@@ -118,7 +118,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2",
         poster: "/work/IFC Seoul Nightscape_poster.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "PHz9ZO2t8zY" },
+          { type: "youtube", youtubeId: "qMhh6JikfhU" },
           { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
           { type: "image", src: "/work/IFC01_vp.jpg" }
         ]
@@ -202,12 +202,8 @@ export default function WorkPage() {
         span: "md:col-span-4 md:row-span-2"
       },
       { 
-        id: "Concrete Facade", type: "youtube", youtubeId: "n23M7AvNRDg", poster: "/work/11_poster.jpg", title: "Concrete Facade", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "16", type: "image", src: "/work/16.jpg", title: "Industrial Loft Office", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+        id: "Concrete Facade", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2"
       },
     ],
     []
