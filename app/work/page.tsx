@@ -118,7 +118,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2",
         poster: "/work/IFC Seoul Nightscape_poster.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "qMhh6JikfhU" },
+          { type: "youtube", youtubeId: "seOjwPZ9ZkE" },
           { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
           { type: "image", src: "/work/IFC01_vp.jpg" }
         ]
