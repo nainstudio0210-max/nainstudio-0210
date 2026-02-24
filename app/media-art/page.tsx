@@ -27,188 +27,51 @@ type MediaItem = {
   span: string 
 }
 
-export default function WorkPage() {
+export default function MediaArtPage() {
+  // 대표님이 직접 세팅하신 완벽한 비율 유지 (w-40)
   const SIDEBAR_W = "w-20 md:w-40"
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
-  // 3. 전체 데이터 리스트 (누락 없이 모두 포함)
+  // 3. 미디어 아트 데이터 리스트 (여기에 새로운 미디어 아트 영상들을 추가하시면 됩니다!)
   const items: MediaItem[] = useMemo(
     () => [
       { 
-        id: "gold coast", 
-        type: "gallery", 
-        title: "Gold Coast", 
-        caption: "Portfolio", 
-        span: "md:col-span-4 md:row-span-2",
-        poster: "/work/Gold Coast.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "48wFptFkamc" }, 
-          { type: "image", src: "/work/Gold Coast.jpg" }, 
-          { type: "image", src: "/work/Gold Coast_vp.jpg" } 
-        ]
-      },
-      { 
-        id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
-        span: "md:col-span-2 md:row-span-2",
-        galleryContents: [
-          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg" }, 
-          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_02.jpg" }, 
-          { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg" }, 
-          { type: "youtube", youtubeId: "IWqxiGE4Cl0" }, 
-        ]
-      },
-      { 
-        id: "ocean_road", type: "youtube", youtubeId: "499vvzQnqiE", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2" 
-      },
-      { 
-        id: "shake01", type: "gallery", title: "Shake Shake Project", caption: "Singapore Project", poster: "/work/Shake Shake_01.jpg",
-        span: "md:col-span-3 md:row-span-2",
-        images: [
-          "/work/Shake Shake_01.jpg", "/work/Shake Shake_02.png", "/work/Shake Shake_03.jpg", "/work/Shake Shake_04.jpg",
-          "/work/Shake Shake_05.jpg", "/work/Shake Shake_06.jpg", "/work/Shake Shake_07.jpg", "/work/Shake Shake_08.jpg",
-          "/work/Shake Shake_09.jpg", "/work/Shake Shake_10.jpg", "/work/Shake Shake_11.jpg", "/work/Shake Shake_12.jpg",
-          "/work/Shake Shake_13.jpg", "/work/Shake Shake_14.jpg", "/work/Shake Shake_15.jpg", "/work/Shake Shake_16.jpg",
-          "/work/Shake Shake_17.jpg",
-        ]
-      },
-      { 
-        id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
+        id: "media_art_01", 
+        type: "youtube", 
+        youtubeId: "8TDOIKj7Ebw", // ★ 유튜브 아이디 부분
+        poster: "/work/01_poster.jpg", // ★ 썸네일 이미지 경로
+        title: "Media Art Project 01", 
+        caption: "Media Art",
         span: "md:col-span-4 md:row-span-2"
       },
       { 
-        id: "Fallingwater", type: "youtube", youtubeId: "aqDyOVV1Twc", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
+        id: "media_art_02", 
+        type: "image", 
+        src: "/work/02.jpg", 
+        title: "Media Art Project 02", 
+        caption: "Media Art",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
-        id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality",
+        id: "media_art_03", 
+        type: "youtube", 
+        youtubeId: "q5WxmdEaxJY", 
+        poster: "/work/03_poster.jpg", 
+        title: "Media Art Project 03", 
+        caption: "Media Art",
         span: "md:col-span-3 md:row-span-2"
       },
       { 
-        id: "IFC02", 
-        type: "gallery", 
-        title: "Seoul Nightscape Drone View", 
-        caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2",
-        poster: "/work/Seoul Nightscape Drone View_poster.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "NAc1dDK-_U8" },
-          { type: "image", src: "/work/IFC02_Train.jpg" },
-          { type: "image", src: "/work/Yeouido_Train_VP.jpg" }
-        ]
-      },
-      { 
-        id: "IFC01", 
-        type: "gallery", 
-        title: "IFC Seoul Nightscape", 
-        caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/IFC Seoul Nightscape_poster.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "PHz9ZO2t8zY" },
-          { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
-          { type: "image", src: "/work/IFC01_vp.jpg" }
-        ]
-      },
-      { 
-        id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
-        span: "md:col-span-4 md:row-span-2"
-      },
-      { 
-        id: "Splash Vol.1", type: "youtube", youtubeId: "n23M7AvNRDg", poster: "/work/11_poster.jpg", title: "Forest Splash Vol.1", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "Splash Vol.2", type: "youtube", youtubeId: "guC-rwfJ4bY", poster: "/work/12_poster.jpg", title: "Forest Splash Vol.2", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "Forest Glass Villa", 
-        type: "gallery", 
-        title: "Forest Glass Villa", 
-        caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Forest Glass Villa.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "YIG6xQn8Gok" },
-          { type: "image", src: "/work/Forest Glass Villa.jpg" },
-          { type: "image", src: "/work/Forest Glass Villa_vp.jpg" }
-        ]
-      },
-      { 
-        id: "Hannam01", 
-        type: "gallery", 
-        title: "SOYO Hannam Reference Vol.01", 
-        caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2",
-        poster: "/work/SOYO Hannam Reference_01.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "jkJiAkCQtvw" },
-          { type: "image", src: "/work/SOYO Hannam Reference_01.jpg" },
-          { type: "image", src: "/work/SOYO Hannam Reference_01_vp.jpg" }
-        ]
-      },
-      { 
-        id: "Hannam02", 
-        type: "gallery", 
-        title: "SOYO Hannam Reference Vol.02", 
-        caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2",
-        poster: "/work/SOYO 02.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "CMAMGmCGLZo" },
-          { type: "youtube", youtubeId: "nnpP5N0rQPM" },
-          { type: "image", src: "/work/SOYO 02.jpg" },
-          { type: "image", src: "/work/SOYO 02_vp.jpg" }
-        ]
-      },
-      { 
-        id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
-        span: "md:col-span-2 md:row-span-2",
-        images: [ "/work/Boulangerie.jpg", "/work/Boulangerie_vp.jpg" ] 
-      },
-      { 
-        id: "Mist Twist", 
-        type: "gallery", 
-        title: "Kistefos The Twist Reference", 
-        caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Mist Twist.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "A3995JcwZKE" },
-          { type: "image", src: "/work/Mist Twist.jpg" },
-          { type: "image", src: "/work/Mist Twist_vp.jpg" }
-        ]
-      },
-      { 
-        id: "14", type: "image", src: "/work/14.jpg", title: "A snowy forest path", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
-        span: "md:col-span-4 md:row-span-2"
-      },
-      { 
-        id: "Concrete Facade", type: "youtube", youtubeId: "n23M7AvNRDg", poster: "/work/11_poster.jpg", title: "Concrete Facade", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "16", type: "image", src: "/work/16.jpg", title: "Industrial Loft Office", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
+        id: "media_art_04", 
+        type: "youtube", 
+        youtubeId: "plaDbIY6Q3A", 
+        poster: "/work/04_poster.jpg", 
+        title: "Media Art Project 04", 
+        caption: "Media Art",
+        span: "md:col-span-3 md:row-span-2"
+      }
+      // 새로운 미디어 아트 영상이 생기면 이 아래로 계속 추가하시면 됩니다.
     ],
     []
   )
@@ -418,14 +281,16 @@ export default function WorkPage() {
             
             {/* 하위 메뉴 리스트 */}
             <div className="flex flex-col items-start gap-2.5 md:gap-3 pl-6 md:pl-10">
-              <Link href="/work" className="text-white hover:text-white flex items-center gap-2 group">
-                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
+              {/* ★ 수정: 미디어 아트 페이지이므로 Projects & Portfolio를 비활성화 (회색 얇은 선) 상태로 변경 */}
+              <Link href="/work" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
+                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
                 <span className="font-light group-hover:opacity-80 transition-opacity">Projects<br className="md:hidden"/> & Portfolio</span>
               </Link>
               
-              <Link href="/media-art" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
-                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
-                <span className="font-light">Media Art</span>
+              {/* ★ 수정: 미디어 아트 페이지이므로 Media Art를 활성화 (주황색 굵은 선) 상태로 변경 */}
+              <Link href="/media-art" className="text-white hover:text-white flex items-center gap-2 group">
+                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
+                <span className="font-light leading-snug">Media Art</span>
               </Link>
             </div>
 
@@ -445,6 +310,7 @@ export default function WorkPage() {
       </aside>
 
       {/* ---------------- 메인 프로젝트 타일 ---------------- */}
+      {/* 대표님이 직접 수정하신 pl-40 완벽 적용 */}
       <main className="pl-20 md:pl-40">
         <div className="mx-auto max-w-[1700px] grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-6 auto-rows-[120px] md:auto-rows-[170px] lg:auto-rows-[190px] p-3 md:p-6">
           {items.map((item, i) => (
