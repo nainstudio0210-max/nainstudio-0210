@@ -405,7 +405,7 @@ export default function WorkPage() {
         </Link>
         
         {/* 네비게이션 메뉴 영역 */}
-        <nav className="w-full flex flex-col text-[10px] md:text-sm tracking-wide mt-8 md:mt-10">
+        <nav className="w-full flex flex-col text-[10px] md:text-sm tracking-wide mt-4 md:mt-5">
           
           {/* 얇고 희미한 구분선 */}
           <div className="w-[60%] mx-auto border-t border-white/10 mb-3 md:mb-4" />
@@ -417,7 +417,7 @@ export default function WorkPage() {
             <span className="text-white font-medium mb-3 md:mb-4">Works</span>
             
             {/* 하위 메뉴 리스트 */}
-            <div className="flex flex-col items-start gap-2.5 md:gap-3 pl-4">
+            <div className="flex flex-col items-start gap-2.5 md:gap-3 pl-6 md:pl-10">
               <Link href="/work" className="text-white hover:text-white flex items-center gap-2 group">
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
                 <span className="font-light group-hover:opacity-80 transition-opacity">Projects<br className="md:hidden"/> & Portfolio</span>
