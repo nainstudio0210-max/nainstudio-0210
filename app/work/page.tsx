@@ -28,7 +28,7 @@ type MediaItem = {
 }
 
 export default function WorkPage() {
-  // ★ 수정: PC 환경(md)에서의 사이드바 너비를 w-36 에서 w-52 로 넓게 확장했습니다. (모바일 w-20은 유지)
+  // PC 환경(md) 사이드바 너비 w-52, 모바일 w-20
   const SIDEBAR_W = "w-20 md:w-52"
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
@@ -404,23 +404,18 @@ export default function WorkPage() {
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
-        {/* 오리지널 배치, 정렬, 희미한 선 적용 */}
+        {/* ★ 수정사항 완벽 반영: Home, Contact 삭제 후 위치 상향조정 및 자간(여백) 확대 */}
         <nav
           className="w-full flex flex-col text-[10px] md:text-sm tracking-wide"
           style={{ marginTop: NAV_OFFSET_PX + 12 }}
         >
-          {/* 상단 메뉴: Home, Contact (가운데 정렬) */}
-          <div className="flex flex-col items-center gap-3.5 md:gap-4">
-            <Link href="/" className="text-white/70 hover:text-white font-light transition-colors">Home</Link>
-            <Link href="/contact" className="text-white/70 hover:text-white font-light transition-colors">Contact</Link>
-          </div>
-
-          {/* 얇고 희미한 구분선 (가운데 정렬) */}
-          <div className="w-[70%] mx-auto border-t border-white/10 my-4 md:my-5" />
+          {/* 얇고 희미한 구분선 (가운데 정렬) - 위치를 위로 바짝 올림 */}
+          <div className="w-[70%] mx-auto border-t border-white/10 mb-4 md:mb-6" />
 
           {/* 하단 메뉴: Works 타이틀(가운데 정렬) 및 하위 메뉴(왼쪽 정렬 그룹) */}
           <div className="flex flex-col items-center w-full">
-            <span className="text-white font-medium mb-3 md:mb-4">Works</span>
+            {/* ★ Works 타이틀 아래 여백(자간)을 크게 늘림 (mb-6 md:mb-8) */}
+            <span className="text-white font-medium mb-6 md:mb-8">Works</span>
             
             <div className="flex flex-col items-start gap-3">
               <Link href="/work" className="text-white hover:text-white flex items-center gap-2 group">
@@ -448,7 +443,7 @@ export default function WorkPage() {
       </aside>
 
       {/* ---------------- 메인 프로젝트 타일 ---------------- */}
-      {/* ★ 수정: 사이드바가 PC에서 늘어난 만큼, 메인 그리드 컨텐츠의 왼쪽 여백(pl)도 md:pl-36 에서 md:pl-52 로 맞추어 늘렸습니다. */}
+      {/* PC 사이드바 너비 w-52 적용에 따른 왼쪽 패딩(pl-52) 유지 */}
       <main className="pl-20 md:pl-52">
         <div className="mx-auto max-w-[1700px] grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-6 auto-rows-[120px] md:auto-rows-[170px] lg:auto-rows-[190px] p-3 md:p-6">
           {items.map((item, i) => (
