@@ -28,7 +28,7 @@ type MediaItem = {
 }
 
 export default function WorkPage() {
-  const SIDEBAR_W = "w-20 md:w-36"
+  const SIDEBAR_W = "w-20 md:w-40"
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
