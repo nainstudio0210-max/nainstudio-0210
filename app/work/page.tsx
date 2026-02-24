@@ -338,7 +338,7 @@ export default function WorkPage() {
     }
   }, [activeIndex, lightboxIndex, close, goNext, goPrev, goLightboxNext, goLightboxPrev, isMenuOpen])
 
-  // 드롭다운 메뉴 애니메이션 설정 (주루룩 효과)
+  // 드롭다운 메뉴 애니메이션 설정
   const menuVariants: Variants = {
     hidden: { opacity: 0, y: -15, scale: 0.97, transition: { duration: 0.2 } },
     visible: { 
@@ -359,7 +359,7 @@ export default function WorkPage() {
   return (
     <div className="relative min-h-screen bg-black text-white">
       
-      {/* ---------------- ★ 우측 상단 드롭다운 메뉴 (햄버거 아이콘 유지) ★ ---------------- */}
+      {/* ---------------- 우측 상단 드롭다운 메뉴 ---------------- */}
       <div className="fixed top-5 right-5 md:top-8 md:right-8 z-[200]" ref={menuRef}>
         <button 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -403,22 +403,36 @@ export default function WorkPage() {
           <Image src="/logo.png" alt="NAIN" width={200} height={22} draggable={false} className="w-12 md:w-auto h-auto opacity-90 hover:opacity-100 transition" />
         </Link>
         
-        {/* ★ 수정: 오리지널 디자인 복구 (얇은 폰트, 가운데 정렬, 원래 간격 유지) */}
+        {/* ★ 수정: 오리지널 배치, 정렬, 희미한 선 적용 */}
         <nav
-          className="w-full flex flex-col items-center text-[10px] md:text-sm tracking-wide"
-          style={{ marginTop: NAV_OFFSET_PX + 12, gap: NAV_GAP_PX + 4 }}
+          className="w-full flex flex-col text-[10px] md:text-sm tracking-wide"
+          style={{ marginTop: NAV_OFFSET_PX + 12 }}
         >
-          <span className="text-white/70 mb-1">Works</span>
-          
-          <Link href="/work" className="text-white hover:text-white flex items-center justify-center gap-1.5">
-            <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
-            <span className="font-light">Projects & Portfolio</span>
-          </Link>
-          
-          <Link href="/media-art" className="text-white/50 hover:text-white flex items-center justify-center gap-1.5 group transition-colors">
-            <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
-            <span className="font-light">Media Art</span>
-          </Link>
+          {/* 상단 메뉴: Home, Contact (가운데 정렬) */}
+          <div className="flex flex-col items-center gap-3.5 md:gap-4">
+            <Link href="/" className="text-white/70 hover:text-white font-light transition-colors">Home</Link>
+            <Link href="/contact" className="text-white/70 hover:text-white font-light transition-colors">Contact</Link>
+          </div>
+
+          {/* 얇고 희미한 구분선 (가운데 정렬) */}
+          <div className="w-[70%] mx-auto border-t border-white/10 my-4 md:my-5" />
+
+          {/* 하단 메뉴: Works 타이틀(가운데 정렬) 및 하위 메뉴(왼쪽 정렬 그룹) */}
+          <div className="flex flex-col items-center w-full">
+            <span className="text-white font-medium mb-3 md:mb-4">Works</span>
+            
+            <div className="flex flex-col items-start gap-3">
+              <Link href="/work" className="text-white hover:text-white flex items-center gap-2 group">
+                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
+                <span className="font-light group-hover:opacity-80 transition-opacity">Projects<br className="md:hidden"/> & Portfolio</span>
+              </Link>
+              
+              <Link href="/media-art" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
+                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
+                <span className="font-light">Media Art</span>
+              </Link>
+            </div>
+          </div>
         </nav>
 
         <div className="w-full px-1 md:px-4 mt-auto mb-4 md:mb-6 flex flex-col items-center md:items-start">
