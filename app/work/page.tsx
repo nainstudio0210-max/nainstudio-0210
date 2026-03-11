@@ -94,8 +94,11 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2"
       },
       { 
-        id: "vr01", type: "youtube", youtubeId: "a73C8n-lQlQ", poster: "/work/vr01_poster.jpg", title: "Nainstudio VR 360", caption: "Project / For the best experience, please watch in highest quality",
-        span: "md:col-span-3 md:row-span-2"
+        id: "HERMETIA Seocho", type: "gallery", title: "HERMETIA Seocho Project", caption: "HERMETIA Seocho Project", poster: "/work/HERMETIA Seocho Project_01.jpg",
+        span: "md:col-span-3 md:row-span-2",
+        images: [
+          "/work/HERMETIA Seocho Project_01.jpg", "/work/HERMETIA Seocho Project_02.jpg", "/work/HERMETIA Seocho Project_03.jpg",
+        ]
       },
       { 
         id: "IFC02", 
@@ -202,8 +205,8 @@ export default function WorkPage() {
         span: "md:col-span-4 md:row-span-2"
       },
       { 
-        id: "Concrete Facade", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
-        span: "md:col-span-4 md:row-span-2"
+        id: "Concrete Facade", type: "youtube", youtubeId: "x99owQP71Uo", poster: "/work/Concrete Facade.jpg", title: "Concrete Facade", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
       },
     ],
     []
