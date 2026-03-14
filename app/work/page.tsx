@@ -75,8 +75,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2"
       },
       { 
-        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
-         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
+        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
@@ -94,9 +93,14 @@ export default function WorkPage() {
           "/work/Shake Shake_17.jpg",
         ]
       },
-      { 
-        id: "dandelion", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+            { 
+        id: "dandelion", type: "gallery", title: "3D dandelion animation", caption: "Portfolio", poster: "/work/dandelion_poster.jpg",
+        span: "md:col-span-2 md:row-span-2",
+        galleryContents: [
+                    { type: "youtube", youtubeId: "UIf5aytb5so" },
+          { type: "image", src: "/work/dandelion_poster.jpg" }, 
+          { type: "image", src: "/work/dandelion vp.jpg" }, 
+        ]
       },
       { 
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
@@ -124,6 +128,11 @@ export default function WorkPage() {
       },
       { 
         id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
+        span: "md:col-span-2 md:row-span-2"
+      },
+            { 
+        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
+         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
