@@ -94,29 +94,29 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2"
       },
        { 
+        id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2"
+      },
+       { 
+        id: "dandelion", type: "gallery", title: "3D dandelion animation", caption: "Portfolio", poster: "/work/dandelion_poster.jpg",
+        span: "md:col-span-2 md:row-span-2",
+        galleryContents: [
+                    { type: "youtube", youtubeId: "UIf5aytb5so" },
+          { type: "image", src: "/work/dandelion_poster.jpg" }, 
+          { type: "image", src: "/work/dandelion vp.jpg" }, 
+        ]
+      },
+       { 
+        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
+         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2"
+      },
+       { 
         id: "Shake Shake_Incheon", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
         span: "md:col-span-3 md:row-span-2",
         images: [
           "/work/Shake Shake_Incheon_01.jpg", "/work/Shake Shake_Incheon_02.jpg", "/work/Shake Shake_Incheon_03.jpg", "/work/Shake Shake_Incheon_04.jpg",
           "/work/Shake Shake_Incheon_05.jpg",
-        ]
-      },
-       { 
-        id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
-        span: "md:col-span-4 md:row-span-2"
-      },
-       { 
-        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
-         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-       { 
-        id: "dandelion", type: "gallery", title: "3D dandelion animation", caption: "Portfolio", poster: "/work/dandelion_poster.jpg",
-        span: "md:col-span-3 md:row-span-2",
-        galleryContents: [
-                    { type: "youtube", youtubeId: "UIf5aytb5so" },
-          { type: "image", src: "/work/dandelion_poster.jpg" }, 
-          { type: "image", src: "/work/dandelion vp.jpg" }, 
         ]
       },
        { 
