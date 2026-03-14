@@ -111,18 +111,18 @@ export default function WorkPage() {
          title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2"
       },
+             { 
+        id: "Sakura Onsen Cafe", type: "youtube", youtubeId: "ZHcF7w-4bW4", poster: "/work/Sakura Onsen Cafe_poster.jpg",
+         title: "Sakura Onsen Cafe", caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2"
+      },
        { 
         id: "Shake Shake_Incheon", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
-        span: "md:col-span-3 md:row-span-2",
+        span: "md:col-span-2 md:row-span-2",
         images: [
           "/work/Shake Shake_Incheon_01.jpg", "/work/Shake Shake_Incheon_02.jpg", "/work/Shake Shake_Incheon_03.jpg", "/work/Shake Shake_Incheon_04.jpg",
           "/work/Shake Shake_Incheon_05.jpg",
         ]
-      },
-             { 
-        id: "Sakura Onsen Cafe", type: "youtube", youtubeId: "ZHcF7w-4bW4", poster: "/work/Sakura Onsen Cafe_poster.jpg",
-         title: "Sakura Onsen Cafe", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
       },
        { 
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
@@ -133,7 +133,7 @@ export default function WorkPage() {
 
        { 
         id: "Vineyard-style concert hall", type: "gallery", title: "Vineyard-style concert hall", caption: "Portfolio", poster: "/work/Vineyard-style concert hall_01.jpeg",
-        span: "md:col-span-3 md:row-span-2",
+        span: "md:col-span-2 md:row-span-2",
         images: [
           "/work/Vineyard-style concert hall_01.jpeg", "/work/Vineyard-style concert hall_02.png",
         ]
