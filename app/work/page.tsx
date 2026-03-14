@@ -36,9 +36,9 @@ export default function WorkPage() {
   const items: MediaItem[] = useMemo(
     () => [
       { 
-        id: "gold coast", 
+        id: "Gold Coast Aerials", 
         type: "gallery", 
-        title: "Gold Coast", 
+        title: "Gold Coast Aerials", 
         caption: "Portfolio", 
         span: "md:col-span-4 md:row-span-2",
         poster: "/work/Gold Coast.jpg",
@@ -46,6 +46,18 @@ export default function WorkPage() {
           { type: "youtube", youtubeId: "48wFptFkamc" }, 
           { type: "image", src: "/work/Gold Coast.jpg" }, 
           { type: "image", src: "/work/Gold Coast_vp.jpg" } 
+        ]
+      },
+      { 
+        id: "Gold Coast Waterfront", 
+        type: "gallery", 
+        title: "Gold Coast Waterfront", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/gold coast_02_4K_People.png",
+        galleryContents: [
+          { type: "youtube", youtubeId: "5f8e7cwjmeE" },
+          { type: "image", src: "/work/gold coast_02_4K_People.png" }
         ]
       },
       { 
@@ -57,10 +69,6 @@ export default function WorkPage() {
           { type: "image", src: "/work/COFFEE@WORKS_Daejeon Time World_SPC_03.jpg" }, 
           { type: "youtube", youtubeId: "IWqxiGE4Cl0" }, 
         ]
-      },
-            { 
-        id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
       },
       { 
         id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
@@ -85,41 +93,36 @@ export default function WorkPage() {
           "/work/Shake Shake_17.jpg",
         ]
       },
-            { 
-        id: "IFC01", 
-        type: "gallery", 
-        title: "IFC Seoul Nightscape", 
-        caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/IFC Seoul Nightscape_poster.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "81l5iKHu0VY" },
-          { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
-          { type: "image", src: "/work/IFC01_vp.jpg" }
-        ]
+      { 
+        id: "dandelion", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
       },
       { 
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
-      { 
-        id: "dandelion", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+       { 
+        id: "shake02", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
+        span: "md:col-span-2 md:row-span-2",
+        images: [
+          "/work/Shake Shake_Incheon_01.jpg", "/work/Shake Shake_Incheon_02.jpg", "/work/Shake Shake_Incheon_03.jpg", "/work/Shake Shake_Incheon_04.jpg",
+          "/work/Shake Shake_Incheon_05.jpg",
+        ]
       },
       { 
         id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
-        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
+        id: "Fallingwater", type: "youtube", youtubeId: "aqDyOVV1Twc", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
-      { 
+       { 
         id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
       { 
-        id: "Fallingwater", type: "youtube", youtubeId: "aqDyOVV1Twc", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
+        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
@@ -138,6 +141,7 @@ export default function WorkPage() {
         poster: "/work/Seoul Nightscape Drone View_poster.jpg",
         galleryContents: [
           { type: "youtube", youtubeId: "NAc1dDK-_U8" },
+          { type: "youtube", youtubeId: "koynmGhZqlw" },
           { type: "image", src: "/work/IFC02_Train.jpg" },
           { type: "image", src: "/work/Yeouido_Train_VP.jpg" }
         ]
