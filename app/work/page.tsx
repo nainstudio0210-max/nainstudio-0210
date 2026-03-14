@@ -61,6 +61,21 @@ export default function WorkPage() {
         ]
       },
       { 
+        id: "ocean_road", type: "youtube", youtubeId: "499vvzQnqiE", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2" 
+      },
+      { 
+        id: "shake01", type: "gallery", title: "Shake Shake Project", caption: "Singapore Project", poster: "/work/Shake Shake_01.jpg",
+        span: "md:col-span-3 md:row-span-2",
+        images: [
+          "/work/Shake Shake_01.jpg", "/work/Shake Shake_02.png", "/work/Shake Shake_03.jpg", "/work/Shake Shake_04.jpg",
+          "/work/Shake Shake_05.jpg", "/work/Shake Shake_06.jpg", "/work/Shake Shake_07.jpg", "/work/Shake Shake_08.jpg",
+          "/work/Shake Shake_09.jpg", "/work/Shake Shake_10.jpg", "/work/Shake Shake_11.jpg", "/work/Shake Shake_12.jpg",
+          "/work/Shake Shake_13.jpg", "/work/Shake Shake_14.jpg", "/work/Shake Shake_15.jpg", "/work/Shake Shake_16.jpg",
+          "/work/Shake Shake_17.jpg",
+        ]
+      },
+            { 
         id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
         span: "md:col-span-2 md:row-span-2",
         galleryContents: [
@@ -78,30 +93,6 @@ export default function WorkPage() {
         id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
-      { 
-        id: "ocean_road", type: "youtube", youtubeId: "499vvzQnqiE", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2" 
-      },
-      { 
-        id: "shake01", type: "gallery", title: "Shake Shake Project", caption: "Singapore Project", poster: "/work/Shake Shake_01.jpg",
-        span: "md:col-span-3 md:row-span-2",
-        images: [
-          "/work/Shake Shake_01.jpg", "/work/Shake Shake_02.png", "/work/Shake Shake_03.jpg", "/work/Shake Shake_04.jpg",
-          "/work/Shake Shake_05.jpg", "/work/Shake Shake_06.jpg", "/work/Shake Shake_07.jpg", "/work/Shake Shake_08.jpg",
-          "/work/Shake Shake_09.jpg", "/work/Shake Shake_10.jpg", "/work/Shake Shake_11.jpg", "/work/Shake Shake_12.jpg",
-          "/work/Shake Shake_13.jpg", "/work/Shake Shake_14.jpg", "/work/Shake Shake_15.jpg", "/work/Shake Shake_16.jpg",
-          "/work/Shake Shake_17.jpg",
-        ]
-      },
-      { 
-        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
-         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
-        span: "md:col-span-4 md:row-span-2"
-      },
        { 
         id: "Shake Shake_Incheon", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
         span: "md:col-span-3 md:row-span-2",
@@ -109,6 +100,15 @@ export default function WorkPage() {
           "/work/Shake Shake_Incheon_01.jpg", "/work/Shake Shake_Incheon_02.jpg", "/work/Shake Shake_Incheon_03.jpg", "/work/Shake Shake_Incheon_04.jpg",
           "/work/Shake Shake_Incheon_05.jpg",
         ]
+      },
+       { 
+        id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2"
+      },
+       { 
+        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
+         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
       },
        { 
         id: "dandelion", type: "gallery", title: "3D dandelion animation", caption: "Portfolio", poster: "/work/dandelion_poster.jpg",
@@ -120,7 +120,7 @@ export default function WorkPage() {
         ]
       },
        { 
-        id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
+        id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
        { 
