@@ -75,7 +75,8 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2"
       },
       { 
-        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
+        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
+         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
