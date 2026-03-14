@@ -93,44 +93,37 @@ export default function WorkPage() {
           "/work/Shake Shake_17.jpg",
         ]
       },
-            { 
-        id: "dandelion", type: "gallery", title: "3D dandelion animation", caption: "Portfolio", poster: "/work/dandelion_poster.jpg",
-        span: "md:col-span-2 md:row-span-2",
-        galleryContents: [
-                    { type: "youtube", youtubeId: "UIf5aytb5so" },
-          { type: "image", src: "/work/dandelion_poster.jpg" }, 
-          { type: "image", src: "/work/dandelion vp.jpg" }, 
-        ]
+      { 
+        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
+         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
       },
       { 
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
        { 
-        id: "shake02", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
-        span: "md:col-span-2 md:row-span-2",
+        id: "Shake Shake_Incheon", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
+        span: "md:col-span-3 md:row-span-2",
         images: [
           "/work/Shake Shake_Incheon_01.jpg", "/work/Shake Shake_Incheon_02.jpg", "/work/Shake Shake_Incheon_03.jpg", "/work/Shake Shake_Incheon_04.jpg",
           "/work/Shake Shake_Incheon_05.jpg",
         ]
       },
-      { 
-        id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "Fallingwater", type: "youtube", youtubeId: "aqDyOVV1Twc", poster: "/work/05_poster.jpg", title: "Frank Lloyd Wright Fallingwater", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+       { 
+        id: "dandelion", type: "gallery", title: "3D dandelion animation", caption: "Portfolio", poster: "/work/dandelion_poster.jpg",
+        span: "md:col-span-3 md:row-span-2",
+        galleryContents: [
+                    { type: "youtube", youtubeId: "UIf5aytb5so" },
+          { type: "image", src: "/work/dandelion_poster.jpg" }, 
+          { type: "image", src: "/work/dandelion vp.jpg" }, 
+        ]
       },
        { 
         id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
-      { 
-        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
-        span: "md:col-span-2 md:row-span-2"
-      },
-            { 
+       { 
         id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
          title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
