@@ -106,7 +106,7 @@ export default function WorkPage() {
           { type: "image", src: "/work/dandelion vp.jpg" }, 
         ]
       },
-       { 
+             { 
         id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
          title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2"
@@ -119,15 +119,37 @@ export default function WorkPage() {
           "/work/Shake Shake_Incheon_05.jpg",
         ]
       },
+             { 
+        id: "Sakura Onsen Cafe", type: "youtube", youtubeId: "ZHcF7w-4bW4", poster: "/work/Sakura Onsen Cafe_poster.jpg",
+         title: "Sakura Onsen Cafe", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
        { 
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
+
+
+
        { 
-        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
-         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
+        id: "Vineyard-style concert hall", type: "gallery", title: "Vineyard-style concert hall", caption: "Portfolio", poster: "/work/Vineyard-style concert hall_01.jpeg",
+        span: "md:col-span-3 md:row-span-2",
+        images: [
+          "/work/Vineyard-style concert hall_01.jpeg", "/work/Vineyard-style concert hall_02.png",
+        ]
+      },
+      { 
+        id: "Interior Ocean", type: "youtube", youtubeId: "PhFaa-IfPYs", poster: "/work/Interior Ocean.jpg", title: "Interior Ocean", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
+      { 
+        id: "Cityscape Time-Lapse", type: "youtube", youtubeId: "ANd1GuT2F94", poster: "/work/Cityscape Time-Lapse_poster_01.jpg", title: "Cityscape Time-Lapse", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+
+
+
+
       { 
         id: "HERMETIA Seocho", type: "gallery", title: "HERMETIA Seocho Project", caption: "HERMETIA Seocho Project", poster: "/work/HERMETIA Seocho Project_01.jpg",
         span: "md:col-span-3 md:row-span-2",
@@ -167,12 +189,21 @@ export default function WorkPage() {
         span: "md:col-span-4 md:row-span-2"
       },
       { 
-        id: "Splash Vol.1", type: "youtube", youtubeId: "n23M7AvNRDg", poster: "/work/11_poster.jpg", title: "Forest Splash Vol.1", caption: "Portfolio",
+        id: "Splash", type: "youtube", youtubeId: "n1cirHzIZ90", poster: "/work/PORSCHE CAYENNE_Poster.jpg", title: "Forest Splash", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
-        id: "Splash Vol.2", type: "youtube", youtubeId: "guC-rwfJ4bY", poster: "/work/12_poster.jpg", title: "Forest Splash Vol.2", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+        id: "Urban Glow: Night Edition", 
+        type: "gallery", 
+        title: "Urban Glow: Night Edition", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/front_build.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "tq_W15z0Tog" },
+          { type: "youtube", youtubeId: "IIT2orzpvzk" },
+          { type: "image", src: "/work/front_build.jpg" },
+        ]
       },
       { 
         id: "Forest Glass Villa", 
