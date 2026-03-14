@@ -58,6 +58,18 @@ export default function WorkPage() {
           { type: "youtube", youtubeId: "IWqxiGE4Cl0" }, 
         ]
       },
+            { 
+        id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
+        span: "md:col-span-2 md:row-span-2"
+      },
       { 
         id: "ocean_road", type: "youtube", youtubeId: "499vvzQnqiE", poster: "/work/ocean_road_poster.jpg", title: "The Ocean Road", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2" 
@@ -73,8 +85,25 @@ export default function WorkPage() {
           "/work/Shake Shake_17.jpg",
         ]
       },
+            { 
+        id: "IFC01", 
+        type: "gallery", 
+        title: "IFC Seoul Nightscape", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/IFC Seoul Nightscape_poster.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "81l5iKHu0VY" },
+          { type: "image", src: "/work/IFC Seoul Nightscape_poster.jpg" },
+          { type: "image", src: "/work/IFC01_vp.jpg" }
+        ]
+      },
       { 
-        id: "01", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
+        id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2"
+      },
+      { 
+        id: "dandelion", type: "youtube", youtubeId: "8TDOIKj7Ebw", poster: "/work/01_poster.jpg", title: "3D dandelion animation", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
