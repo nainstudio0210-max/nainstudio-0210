@@ -121,7 +121,7 @@ export default function WorkPage() {
       
 
 
-             { 
+       { 
         id: "Shake Shake_Incheon", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
         span: "md:col-span-2 md:row-span-2",
         images: [
@@ -130,10 +130,18 @@ export default function WorkPage() {
         ]
       },
       { 
-        id: "Interior Ocean", type: "youtube", youtubeId: "PhFaa-IfPYs", poster: "/work/Interior Ocean.jpg", title: "Interior Ocean", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+        id: "Interior Ocean", 
+        type: "gallery", 
+        title: "Interior Ocean", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Interior Ocean.jpg",
+        galleryContents: [
+          { type: "image", src: "/work/Interior Ocean.jpg" },
+          { type: "youtube", youtubeId: "PhFaa-IfPYs"}
+        ]
       },
-                  { 
+      { 
         id: "Interior ceiling height", 
         type: "gallery", 
         title: "Interior ceiling height", 
@@ -199,22 +207,24 @@ export default function WorkPage() {
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
+
+
       { 
-        id: "Splash", type: "youtube", youtubeId: "n1cirHzIZ90", poster: "/work/PORSCHE CAYENNE_Poster.jpg", title: "Forest Splash", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "Urban Glow: Night Edition", 
+        id: "Urban Tram", 
         type: "gallery", 
-        title: "Urban Glow: Night Edition", 
+        title: "Urban Tram", 
         caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2",
-        poster: "/work/front_build.jpg",
+        poster: "/work/Urban Tram_poster.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "tq_W15z0Tog" },
-          { type: "youtube", youtubeId: "IIT2orzpvzk" },
-          { type: "image", src: "/work/front_build.jpg" },
+          { type: "youtube", youtubeId: "ACr2FGmycls" },
         ]
+      },
+
+
+      { 
+        id: "PORSCHE", type: "youtube", youtubeId: "n1cirHzIZ90", poster: "/work/PORSCHE CAYENNE_Poster.jpg", title: "Forest Splash", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
       },
       { 
         id: "Forest Glass Villa", 
@@ -256,6 +266,19 @@ export default function WorkPage() {
           { type: "image", src: "/work/SOYO 02_vp.jpg" }
         ]
       },
+         { 
+        id: "Urban Glow: Night Edition", 
+        type: "gallery", 
+        title: "Urban Glow: Night Edition", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/front_build.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "tq_W15z0Tog" },
+          { type: "youtube", youtubeId: "IIT2orzpvzk" },
+          { type: "image", src: "/work/front_build.jpg" },
+        ]
+      },
       { 
         id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
         span: "md:col-span-2 md:row-span-2",
@@ -273,10 +296,6 @@ export default function WorkPage() {
           { type: "image", src: "/work/Mist Twist.jpg" },
           { type: "image", src: "/work/Mist Twist_vp.jpg" }
         ]
-      },
-      { 
-        id: "14", type: "image", src: "/work/14.jpg", title: "A snowy forest path", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
       },
       { 
         id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
