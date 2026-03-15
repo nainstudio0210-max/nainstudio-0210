@@ -133,11 +133,16 @@ export default function WorkPage() {
         id: "Interior Ocean", type: "youtube", youtubeId: "PhFaa-IfPYs", poster: "/work/Interior Ocean.jpg", title: "Interior Ocean", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
-      { 
-        id: "HERMETIA Seocho", type: "gallery", title: "HERMETIA Seocho Project", caption: "HERMETIA Seocho Project", poster: "/work/HERMETIA Seocho Project_01.jpg",
+                  { 
+        id: "Interior ceiling height", 
+        type: "gallery", 
+        title: "Interior ceiling height", 
+        caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2",
-        images: [
-          "/work/HERMETIA Seocho Project_01.jpg", "/work/HERMETIA Seocho Project_02.jpg", "/work/HERMETIA Seocho Project_03.jpg",
+        poster: "/work/Interior ceiling height_01.jpg",
+        galleryContents: [
+          { type: "image", src: "/work/Interior ceiling height_01.jpg" },
+          { type: "image", src: "/work/Interior ceiling height_02.jpg" }
         ]
       },
 
@@ -151,23 +156,18 @@ export default function WorkPage() {
           "/work/Vineyard-style concert hall_01.jpeg", "/work/Vineyard-style concert hall_02.png",
         ]
       },
-            { 
-        id: "IFC02", 
-        type: "gallery", 
-        title: "Interior ceiling height", 
-        caption: "Portfolio",
+      { 
+        id: "HERMETIA Seocho", type: "gallery", title: "HERMETIA Seocho Project", caption: "HERMETIA Seocho Project", poster: "/work/HERMETIA Seocho Project_01.jpg",
         span: "md:col-span-4 md:row-span-2",
-        poster: "/work/Interior ceiling height_01.jfif",
-        galleryContents: [
-          { type: "image", src: "/work/Interior ceiling height_01.jfif" },
-          { type: "image", src: "/work/Interior ceiling height_02.jfif" }
+        images: [
+          "/work/HERMETIA Seocho Project_01.jpg", "/work/HERMETIA Seocho Project_02.jpg", "/work/HERMETIA Seocho Project_03.jpg",
         ]
       },
+
        { 
         id: "S-Map City", type: "youtube", youtubeId: "ANd1GuT2F94", poster: "/work/Cityscape Time-Lapse_poster_01.jpg", title: "Cityscape Time-Lapse", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2"
       },
-
       { 
         id: "IFC02", 
         type: "gallery", 
