@@ -266,6 +266,11 @@ export default function WorkPage() {
           { type: "image", src: "/work/SOYO 02_vp.jpg" }
         ]
       },
+            { 
+        id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
+        span: "md:col-span-2 md:row-span-2",
+        images: [ "/work/Boulangerie.jpg", "/work/Boulangerie_vp.jpg" ] 
+      },
          { 
         id: "Urban Glow: Night Edition", 
         type: "gallery", 
@@ -278,11 +283,6 @@ export default function WorkPage() {
           { type: "youtube", youtubeId: "IIT2orzpvzk" },
           { type: "image", src: "/work/front_build.jpg" },
         ]
-      },
-      { 
-        id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
-        span: "md:col-span-2 md:row-span-2",
-        images: [ "/work/Boulangerie.jpg", "/work/Boulangerie_vp.jpg" ] 
       },
       { 
         id: "Mist Twist", 
