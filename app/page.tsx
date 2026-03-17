@@ -43,25 +43,23 @@ export default function Page() {
   return (
     <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
       
-      {/* ---------------- Header (Binyan Layout + Original Font Style) ---------------- */}
-      <header
-        className={`fixed top-0 left-0 w-full z-50 transition-colors duration-500 ${
-          scrolled ? "bg-black/30 backdrop-blur-md" : "bg-transparent"
-        }`}
-      >
+      {/* ---------------- Header (Binyan Layout + No Blur + Position Control) ---------------- */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-transparent py-8">
+        {/* 아래 px-6, md:px-14 등의 수치를 조절하여 Contact와 Work의 좌우 위치를 맞추세요 */}
         <nav className="w-full px-6 md:px-14 lg:px-16 py-8 flex items-center justify-between">
-          {/* Left: Contact (Original Capitalization) */}
+          
+          {/* Left: Contact */}
           <div className="flex-1">
             <a href="/contact" className="text-sm md:text-base hover:text-gray-200">Contact</a>
           </div>
 
-          {/* Center: Large Logo (Binyan Style Position) */}
+          {/* Center: Large Logo */}
           <div className="flex-1 flex justify-center">
             <a href="/">
               <motion.img
                 src="/logo.png"
                 alt="NAIN"
-                // 로고 크기 조절: 현재 w-48 md:w-80으로 크게 설정했습니다.
+                // 로고 크기는 대표님이 원하셨던 w-48 md:w-80 유지
                 className="w-48 md:w-80 h-auto object-contain"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -71,14 +69,14 @@ export default function Page() {
             </a>
           </div>
 
-          {/* Right: Work (Original Capitalization) */}
+          {/* Right: Work */}
           <div className="flex-1 flex justify-end">
             <a href="/work" className="text-sm md:text-base hover:text-gray-200">Work</a>
           </div>
         </nav>
       </header>
 
-      {/* ---------------- Main Hero (Only First Video) ---------------- */}
+      {/* ---------------- Main Hero (단일 영상 섹션) ---------------- */}
       <section className="relative h-screen w-full flex items-center justify-center text-center">
         <video
           autoPlay
@@ -97,7 +95,7 @@ export default function Page() {
         <div className="absolute inset-0 bg-black/0" />
       </section>
 
-      {/* ---------------- Bottom Section (Original Content & Style 100%) ---------------- */}
+      {/* ---------------- Bottom Section (오리지널 스타일 100%) ---------------- */}
       <section className="py-16 bg-black text-white">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-8 items-center">
           {/* Left: Title */}
