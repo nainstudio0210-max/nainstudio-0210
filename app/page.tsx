@@ -65,7 +65,7 @@ export default function Page() {
               <motion.img
                 src="/logo02.png"
                 alt="NAIN"
-                className="w-48 md:w-80 h-auto object-contain"
+                className="w-40 md:w-64 h-auto object-contain"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 0.8, scale: 1 }}
                 transition={{ duration: 0.8 }}
