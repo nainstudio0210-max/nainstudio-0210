@@ -44,9 +44,9 @@ export default function Page() {
     <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
       
       {/* ---------------- Header (Binyan Layout + No Blur + Position Control) ---------------- */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-transparent py-8">
+      <header className="fixed top-0 left-0 w-full z-50 bg-transparent py-2">
         {/* 아래 px-6, md:px-14 등의 수치를 조절하여 Contact와 Work의 좌우 위치를 맞추세요 */}
-        <nav className="w-full px-6 md:px-14 lg:px-16 py-8 flex items-center justify-between">
+        <nav className="w-full px-6 md:px-14 lg:px-16 py-2 flex items-center justify-between">
           
           {/* Left: Contact */}
           <div className="flex-1">
