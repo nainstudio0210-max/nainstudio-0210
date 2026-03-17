@@ -8,13 +8,12 @@ export default function Page() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    // 스크롤 상태에 따른 헤더 변경을 원복하기 위해 스크롤 감지 로직 제거
-    // const onScroll = () => setScrolled(window.scrollY > 50)
-    // window.addEventListener("scroll", onScroll, { passive: true })
-    // return () => window.removeEventListener("scroll", onScroll)
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // ===== 우클릭 및 단축키 보안 차단 =====
+  // ===== 보안 차단 (오리지널 로직 유지) =====
   useEffect(() => {
     const prevent = (e: Event) => e.preventDefault()
     const onKeyDown = (e: KeyboardEvent) => {
@@ -40,41 +39,47 @@ export default function Page() {
       document.removeEventListener("keydown", onKeyDown)
     }
   }, [])
-  // ========================================
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
       
-      {/* ---------------- Header (Binyan 스타일 중앙 로고 + 폰트 대소문자 100% 롤백) ---------------- */}
-      {/* 스크롤 시 블러 및 배경색 변경 제거, 완전히 투명하게 롤백 */}
+      {/* ---------------- Header (Binyan Layout + Original Font Style) ---------------- */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 bg-transparent py-8`}
+        className={`fixed top-0 left-0 w-full z-50 transition-colors duration-500 ${
+          scrolled ? "bg-black/30 backdrop-blur-md" : "bg-transparent"
+        }`}
       >
-        <nav className="max-w-[1800px] mx-auto px-6 md:px-14 flex items-center justify-between">
-          
-          {/* Left: contact (소문자로 100% 롤백) */}
+        <nav className="w-full px-6 md:px-14 lg:px-16 py-8 flex items-center justify-between">
+          {/* Left: Contact (Original Capitalization) */}
           <div className="flex-1">
-            <a href="/contact" className="text-sm md:text-base hover:text-gray-200 transition-colors">
-              contact
-            </a>
+            <a href="/contact" className="text-sm md:text-base hover:text-gray-200">Contact</a>
           </div>
 
-          {/* Center: Logo 제거 (원래 위치로 원복) */}
+          {/* Center: Large Logo (Binyan Style Position) */}
           <div className="flex-1 flex justify-center">
-            {/* 중앙 로고 제거 */}
+            <a href="/">
+              <motion.img
+                src="/logo.png"
+                alt="NAIN"
+                // 로고 크기 조절: 현재 w-48 md:w-80으로 크게 설정했습니다.
+                className="w-48 md:w-80 h-auto object-contain"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                draggable={false}
+              />
+            </a>
           </div>
 
-          {/* Right: work (소문자로 100% 롤백) */}
+          {/* Right: Work (Original Capitalization) */}
           <div className="flex-1 flex justify-end">
-            <a href="/work" className="text-sm md:text-base hover:text-gray-200 transition-colors">
-              work
-            </a>
+            <a href="/work" className="text-sm md:text-base hover:text-gray-200">Work</a>
           </div>
         </nav>
       </header>
 
-      {/* ---------------- Main Hero (심플한 단일 영상 섹션 및 로고 크기 확대) ---------------- */}
-      <section className="relative h-screen w-full overflow-hidden">
+      {/* ---------------- Main Hero (Only First Video) ---------------- */}
+      <section className="relative h-screen w-full flex items-center justify-center text-center">
         <video
           autoPlay
           loop
@@ -87,30 +92,14 @@ export default function Page() {
           controls={false}
           controlsList="nodownload noplaybackrate"
         >
-          {/* ★ 추후 Vercel Blob 등 호스팅 주소로 교체할 부분 */}
           <source src="/background.mp4" type="video/mp4" />
         </video>
-        
-        {/* 영상 위 어두운 오버레이 제거 (완전 투명) */}
-        <div className="absolute inset-0 bg-transparent" />
-
-        {/* 로고 영역 (원래 위치로 원복 및 크기 확대 반영) */}
-        <motion.img
-          src="/logo.png"
-          alt="NAIN"
-          className="absolute z-10 left-1/2 -translate-x-1/2 top-28 md:top-130 w-32 md:w-48 h-auto object-contain"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 0.4, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          draggable={false}
-          onContextMenu={(e) => e.preventDefault()}
-        />
+        <div className="absolute inset-0 bg-black/0" />
       </section>
 
-      {/* ---------------- Bottom Section (푸터 폰트 대소문자 및 스타일 100% 롤백) ---------------- */}
+      {/* ---------------- Bottom Section (Original Content & Style 100%) ---------------- */}
       <section className="py-16 bg-black text-white">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-8 items-center">
-          
           {/* Left: Title */}
           <div className="pl-6 md:pl-14 lg:pl-25">
             <h2 className="text-4xl md:text-6xl font-light tracking-[0.04em] md:tracking-[0.04em]">
@@ -118,7 +107,7 @@ export default function Page() {
             </h2>
           </div>
 
-          {/* Right: Socials (icons + lowercase text 100% 롤백) */}
+          {/* Right: Socials (Original Font & Capitalization) */}
           <div className="flex md:justify-end gap-6 pr-6 md:pr-14 lg:pr-25">
             <a
               href="https://www.instagram.com/nainstudio0210/"
@@ -128,7 +117,7 @@ export default function Page() {
               aria-label="Instagram"
             >
               <Instagram className="w-6 h-6" />
-              <span className="hidden sm:inline">instagram</span>
+              <span className="hidden sm:inline">Instagram</span>
             </a>
             <a
               href="https://www.youtube.com/@Nainstudio-v5x"
@@ -138,18 +127,17 @@ export default function Page() {
               aria-label="YouTube"
             >
               <Youtube className="w-6 h-6" />
-              <span className="hidden sm:inline">youtube</span>
+              <span className="hidden sm:inline">YouTube</span>
             </a>
           </div>
 
-          {/* Description (삭제하지 말라는 이전 요구대로 유지) */}
+          {/* Description */}
           <div className="pl-6 md:pl-14 lg:pl-25 pr-6 md:pr-14 lg:pr-25 md:col-span-2">
             <p className="text-lg leading-relaxed max-w-2xl">
               We are a creative visualization studio specializing in architectural imagery,
               animation, and realtime experiences.
             </p>
           </div>
-          
         </div>
       </section>
       
