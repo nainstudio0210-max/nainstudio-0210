@@ -52,7 +52,7 @@ export default function Page() {
           
           {/* Left: Contact */}
           {/* ★ 글씨 높이 조절 1: mt-[30px] 숫자를 줄이면 위로 올라갑니다. (예: mt-[10px]) */}
-          <div className="flex-1 mt-[20px] md:mt-[30px]">
+          <div className="flex-1 mt-[24px] md:mt-[30px]">
             <a href="/contact" className="text-sm md:text-base hover:text-white transition-colors opacity-70 hover:opacity-100">
               Contact
             </a>
@@ -65,7 +65,7 @@ export default function Page() {
               <motion.img
                 src="/logo02.png"
                 alt="NAIN"
-                className="w-28 md:w-40 h-auto object-contain"
+                className="w-30 md:w-44 h-auto object-contain"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 0.8, scale: 1 }}
                 transition={{ duration: 0.8 }}
