@@ -52,7 +52,7 @@ export default function Page() {
           
           {/* Left: Contact */}
           {/* ★ 글씨 높이 조절 1: mt-[30px] 숫자를 줄이면 위로 올라갑니다. (예: mt-[10px]) */}
-          <div className="flex-1 mt-[50px] md:mt-[30px]">
+          <div className="flex-1 mt-[20px] md:mt-[50px]">
             <a href="/contact" className="text-sm md:text-base hover:text-white transition-colors opacity-70 hover:opacity-100">
               Contact
             </a>
