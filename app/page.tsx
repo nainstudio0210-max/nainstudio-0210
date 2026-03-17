@@ -45,7 +45,7 @@ export default function Page() {
       
       {/* ---------------- Header (빈얀 스타일 초슬림 모드) ---------------- */}
       {/* ★ pt-[10px] 처럼 픽셀 단위로 넣으면 숫자가 작을수록 더 위로 올라갑니다. */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-transparent pt-[10px] md:pt-[20px]">
+      <header className="fixed top-0 left-0 w-full z-50 bg-transparent pt-[5px] md:pt-[20px]">
         {/* ★ py-0으로 아래쪽 여백을 완전히 없애서 슬림하게 만들었습니다. */}
         <nav className="w-full px-6 md:px-14 lg:px-16 py-0 flex items-center justify-between">
           
