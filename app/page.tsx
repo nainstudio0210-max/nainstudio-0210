@@ -60,7 +60,7 @@ export default function Page() {
 
           {/* Center: Large Logo */}
           {/* ★ 로고 높이 조절: mt-[15px] 숫자를 조절하세요. 화면 밖으로 밀어 올리고 싶으면 -mt-[10px] 처럼 마이너스를 쓰세요! */}
-          <div className="flex-1 flex justify-center -mt-[2px] md:mt-[15px]">
+          <div className="flex-1 flex justify-center mt-[6px] md:mt-[15px]">
             <a href="/">
               <motion.img
                 src="/logo02.png"
