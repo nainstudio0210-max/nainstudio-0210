@@ -43,28 +43,30 @@ export default function Page() {
   return (
     <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
       
-      {/* ---------------- Header (빈얀 스타일 초슬림 모드) ---------------- */}
-      {/* ★ pt-[10px] 처럼 픽셀 단위로 넣으면 숫자가 작을수록 더 위로 올라갑니다. */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-transparent pt-[5px] md:pt-[20px]">
-        {/* ★ py-0으로 아래쪽 여백을 완전히 없애서 슬림하게 만들었습니다. */}
-        <nav className="w-full px-6 md:px-14 lg:px-16 py-0 flex items-center justify-between">
+      {/* ---------------- Header (블러 효과 완전 삭제 및 투명 고정) ---------------- */}
+      {/* 배경을 투명(bg-transparent)으로 고정하여 빨간색으로 표시하셨던 블러 효과를 원천 차단했습니다. */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-transparent">
+        
+        {/* ★ 강제 중앙 정렬(items-center)을 상단 정렬(items-start)로 바꿔서 족쇄를 풀었습니다! */}
+        <nav className="w-full px-6 md:px-14 lg:px-16 flex items-start justify-between">
           
-          {/* Left: Contact (opacity-70 추가로 밝기 조절) */}
-          <div className="flex-1">
+          {/* Left: Contact */}
+          {/* ★ 글씨 높이 조절 1: mt-[30px] 숫자를 줄이면 위로 올라갑니다. (예: mt-[10px]) */}
+          <div className="flex-1 mt-[20px] md:mt-[30px]">
             <a href="/contact" className="text-sm md:text-base hover:text-white transition-colors opacity-70 hover:opacity-100">
               Contact
             </a>
           </div>
 
           {/* Center: Large Logo */}
-          <div className="flex-1 flex justify-center">
+          {/* ★ 로고 높이 조절: mt-[15px] 숫자를 조절하세요. 화면 밖으로 밀어 올리고 싶으면 -mt-[10px] 처럼 마이너스를 쓰세요! */}
+          <div className="flex-1 flex justify-center mt-[10px] md:mt-[15px]">
             <a href="/">
               <motion.img
                 src="/logo.png"
                 alt="NAIN"
                 className="w-48 md:w-80 h-auto object-contain"
                 initial={{ opacity: 0, scale: 0.95 }}
-                // ★ opacity: 0.8 등으로 조절하면 로고의 투명도(밝기)가 조절됩니다.
                 animate={{ opacity: 0.8, scale: 1 }}
                 transition={{ duration: 0.8 }}
                 draggable={false}
@@ -72,8 +74,9 @@ export default function Page() {
             </a>
           </div>
 
-          {/* Right: Work (text-white/60 처럼 색상 투명도 방식도 가능) */}
-          <div className="flex-1 flex justify-end">
+          {/* Right: Work */}
+          {/* ★ 글씨 높이 조절 2: 왼쪽 Contact와 똑같은 mt- 숫자로 맞춰주세요. */}
+          <div className="flex-1 flex justify-end mt-[20px] md:mt-[30px]">
             <a href="/work" className="text-sm md:text-base hover:text-white transition-colors text-white/60 hover:text-white">
               Work
             </a>
