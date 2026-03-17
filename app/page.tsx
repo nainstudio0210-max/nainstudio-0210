@@ -43,9 +43,10 @@ export default function Page() {
   return (
     <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
       
-      {/* ---------------- Header (Binyan Layout + No Blur + Position Control) ---------------- */}
+      {/* ---------------- Header (위아래 위치 조절 완료) ---------------- */}
+      {/* ★ py-2로 수정하여 위쪽으로 바짝 올렸습니다. 더 올리고 싶으면 py-0으로 하셔도 됩니다. */}
       <header className="fixed top-0 left-0 w-full z-50 bg-transparent py-2">
-        {/* 아래 px-6, md:px-14 등의 수치를 조절하여 Contact와 Work의 좌우 위치를 맞추세요 */}
+        {/* ★ 여기서도 py-2로 수정했습니다. px- 수치는 좌우 간격입니다. */}
         <nav className="w-full px-6 md:px-14 lg:px-16 py-2 flex items-center justify-between">
           
           {/* Left: Contact */}
@@ -59,7 +60,7 @@ export default function Page() {
               <motion.img
                 src="/logo.png"
                 alt="NAIN"
-                // 로고 크기는 대표님이 원하셨던 w-48 md:w-80 유지
+                // 로고 크기: w-48 md:w-80
                 className="w-48 md:w-80 h-auto object-contain"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -92,20 +93,17 @@ export default function Page() {
         >
           <source src="/background.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black/0" />
       </section>
 
       {/* ---------------- Bottom Section (오리지널 스타일 100%) ---------------- */}
-      <section className="py-16 bg-black text-white">
+      <section className="py-16 bg-black text-white border-t border-white/5">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-8 items-center">
-          {/* Left: Title */}
           <div className="pl-6 md:pl-14 lg:pl-25">
             <h2 className="text-4xl md:text-6xl font-light tracking-[0.04em] md:tracking-[0.04em]">
               NAIN STUDIO
             </h2>
           </div>
 
-          {/* Right: Socials (Original Font & Capitalization) */}
           <div className="flex md:justify-end gap-6 pr-6 md:pr-14 lg:pr-25">
             <a
               href="https://www.instagram.com/nainstudio0210/"
@@ -129,7 +127,6 @@ export default function Page() {
             </a>
           </div>
 
-          {/* Description */}
           <div className="pl-6 md:pl-14 lg:pl-25 pr-6 md:pr-14 lg:pr-25 md:col-span-2">
             <p className="text-lg leading-relaxed max-w-2xl">
               We are a creative visualization studio specializing in architectural imagery,
