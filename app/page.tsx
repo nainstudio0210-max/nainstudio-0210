@@ -98,7 +98,8 @@ export default function Page() {
           controls={false}
           controlsList="nodownload noplaybackrate"
         >
-          <source src="/background.mp4" type="video/mp4" />
+          {/* ★ 대표님이 주신 코드에서 이 부분 한 줄만 클라우디너리 영상 주소로 정확하게 바꿨습니다! ★ */}
+          <source src="https://res.cloudinary.com/dbgzgyk6j/video/upload/v1773781635/Showreel_Compile_01_Low_gas3sg.mp4" type="video/mp4" />
         </video>
       </section>
 
