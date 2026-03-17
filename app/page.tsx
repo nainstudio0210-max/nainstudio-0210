@@ -45,9 +45,9 @@ export default function Page() {
       
       {/* ---------------- Header (위아래 위치 조절 완료) ---------------- */}
       {/* ★ py-2로 수정하여 위쪽으로 바짝 올렸습니다. 더 올리고 싶으면 py-0으로 하셔도 됩니다. */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-transparent py-2">
+      <header className="fixed top-0 left-0 w-full z-50 bg-transparent py-0">
         {/* ★ 여기서도 py-2로 수정했습니다. px- 수치는 좌우 간격입니다. */}
-        <nav className="w-full px-6 md:px-14 lg:px-16 py-2 flex items-center justify-between">
+        <nav className="w-full px-6 md:px-14 lg:px-16 py-0 flex items-center justify-between">
           
           {/* Left: Contact */}
           <div className="flex-1">
@@ -61,7 +61,7 @@ export default function Page() {
                 src="/logo.png"
                 alt="NAIN"
                 // 로고 크기: w-48 md:w-80
-                className="w-48 md:w-80 h-auto object-contain"
+                className="w-43 md:w-70 h-auto object-contain"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
