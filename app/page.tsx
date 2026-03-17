@@ -63,7 +63,7 @@ export default function Page() {
           <div className="flex-1 flex justify-center -mt-[4px] md:mt-[15px]">
             <a href="/">
               <motion.img
-                src="/logo.png"
+                src="/logo02.png"
                 alt="NAIN"
                 className="w-48 md:w-80 h-auto object-contain"
                 initial={{ opacity: 0, scale: 0.95 }}
