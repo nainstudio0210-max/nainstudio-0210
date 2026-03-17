@@ -52,7 +52,7 @@ export default function Page() {
           
           {/* Left: Contact */}
           {/* ★ 글씨 높이 조절 1: mt-[30px] 숫자를 줄이면 위로 올라갑니다. (예: mt-[10px]) */}
-          <div className="flex-1 mt-[20px] md:mt-[50px]">
+          <div className="flex-1 mt-[20px] md:mt-[40px]">
             <a href="/contact" className="text-sm md:text-base hover:text-white transition-colors opacity-70 hover:opacity-100">
               Contact
             </a>
@@ -76,7 +76,7 @@ export default function Page() {
 
           {/* Right: Work */}
           {/* ★ 글씨 높이 조절 2: 왼쪽 Contact와 똑같은 mt- 숫자로 맞춰주세요. */}
-          <div className="flex-1 flex justify-end mt-[20px] md:mt-[30px]">
+          <div className="flex-1 flex justify-end mt-[20px] md:mt-[40px]">
             <a href="/work" className="text-sm md:text-base hover:text-white transition-colors text-white/60 hover:text-white">
               Work
             </a>
