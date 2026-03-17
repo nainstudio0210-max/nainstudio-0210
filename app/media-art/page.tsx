@@ -40,7 +40,7 @@ export default function MediaArtPage() {
         id: "media_art_01", 
         type: "youtube", 
         youtubeId: "HDqSteAYnaE", // ★ 유튜브 아이디 부분
-        poster: "/work/Media Art01.jpg", // ★ 썸네일 이미지 경로
+        poster: "/work/Media Art01_poster.jpg", // ★ 썸네일 이미지 경로
         title: "Media Art Project 01", 
         caption: "Media Art",
         span: "md:col-span-4 md:row-span-2"
@@ -48,8 +48,8 @@ export default function MediaArtPage() {
      { 
         id: "media_art_02", 
         type: "youtube", 
-        youtubeId: "rJPs07WfYEQ", // ★ 유튜브 아이디 부분
-        poster: "/work/Media Art02.jpg", // ★ 썸네일 이미지 경로
+        youtubeId: "38Zvh5dychY", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art02_poster.jpg", // ★ 썸네일 이미지 경로
         title: "Media Art Project 02", 
         caption: "Media Art",
         span: "md:col-span-2 md:row-span-2"
@@ -57,21 +57,40 @@ export default function MediaArtPage() {
      { 
         id: "media_art_03", 
         type: "youtube", 
-        youtubeId: "Kx-CE1LrASg", // ★ 유튜브 아이디 부분
-        poster: "/work/Media Art03.jpg", // ★ 썸네일 이미지 경로
+        youtubeId: "1WNec8GatE8", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art03_poster.jpg", // ★ 썸네일 이미지 경로
         title: "Media Art Project 03", 
         caption: "Media Art",
         span: "md:col-span-3 md:row-span-2"
       },
      { 
-        id: "media_art_03", 
+        id: "media_art_04", 
         type: "youtube", 
-        youtubeId: "Kx-CE1LrASg", // ★ 유튜브 아이디 부분
-        poster: "/work/Media Art03.jpg", // ★ 썸네일 이미지 경로
+        youtubeId: "pTyI5GbJNFM", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art04_poster.jpg", // ★ 썸네일 이미지 경로
         title: "Media Art Project 03", 
         caption: "Media Art",
         span: "md:col-span-3 md:row-span-2"
-      }
+      },
+     { 
+        id: "media_art_05", 
+        type: "youtube", 
+        youtubeId: "1qIXj7ENxnA", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art05_poster.jpg", // ★ 썸네일 이미지 경로
+        title: "Media Art Project 02", 
+        caption: "Media Art",
+        span: "md:col-span-2 md:row-span-2"
+      },
+     { 
+        id: "media_art_06", 
+        type: "youtube", 
+        youtubeId: "2bIlH6vk0Xk", // ★ 유튜브 아이디 부분
+        poster: "/work/Media Art06_poster.jpg", // ★ 썸네일 이미지 경로
+        title: "Media Art Project 01", 
+        caption: "Media Art",
+        span: "md:col-span-4 md:row-span-2"
+      },
+
 
       // 새로운 미디어 아트 영상이 생기면 이 아래로 계속 추가하시면 됩니다.
     ],
