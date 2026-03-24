@@ -172,10 +172,20 @@ export default function WorkPage() {
         ]
       },
 
-       { 
-        id: "S-Map City", type: "youtube", youtubeId: "ANd1GuT2F94", poster: "/work/Cityscape Time-Lapse_poster_01.jpg", title: "Cityscape Time-Lapse", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2"
+               { 
+        id: "Urban Glow: Night Edition", 
+        type: "gallery", 
+        title: "Urban Glow: Night Edition", 
+        caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/front_build.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "tq_W15z0Tog" },
+          { type: "youtube", youtubeId: "IIT2orzpvzk" },
+          { type: "image", src: "/work/front_build.jpg" },
+        ]
       },
+
       { 
         id: "IFC02", 
         type: "gallery", 
@@ -235,7 +245,7 @@ export default function WorkPage() {
           { type: "image", src: "/work/SOYO 02_vp.jpg" }
         ]
       },
-      
+
       { 
         id: "Urban Tram", 
         type: "gallery", 
@@ -300,19 +310,12 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2",
         images: [ "/work/Boulangerie.jpg", "/work/Boulangerie_vp.jpg" ] 
       },
-         { 
-        id: "Urban Glow: Night Edition", 
-        type: "gallery", 
-        title: "Urban Glow: Night Edition", 
-        caption: "Portfolio",
-        span: "md:col-span-4 md:row-span-2",
-        poster: "/work/front_build.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "tq_W15z0Tog" },
-          { type: "youtube", youtubeId: "IIT2orzpvzk" },
-          { type: "image", src: "/work/front_build.jpg" },
-        ]
+
+             { 
+        id: "S-Map City", type: "youtube", youtubeId: "ANd1GuT2F94", poster: "/work/Cityscape Time-Lapse_poster_01.jpg", title: "Cityscape Time-Lapse", caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2"
       },
+      
       { 
         id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
