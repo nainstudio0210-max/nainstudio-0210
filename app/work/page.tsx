@@ -208,32 +208,34 @@ export default function WorkPage() {
         span: "md:col-span-4 md:row-span-2"
       },
 
-     { 
-        id: "Mist Twist", 
+            { 
+        id: "Hannam01", 
         type: "gallery", 
-        title: "Kistefos The Twist Reference", 
+        title: "SOYO Hannam Reference Vol.01", 
         caption: "Portfolio",
-        span: "md:col-span-4 md:row-span-2",
-        poster: "/work/The Twist Summer.jpg",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/SOYO Hannam Reference_01.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "lk39bNIp3I4" },
-          { type: "youtube", youtubeId: "CH9wcpx5qX0" },
-          { type: "image", src: "/work/Mist Twist.jpg" },
-          { type: "image", src: "/work/Mist Twist_vp.jpg" }
+          { type: "youtube", youtubeId: "jkJiAkCQtvw" },
+          { type: "image", src: "/work/SOYO Hannam Reference_01.jpg" },
+          { type: "image", src: "/work/SOYO Hannam Reference_01_vp.jpg" }
         ]
       },
-     { 
-        id: "Hanok", 
+      { 
+        id: "Hannam02", 
         type: "gallery", 
-        title: "Four Seasons of Hanok", 
+        title: "SOYO Hannam Reference Vol.02", 
         caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Hanok.jpg",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/SOYO 02.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "8pQVgD8Ws38" },
+          { type: "youtube", youtubeId: "CMAMGmCGLZo" },
+          { type: "youtube", youtubeId: "nnpP5N0rQPM" },
+          { type: "image", src: "/work/SOYO 02.jpg" },
+          { type: "image", src: "/work/SOYO 02_vp.jpg" }
         ]
       },
-
+      
       { 
         id: "Urban Tram", 
         type: "gallery", 
@@ -264,33 +266,35 @@ export default function WorkPage() {
           { type: "image", src: "/work/Forest Glass Villa_vp.jpg" }
         ]
       },
-      { 
-        id: "Hannam01", 
+
+
+           { 
+        id: "Mist Twist", 
         type: "gallery", 
-        title: "SOYO Hannam Reference Vol.01", 
+        title: "Kistefos The Twist Reference", 
         caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2",
-        poster: "/work/SOYO Hannam Reference_01.jpg",
+        span: "md:col-span-4 md:row-span-2",
+        poster: "/work/The Twist Summer.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "jkJiAkCQtvw" },
-          { type: "image", src: "/work/SOYO Hannam Reference_01.jpg" },
-          { type: "image", src: "/work/SOYO Hannam Reference_01_vp.jpg" }
+          { type: "youtube", youtubeId: "lk39bNIp3I4" },
+          { type: "youtube", youtubeId: "CH9wcpx5qX0" },
+          { type: "image", src: "/work/Mist Twist.jpg" },
+          { type: "image", src: "/work/Mist Twist_vp.jpg" }
         ]
       },
-      { 
-        id: "Hannam02", 
+     { 
+        id: "Hanok", 
         type: "gallery", 
-        title: "SOYO Hannam Reference Vol.02", 
+        title: "Four Seasons of Hanok", 
         caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2",
-        poster: "/work/SOYO 02.jpg",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Hanok.jpg",
         galleryContents: [
-          { type: "youtube", youtubeId: "CMAMGmCGLZo" },
-          { type: "youtube", youtubeId: "nnpP5N0rQPM" },
-          { type: "image", src: "/work/SOYO 02.jpg" },
-          { type: "image", src: "/work/SOYO 02_vp.jpg" }
+          { type: "youtube", youtubeId: "8pQVgD8Ws38" },
         ]
       },
+
+
             { 
         id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
         span: "md:col-span-2 md:row-span-2",
