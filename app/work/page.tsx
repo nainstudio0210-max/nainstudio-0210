@@ -208,6 +208,31 @@ export default function WorkPage() {
         span: "md:col-span-4 md:row-span-2"
       },
 
+     { 
+        id: "Mist Twist", 
+        type: "gallery", 
+        title: "Kistefos The Twist Reference", 
+        caption: "Portfolio",
+        span: "md:col-span-4 md:row-span-2",
+        poster: "/work/The Twist Summer.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "lk39bNIp3I4" },
+          { type: "youtube", youtubeId: "CH9wcpx5qX0" },
+          { type: "image", src: "/work/Mist Twist.jpg" },
+          { type: "image", src: "/work/Mist Twist_vp.jpg" }
+        ]
+      },
+     { 
+        id: "Hanok", 
+        type: "gallery", 
+        title: "Four Seasons of Hanok", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Hanok.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "8pQVgD8Ws38" },
+        ]
+      },
 
       { 
         id: "Urban Tram", 
@@ -276,25 +301,12 @@ export default function WorkPage() {
         type: "gallery", 
         title: "Urban Glow: Night Edition", 
         caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
+        span: "md:col-span-4 md:row-span-2",
         poster: "/work/front_build.jpg",
         galleryContents: [
           { type: "youtube", youtubeId: "tq_W15z0Tog" },
           { type: "youtube", youtubeId: "IIT2orzpvzk" },
           { type: "image", src: "/work/front_build.jpg" },
-        ]
-      },
-      { 
-        id: "Mist Twist", 
-        type: "gallery", 
-        title: "Kistefos The Twist Reference", 
-        caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Mist Twist.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "A3995JcwZKE" },
-          { type: "image", src: "/work/Mist Twist.jpg" },
-          { type: "image", src: "/work/Mist Twist_vp.jpg" }
         ]
       },
       { 
@@ -523,7 +535,7 @@ export default function WorkPage() {
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
                 <span className="font-light">Media Art</span>
               </Link>
-              
+
               <Link href="/ai-archviz" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
                 <span className="font-light leading-snug">AI ArchViz</span>
