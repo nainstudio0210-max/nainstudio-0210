@@ -313,6 +313,11 @@ export default function MediaArtPage() {
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
                 <span className="font-light leading-snug">Media Art</span>
               </Link>
+
+              <Link href="/ai-archviz" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
+                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
+                <span className="font-light leading-snug">AI ArchViz</span>
+              </Link>
             </div>
 
           </div>
