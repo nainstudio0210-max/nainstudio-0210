@@ -6,7 +6,6 @@ import { useCallback, useEffect, useMemo, useState, useRef } from "react"
 import { AnimatePresence, motion, Variants } from "framer-motion"
 import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn, Menu } from "lucide-react"
 
-// ★ 1. GalleryContent 타입에 "video" 형식을 추가했습니다!
 type GalleryContent = {
   type: "image" | "youtube" | "video"
   src?: string       
@@ -29,7 +28,6 @@ type MediaItem = {
 export default function AIArchVizPage() {
   const SIDEBAR_W = "w-20 md:w-40"
 
-  // ★ 2. 대표님이 작성하신 클라우디너리 영상 세팅 완료
   const items: MediaItem[] = useMemo(
     () => [
       { 
@@ -40,7 +38,6 @@ export default function AIArchVizPage() {
         span: "md:col-span-2 md:row-span-4",
         poster: "/work/the twist_poster.png",
         galleryContents: [
-          // 유튜브 대신 type: "video" 적용 완료!
           { type: "video", src: "https://res.cloudinary.com/dbgzgyk6j/video/upload/v1774341708/The_Twist_Montani3d_Final_02_Long_1_11__Low_ciol2w.mp4" },
           { type: "image", src: "/work/Mist Twist_vp.jpg" }
         ]
@@ -59,7 +56,6 @@ export default function AIArchVizPage() {
 
   const active = activeIndex == null ? null : items[activeIndex]
 
-  // 모바일 스와이프용 배열 변환 (비디오 타입 대응)
   const flatGalleryItems = useMemo<GalleryContent[]>(() => {
     if (!active) return []
     if (active.type === 'gallery') {
@@ -247,9 +243,9 @@ export default function AIArchVizPage() {
                             <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${content.youtubeId}?autoplay=0&controls=1`} allowFullScreen />
                           </div>
                         ) : content.type === "video" ? (
-                          // ★ 새로 추가된 비디오 플레이어 렌더링 구역!
+                          // ★ controlsList="nodownload" 및 우클릭 방지 추가
                           <div className="w-full flex justify-center bg-black">
-                            <video src={content.src} controls autoPlay muted loop playsInline className="w-full max-h-[75vh] object-contain" />
+                            <video src={content.src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted loop playsInline className="w-full max-h-[75vh] object-contain" />
                           </div>
                         ) : (
                           <div className="relative w-full">
@@ -270,9 +266,9 @@ export default function AIArchVizPage() {
                     <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${active.youtubeId}?autoplay=1&controls=1`} allowFullScreen />
                   </div>
                 ) : active.type === "video" ? (
-                  // 단일 비디오 아이템일 때의 렌더링
+                  // ★ controlsList="nodownload" 및 우클릭 방지 추가
                   <div className="w-full h-full flex items-center justify-center bg-black">
-                    <video src={active.src} controls autoPlay muted loop playsInline className="w-full max-h-full object-contain" />
+                    <video src={active.src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted loop playsInline className="w-full max-h-full object-contain" />
                   </div>
                 ) : null}
                 <div className="h-20" />
@@ -297,9 +293,9 @@ export default function AIArchVizPage() {
               {flatGalleryItems[lightboxIndex].type === "youtube" ? (
                 <div className="w-full aspect-video"><iframe className="w-full h-full" src={`https://www.youtube.com/embed/${flatGalleryItems[lightboxIndex].youtubeId}?autoplay=1`} allowFullScreen /></div>
               ) : flatGalleryItems[lightboxIndex].type === "video" ? (
-                // 모바일용 비디오 플레이어 렌더링
+                // ★ controlsList="nodownload" 및 우클릭 방지 추가
                 <div className="w-full h-full flex items-center justify-center">
-                  <video src={flatGalleryItems[lightboxIndex].src} controls autoPlay muted playsInline className="w-full max-h-full object-contain" />
+                  <video src={flatGalleryItems[lightboxIndex].src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted playsInline className="w-full max-h-full object-contain" />
                 </div>
               ) : (
                 <Image src={flatGalleryItems[lightboxIndex].src || ""} alt="Full Screen View" fill className="object-contain select-none" draggable={false} style={{ WebkitTouchCallout: 'none' }} priority />
