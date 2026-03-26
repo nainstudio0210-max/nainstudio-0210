@@ -246,39 +246,8 @@ export default function WorkPage() {
         ]
       },
 
-      { 
-        id: "Urban Tram", 
-        type: "gallery", 
-        title: "Urban Tram", 
-        caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Urban Tram_poster.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "ACr2FGmycls" },
-        ]
-      },
 
-
-      { 
-        id: "PORSCHE", type: "youtube", youtubeId: "n1cirHzIZ90", poster: "/work/PORSCHE CAYENNE_Poster.jpg", title: "Forest Splash", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "Forest Glass Villa", 
-        type: "gallery", 
-        title: "Forest Glass Villa", 
-        caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Forest Glass Villa.jpg",
-        galleryContents: [
-          { type: "youtube", youtubeId: "YIG6xQn8Gok" },
-          { type: "image", src: "/work/Forest Glass Villa.jpg" },
-          { type: "image", src: "/work/Forest Glass Villa_vp.jpg" }
-        ]
-      },
-
-
-           { 
+     { 
         id: "Mist Twist", 
         type: "gallery", 
         title: "Kistefos The Twist Reference", 
@@ -303,6 +272,37 @@ export default function WorkPage() {
           { type: "youtube", youtubeId: "8pQVgD8Ws38" },
         ]
       },
+
+
+      { 
+        id: "Urban Tram", 
+        type: "gallery", 
+        title: "Urban Tram", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Urban Tram_poster.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "ACr2FGmycls" },
+        ]
+      },
+      { 
+        id: "PORSCHE", type: "youtube", youtubeId: "n1cirHzIZ90", poster: "/work/PORSCHE CAYENNE_Poster.jpg", title: "Forest Splash", caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      { 
+        id: "Forest Glass Villa", 
+        type: "gallery", 
+        title: "Forest Glass Villa", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2",
+        poster: "/work/Forest Glass Villa.jpg",
+        galleryContents: [
+          { type: "youtube", youtubeId: "YIG6xQn8Gok" },
+          { type: "image", src: "/work/Forest Glass Villa.jpg" },
+          { type: "image", src: "/work/Forest Glass Villa_vp.jpg" }
+        ]
+      },
+
 
 
             { 
