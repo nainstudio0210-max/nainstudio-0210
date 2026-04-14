@@ -3,8 +3,6 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-// ★ 홈 화면과 동일하게 아이콘 3개를 불러옵니다.
-import { Instagram, Youtube, MessageCircle } from "lucide-react"
 
 export default function ContactPage() {
   const [scrolled, setScrolled] = useState(false)
@@ -92,20 +90,6 @@ export default function ContactPage() {
                 <p className="text-gray-400">경기 김포시 김포한강11로 312, 2층 201호</p>
                 <p className="text-gray-400">nainstudio0210@gmail.com</p>
                 <p className="text-gray-400">010-4112-3739</p>
-
-                {/* ★ 요청하신 SNS 아이콘 3개 추가 부분입니다. ★ */}
-                <div className="flex items-center gap-6 pt-4">
-                  <a href="https://www.instagram.com/nainstudio0210/" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
-                    <Instagram className="w-6 h-6 md:w-7 md:h-7" />
-                  </a>
-                  <a href="https://www.youtube.com/@Nainstudio-v5x" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">
-                    <Youtube className="w-6 h-6 md:w-7 md:h-7" />
-                  </a>
-                  <a href="https://pf.kakao.com/_hPAlX" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors" aria-label="KakaoTalk">
-                    <MessageCircle className="w-6 h-6 md:w-7 md:h-7" />
-                  </a>
-                </div>
-
               </div>
             </section>
 
