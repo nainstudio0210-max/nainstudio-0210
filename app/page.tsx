@@ -2,7 +2,8 @@
 "use client"
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Instagram, Youtube } from "lucide-react"
+// ★ 카카오톡용 말풍선 아이콘(MessageCircle)을 새로 불러왔습니다.
+import { Instagram, Youtube, MessageCircle } from "lucide-react"
 
 export default function Page() {
   const [scrolled, setScrolled] = useState(false)
@@ -112,7 +113,8 @@ export default function Page() {
             </h2>
           </div>
 
-          <div className="flex md:justify-end gap-6 pr-6 md:pr-14 lg:pr-25">
+          {/* ★ 우측 여백(pr)을 pr-12 md:pr-24 lg:pr-36 으로 키워서 왼쪽으로 이동시켰습니다. */}
+          <div className="flex md:justify-end gap-6 pr-12 md:pr-24 lg:pr-36">
             <a href="https://www.instagram.com/nainstudio0210/" target="_blank" className="inline-flex items-center gap-2 hover:opacity-80">
               <Instagram className="w-6 h-6" />
               <span className="hidden sm:inline">Instagram</span>
@@ -120,6 +122,11 @@ export default function Page() {
             <a href="https://www.youtube.com/@Nainstudio-v5x" target="_blank" className="inline-flex items-center gap-2 hover:opacity-80">
               <Youtube className="w-6 h-6" />
               <span className="hidden sm:inline">YouTube</span>
+            </a>
+            {/* ★ 카카오톡 비즈니스 채널 버튼을 새로 추가했습니다. */}
+            <a href="https://pf.kakao.com/_hPAlX" target="_blank" className="inline-flex items-center gap-2 hover:opacity-80">
+              <MessageCircle className="w-6 h-6" />
+              <span className="hidden sm:inline">KakaoTalk</span>
             </a>
           </div>
 
