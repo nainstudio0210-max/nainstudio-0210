@@ -301,13 +301,11 @@ export default function MediaArtPage() {
             
             {/* 하위 메뉴 리스트 */}
             <div className="flex flex-col items-start gap-2.5 md:gap-3 pl-6 md:pl-10">
-              {/* ★ 수정: 미디어 아트 페이지이므로 Projects & Portfolio를 비활성화 (회색 얇은 선) 상태로 변경 */}
               <Link href="/work" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
                 <span className="font-light group-hover:opacity-80 transition-opacity">Projects<br className="md:hidden"/> & Portfolio</span>
               </Link>
               
-              {/* ★ 수정: 미디어 아트 페이지이므로 Media Art를 활성화 (주황색 굵은 선) 상태로 변경 */}
               <Link href="/media-art" className="text-white hover:text-white flex items-center gap-2 group">
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
                 <span className="font-light leading-snug">Media Art</span>
@@ -332,7 +330,6 @@ export default function MediaArtPage() {
       </aside>
 
       {/* ---------------- 메인 프로젝트 타일 ---------------- */}
-      {/* 대표님이 직접 수정하신 pl-40 완벽 적용 */}
       <main className="pl-20 md:pl-40">
         <div className="mx-auto max-w-[1700px] grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-6 auto-rows-[120px] md:auto-rows-[170px] lg:auto-rows-[190px] p-3 md:p-6">
           {items.map((item, i) => (
@@ -413,7 +410,7 @@ export default function MediaArtPage() {
             </motion.div>
           </motion.div>
         )}
-      </AnPresence>
+      </AnimatePresence>
 
       {/* ---------------- Layer 2: 모바일 쿠팡 스타일 스와이프 뷰어 ---------------- */}
       <AnimatePresence>
