@@ -75,7 +75,7 @@ export default function WorkPage() {
           "/work/Shake Shake_17.jpg",
         ]
       },
-            { 
+      { 
         id: "coffeeworks", type: "gallery", title: "COFFEE@WORKS Project", caption: "Daejeon Time World Project", poster: "/work/COFFEE@WORKS_Daejeon Time World_SPC_01.jpg",
         span: "md:col-span-2 md:row-span-2",
         galleryContents: [
@@ -93,35 +93,30 @@ export default function WorkPage() {
         id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
-       { 
+      { 
         id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
-       { 
+      { 
         id: "dandelion", type: "gallery", title: "3D dandelion animation", caption: "Portfolio", poster: "/work/dandelion_poster.jpg",
         span: "md:col-span-2 md:row-span-2",
         galleryContents: [
-                    { type: "youtube", youtubeId: "UIf5aytb5so" },
+          { type: "youtube", youtubeId: "UIf5aytb5so" },
           { type: "image", src: "/work/dandelion_poster.jpg" }, 
           { type: "image", src: "/work/dandelion vp.jpg" }, 
         ]
       },
-             { 
+      { 
         id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
-         title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
+        title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2"
       },
-             { 
+      { 
         id: "Sakura Onsen Cafe", type: "youtube", youtubeId: "ZHcF7w-4bW4", poster: "/work/Sakura Onsen Cafe_poster.jpg",
-         title: "Sakura Onsen Cafe", caption: "Portfolio",
+        title: "Sakura Onsen Cafe", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2"
       },
-
-
-      
-
-
-       { 
+      { 
         id: "Shake Shake_Incheon", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
         span: "md:col-span-2 md:row-span-2",
         images: [
@@ -153,10 +148,6 @@ export default function WorkPage() {
           { type: "image", src: "/work/Interior ceiling height_02.jpg" }
         ]
       },
-
-
-
-
       { 
         id: "Vineyard-style concert hall", type: "gallery", title: "Vineyard-style concert hall", caption: "Portfolio", poster: "/work/Vineyard-style concert hall_02.png",
         span: "md:col-span-2 md:row-span-2",
@@ -171,8 +162,7 @@ export default function WorkPage() {
           "/work/HERMETIA Seocho Project_01.jpg", "/work/HERMETIA Seocho Project_02.jpg", "/work/HERMETIA Seocho Project_03.jpg",
         ]
       },
-
-               { 
+      { 
         id: "Urban Glow: Night Edition", 
         type: "gallery", 
         title: "Urban Glow: Night Edition", 
@@ -185,7 +175,6 @@ export default function WorkPage() {
           { type: "image", src: "/work/front_build.jpg" },
         ]
       },
-
       { 
         id: "IFC02", 
         type: "gallery", 
@@ -217,8 +206,7 @@ export default function WorkPage() {
         id: "Sheikh", type: "youtube", youtubeId: "_OTcL-5EqZo", poster: "/work/08_poster.jpg", title: "Sheikh Zayed Bridge Reference", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
-
-            { 
+      { 
         id: "Hannam01", 
         type: "gallery", 
         title: "SOYO Hannam Reference Vol.01", 
@@ -245,12 +233,10 @@ export default function WorkPage() {
           { type: "image", src: "/work/SOYO 02_vp.jpg" }
         ]
       },
-
-
-     { 
+      { 
         id: "Mist Twist", 
         type: "gallery", 
-        title: "Kistefos The Twist Reference", 
+        title: "Kistefof The Twist Reference", 
         caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2",
         poster: "/work/The Twist Summer.jpg",
@@ -261,7 +247,7 @@ export default function WorkPage() {
           { type: "image", src: "/work/Mist Twist_vp.jpg" }
         ]
       },
-     { 
+      { 
         id: "Hanok", 
         type: "gallery", 
         title: "Four Seasons of Hanok", 
@@ -272,8 +258,6 @@ export default function WorkPage() {
           { type: "youtube", youtubeId: "8pQVgD8Ws38" },
         ]
       },
-
-
       { 
         id: "Urban Tram", 
         type: "gallery", 
@@ -302,20 +286,15 @@ export default function WorkPage() {
           { type: "image", src: "/work/Forest Glass Villa_vp.jpg" }
         ]
       },
-
-
-
-            { 
+      { 
         id: "Boulangerie", type: "gallery", title: "The Urban Boulangerie", caption: "Portfolio" , poster: "/work/Boulangerie.jpg", 
         span: "md:col-span-2 md:row-span-2",
         images: [ "/work/Boulangerie.jpg", "/work/Boulangerie_vp.jpg" ] 
       },
-
-             { 
+      { 
         id: "S-Map City", type: "youtube", youtubeId: "ANd1GuT2F94", poster: "/work/Cityscape Time-Lapse_poster_01.jpg", title: "Cityscape Time-Lapse", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
       },
-      
       { 
         id: "15", type: "youtube", youtubeId: "OODmLCZ9bwo", poster: "/work/15_poster.jpg", title: "Misty Forest Retreat", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
@@ -543,10 +522,7 @@ export default function WorkPage() {
                 <span className="font-light">Media Art</span>
               </Link>
 
-              <Link href="/ai-archviz" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
-                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
-                <span className="font-light leading-snug">AI ArchViz</span>
-              </Link>
+              {/* ★ AI ArchViz 메뉴 링크가 완벽히 도려내진 구역입니다. ★ */}
             </div>
 
           </div>
