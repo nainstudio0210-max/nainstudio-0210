@@ -32,7 +32,7 @@ export default function WorkPage() {
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
-  // 3. 전체 데이터 리스트 (대표님 스크린샷의 최신 배치 순서 100% 반영)
+  // 3. 전체 데이터 리스트 (대표님의 레이아웃 복구 원본 데이터 고정)
   const items: MediaItem[] = useMemo(
     () => [
       {
@@ -43,15 +43,15 @@ export default function WorkPage() {
         id: "Kitakaruizawa", type: "youtube", youtubeId: "cq3p_9qZ_68", poster: "/work/Forest Glass Villa.jpg", title: "KITAKARUIZAWA 3D Render Animation with AI", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
-      // ★ 대표님이 빨간 밑줄로 표시하셨던 중복 항목을 로컬 mp4용 코드로 완벽 변환했습니다!
+      // ★ 이 부분 데이터를 수정하시려면 id, src, poster, title만 수정하시고 type과 span은 절대 건드리지 마세요!
       {
         id: "The Twist Shorts", 
         type: "video", 
-        src: "/work/The Twist_Shorts_Low.mp4", // public 폴더 기준 경로
-        poster: "/work/the twist_poster.png", // 원하시는 썸네일 이미지 경로
+        src: "/work/The Twist_Shorts_Low.mp4", 
+        poster: "/work/the twist_poster.png", 
         title: "The Twist 3D Render Animation with AI Vol.1", 
         caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
+        span: "md:col-span-2 md:row-span-2" // 가로 2칸 유지해야 그리드가 안 깨집니다.
       },
       { 
         id: "Gold Coast Aerials", 
@@ -107,7 +107,7 @@ export default function WorkPage() {
         id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
-      // ★ 누락되어 그리드를 깨뜨렸던 원본 바이레도 데이터를 완벽하게 복구하여 배치했습니다.
+      // ★ 그리드를 지키기 위해 복구된 원본 Byredo 데이터입니다.
       { 
         id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
@@ -569,7 +569,7 @@ export default function WorkPage() {
         </div>
       </main>
 
-      {/* ---------------- Layer 1: 메인 프로젝트 모달 (mp4 렌더링 지원 추가) ---------------- */}
+      {/* ---------------- Layer 1: 메인 프로젝트 모달 (PC용 플레이어 음소거 해제) ---------------- */}
       <AnimatePresence>
         {active && activeIndex != null && (
           <motion.div
@@ -600,9 +600,9 @@ export default function WorkPage() {
                             <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${content.youtubeId}?autoplay=0&controls=1`} allowFullScreen />
                           </div>
                         ) : content.type === "video" ? (
-                          // ★ 갤러리 내부에 비디오 타입이 들어올 경우 처리 구역
+                          // ★ 갤러리 내부 로컬 비디오 플레이어 구역 (Loop 재생만 유지)
                           <div className="w-full flex justify-center bg-black">
-                            <video src={content.src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted loop playsInline className="w-full max-h-[75vh] object-contain" />
+                            <video src={content.src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay loop playsInline className="w-full max-h-[75vh] object-contain" />
                           </div>
                         ) : (
                           <div className="relative w-full">
@@ -637,9 +637,9 @@ export default function WorkPage() {
                     <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${active.youtubeId}?autoplay=1&controls=1`} allowFullScreen />
                   </div>
                 ) : active.type === "video" ? (
-                  // ★ 단일 아이템이 video(로컬 mp4)일 때 보안 다운로드 방지가 적용된 플레이어를 띄워줍니다!
+                  // ★ 단일 비디오 플레이어 구역 (autoPlay 활성화, muted 완전 제거 완료)
                   <div className="w-full h-full flex items-center justify-center bg-black">
-                    <video src={active.src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted loop playsInline className="w-full max-h-full object-contain" />
+                    <video src={active.src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay loop playsInline className="w-full max-h-full object-contain" />
                   </div>
                 ) : null}
                 <div className="h-20" />
@@ -653,7 +653,7 @@ export default function WorkPage() {
         )}
       </AnimatePresence>
 
-      {/* ---------------- Layer 2: 모바일 쿠팡 스타일 스와이프 뷰어 (mp4 지원 추가) ---------------- */}
+      {/* ---------------- Layer 2: 모바일 쿠팡 스타일 스와이프 뷰어 (모바일용 플레이어 음소거 해제) ---------------- */}
       <AnimatePresence>
         {lightboxIndex !== null && flatGalleryItems.length > 0 && (
           <motion.div
@@ -683,9 +683,9 @@ export default function WorkPage() {
                   <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${flatGalleryItems[lightboxIndex].youtubeId}?autoplay=1`} allowFullScreen />
                 </div>
               ) : flatGalleryItems[lightboxIndex].type === "video" ? (
-                // ★ 모바일 스와이프 모드에서도 로컬 비디오 플레이어 작동 처리
+                // ★ 모바일 스와이프 모드 비디오 플레이어 (muted 완전 제거 완료)
                 <div className="w-full h-full flex items-center justify-center">
-                  <video src={flatGalleryItems[lightboxIndex].src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted playsInline className="w-full max-h-full object-contain" />
+                  <video src={flatGalleryItems[lightboxIndex].src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay loop playsInline className="w-full max-h-full object-contain" />
                 </div>
               ) : (
                 <Image
