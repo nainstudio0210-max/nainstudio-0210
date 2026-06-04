@@ -40,7 +40,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2"
       },
       {
-        id: "Kitakaruizawa", type: "youtube", youtubeId: "w5UhflhaTQg", poster: "/work/Forest Glass Villa.jpg", title: "KITAKARUIZAWA 3D Render Animation with AI", caption: "Project",
+        id: "Kitakaruizawa", type: "youtube", youtubeId: "cq3p_9qZ_68", poster: "/work/Forest Glass Villa.jpg", title: "KITAKARUIZAWA 3D Render Animation with AI", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
       // ★ 대표님이 빨간 밑줄로 표시하셨던 중복 항목을 로컬 mp4용 코드로 완벽 변환했습니다!
