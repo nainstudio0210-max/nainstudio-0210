@@ -107,6 +107,11 @@ export default function WorkPage() {
         id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
       },
+      // ★ 누락되어 그리드를 깨뜨렸던 원본 바이레도 데이터를 완벽하게 복구하여 배치했습니다.
+      { 
+        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
+        span: "md:col-span-2 md:row-span-2"
+      },
       { 
         id: "04", type: "youtube", youtubeId: "plaDbIY6Q3A", poster: "/work/04_poster.jpg", title: "3D Visual Exploration", caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2"
