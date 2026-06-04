@@ -40,7 +40,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2"
       },
       {
-        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
+        id: "Kitakaruizawa", type: "youtube", youtubeId: "w5UhflhaTQg", poster: "/work/Forest Glass Villa.jpg", title: "KITAKARUIZAWA 3D Render Animation with AI", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
       // ★ 대표님이 빨간 밑줄로 표시하셨던 중복 항목을 로컬 mp4용 코드로 완벽 변환했습니다!
@@ -48,7 +48,7 @@ export default function WorkPage() {
         id: "The Twist Shorts", 
         type: "video", 
         src: "/work/The Twist_Shorts_Low.mp4", // public 폴더 기준 경로
-        poster: "/work/03_poster.jpg", // 원하시는 썸네일 이미지 경로
+        poster: "/work/the twist_poster.png", // 원하시는 썸네일 이미지 경로
         title: "The Twist 3D Render Animation with AI Vol.1", 
         caption: "Portfolio",
         span: "md:col-span-2 md:row-span-2"
