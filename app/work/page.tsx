@@ -6,9 +6,9 @@ import { useCallback, useEffect, useMemo, useState, useRef } from "react"
 import { AnimatePresence, motion, Variants } from "framer-motion"
 import { Instagram, Youtube, Play, ChevronLeft, ChevronRight, X as XIcon, Maximize, Layers, ZoomIn, Menu } from "lucide-react"
 
-// 1. 갤러리/유튜브 혼합용 타입 정의
+// 1. 갤러리/유튜브/로컬비디오 혼합용 타입 정의 (video 타입 추가 완료)
 type GalleryContent = {
-  type: "image" | "youtube"
+  type: "image" | "youtube" | "video"
   src?: string       
   youtubeId?: string 
 }
@@ -32,9 +32,27 @@ export default function WorkPage() {
   const NAV_OFFSET_PX = 14
   const NAV_GAP_PX = 8
 
-  // 3. 전체 데이터 리스트 (누락 없이 모두 포함)
+  // 3. 전체 데이터 리스트 (대표님 스크린샷의 최신 배치 순서 100% 반영)
   const items: MediaItem[] = useMemo(
     () => [
+      {
+        id: "Showreel", type: "youtube", youtubeId: "-ZPEkh02j3c", poster: "/work/03_poster.jpg", title: "NAIN STUDIO Showreel 2026", caption: "Project",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      {
+        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
+        span: "md:col-span-2 md:row-span-2"
+      },
+      // ★ 대표님이 빨간 밑줄로 표시하셨던 중복 항목을 로컬 mp4용 코드로 완벽 변환했습니다!
+      {
+        id: "The Twist Shorts", 
+        type: "video", 
+        src: "/work/The Twist_Shorts_Low.mp4", // public 폴더 기준 경로
+        poster: "/work/03_poster.jpg", // 원하시는 썸네일 이미지 경로
+        title: "The Twist 3D Render Animation with AI Vol.1", 
+        caption: "Portfolio",
+        span: "md:col-span-2 md:row-span-2"
+      },
       { 
         id: "Gold Coast Aerials", 
         type: "gallery", 
@@ -87,10 +105,6 @@ export default function WorkPage() {
       },
       { 
         id: "02", type: "image", src: "/work/02.jpg", title: "Umbrella Atrium", caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2"
-      },
-      { 
-        id: "Byredo", type: "youtube", youtubeId: "q5WxmdEaxJY", poster: "/work/03_poster.jpg", title: "Byredo: Elemental Essence", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
       { 
@@ -236,7 +250,7 @@ export default function WorkPage() {
       { 
         id: "Mist Twist", 
         type: "gallery", 
-        title: "Kistefof The Twist Reference", 
+        title: "Kistefos The Twist Reference", 
         caption: "Portfolio",
         span: "md:col-span-4 md:row-span-2",
         poster: "/work/The Twist Summer.jpg",
@@ -323,7 +337,7 @@ export default function WorkPage() {
 
   const active = activeIndex == null ? null : items[activeIndex]
 
-  // 모바일 스와이프용 배열 변환
+  // 모바일 스와이프용 배열 변환 (video 타입 분기 추가)
   const flatGalleryItems = useMemo<GalleryContent[]>(() => {
     if (!active) return []
     if (active.type === 'gallery') {
@@ -332,6 +346,7 @@ export default function WorkPage() {
     }
     if (active.type === 'image') return [{ type: 'image', src: active.src }]
     if (active.type === 'youtube') return [{ type: 'youtube', youtubeId: active.youtubeId }]
+    if (active.type === 'video') return [{ type: 'video', src: active.src }]
     return []
   }, [active])
 
@@ -522,7 +537,7 @@ export default function WorkPage() {
                 <span className="font-light">Media Art</span>
               </Link>
 
-              {/* ★ AI ArchViz 메뉴 링크가 완벽히 도려내진 구역입니다. ★ */}
+              {/* ★ AI ArchViz 메뉴 링크 제거 완료 ★ */}
             </div>
 
           </div>
@@ -549,7 +564,7 @@ export default function WorkPage() {
         </div>
       </main>
 
-      {/* ---------------- Layer 1: 메인 프로젝트 모달 ---------------- */}
+      {/* ---------------- Layer 1: 메인 프로젝트 모달 (mp4 렌더링 지원 추가) ---------------- */}
       <AnimatePresence>
         {active && activeIndex != null && (
           <motion.div
@@ -578,6 +593,11 @@ export default function WorkPage() {
                         {content.type === "youtube" ? (
                           <div className="w-full aspect-video">
                             <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${content.youtubeId}?autoplay=0&controls=1`} allowFullScreen />
+                          </div>
+                        ) : content.type === "video" ? (
+                          // ★ 갤러리 내부에 비디오 타입이 들어올 경우 처리 구역
+                          <div className="w-full flex justify-center bg-black">
+                            <video src={content.src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted loop playsInline className="w-full max-h-[75vh] object-contain" />
                           </div>
                         ) : (
                           <div className="relative w-full">
@@ -611,6 +631,11 @@ export default function WorkPage() {
                   <div className="w-full h-full bg-black">
                     <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${active.youtubeId}?autoplay=1&controls=1`} allowFullScreen />
                   </div>
+                ) : active.type === "video" ? (
+                  // ★ 단일 아이템이 video(로컬 mp4)일 때 보안 다운로드 방지가 적용된 플레이어를 띄워줍니다!
+                  <div className="w-full h-full flex items-center justify-center bg-black">
+                    <video src={active.src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted loop playsInline className="w-full max-h-full object-contain" />
+                  </div>
                 ) : null}
                 <div className="h-20" />
               </div>
@@ -623,7 +648,7 @@ export default function WorkPage() {
         )}
       </AnimatePresence>
 
-      {/* ---------------- Layer 2: 모바일 쿠팡 스타일 스와이프 뷰어 ---------------- */}
+      {/* ---------------- Layer 2: 모바일 쿠팡 스타일 스와이프 뷰어 (mp4 지원 추가) ---------------- */}
       <AnimatePresence>
         {lightboxIndex !== null && flatGalleryItems.length > 0 && (
           <motion.div
@@ -651,6 +676,11 @@ export default function WorkPage() {
               {flatGalleryItems[lightboxIndex].type === "youtube" ? (
                 <div className="w-full aspect-video">
                   <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${flatGalleryItems[lightboxIndex].youtubeId}?autoplay=1`} allowFullScreen />
+                </div>
+              ) : flatGalleryItems[lightboxIndex].type === "video" ? (
+                // ★ 모바일 스와이프 모드에서도 로컬 비디오 플레이어 작동 처리
+                <div className="w-full h-full flex items-center justify-center">
+                  <video src={flatGalleryItems[lightboxIndex].src} controls controlsList="nodownload" onContextMenu={(e) => e.preventDefault()} autoPlay muted playsInline className="w-full max-h-full object-contain" />
                 </div>
               ) : (
                 <Image
