@@ -36,7 +36,7 @@ export default function WorkPage() {
   const items: MediaItem[] = useMemo(
     () => [
       {
-        id: "Showreel", type: "youtube", youtubeId: "-ZPEkh02j3c", poster: "/work/03_poster.jpg", title: "NAIN STUDIO Showreel 2026", caption: "Project",
+        id: "Showreel", type: "youtube", youtubeId: "-ZPEkh02j3c", poster: "/work/Logo_1920x1080_White_2026.jpg", title: "NAIN STUDIO Showreel 2026", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
       {
