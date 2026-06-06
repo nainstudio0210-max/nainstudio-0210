@@ -40,7 +40,7 @@ export default function WorkPage() {
         span: "md:col-span-2 md:row-span-2"
       },
       {
-        id: "Kitakaruizawa", type: "youtube", youtubeId: "cq3p_9qZ_68", poster: "/work/Forest Glass Villa.jpg", title: "KITAKARUIZAWA 3D Render Animation with AI", caption: "Project",
+        id: "Kitakaruizawa", type: "video", src: "/work/Final Kitakaruizawa 02_Web.mp4", poster: "/work/Forest Glass Villa.jpg", title: "KITAKARUIZAWA 3D Render Animation with AI Vol.2", caption: "Project",
         span: "md:col-span-2 md:row-span-2"
       },
       // ★ 이 부분 데이터를 수정하시려면 id, src, poster, title만 수정하시고 type과 span은 절대 건드리지 마세요!
