@@ -519,8 +519,8 @@ export default function CinematicIntro({
                   <span
                     className="absolute grid place-items-center"
                     style={{
-                      width: 44,
-                      height: 44,
+                      width: 66,
+                      height: 66,
                       opacity: locked ? 0 : 1,
                       transform: `translate(-50%, -50%) scale(${locked ? 0.4 : 1})`,
                       transition: "opacity 300ms ease, transform 300ms ease",
@@ -531,7 +531,7 @@ export default function CinematicIntro({
                         visible snap back to full every cycle. */}
                     <motion.span
                       className="absolute rounded-full"
-                      style={{ width: 14, height: 14, backgroundColor: ACCENT }}
+                      style={{ width: 21, height: 21, backgroundColor: ACCENT }}
                       animate={{ scale: [0.9, 1.5, 3.6], opacity: [0, 0.5, 0] }}
                       transition={{
                         duration: 2.8,
@@ -544,10 +544,10 @@ export default function CinematicIntro({
                     <span
                       className="relative block rounded-full"
                       style={{
-                        width: 14,
-                        height: 14,
+                        width: 21,
+                        height: 21,
                         backgroundColor: ACCENT,
-                        boxShadow: `0 0 12px ${ACCENT}, 0 0 3px rgba(0,0,0,0.6)`,
+                        boxShadow: `0 0 18px ${ACCENT}, 0 0 4px rgba(0,0,0,0.6)`,
                       }}
                     />
                   </span>
