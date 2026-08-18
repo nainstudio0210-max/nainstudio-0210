@@ -127,6 +127,8 @@ export default function Page() {
           지금, 프로젝트를 시작해보세요.
         </h2>
         <p className="mt-4 text-sm md:text-base text-white/60">
+          20년간 쌓아온 노하우로, 첫 미팅부터 확실한 방향을 제시합니다.
+          <br />
           간단한 브리핑만으로 견적과 일정 안내를 도와드립니다.
         </p>
         <ContactForm />
@@ -156,7 +158,7 @@ export default function Page() {
 
           <div className="pl-6 md:pl-14 lg:pl-25 pr-6 md:pr-14 lg:pr-25 md:col-span-2">
             <p className="text-sm md:text-base leading-relaxed max-w-2xl opacity-70">
-              Architecture Visualization Studio — 건축 시각화 · 애니메이션 · 리얼타임 경험
+              20년 경력의 Architecture Visualization Studio — 건축 시각화 · 애니메이션 · 리얼타임 경험
             </p>
           </div>
         </div>

@@ -27,6 +27,50 @@ type MediaItem = {
   span: string 
 }
 
+// 인테리어 태그: 나머지는 전부 익스테리어로 간주
+const INTERIOR_IDS = new Set([
+  "Showreel", "Kitakaruizawa", "shake01", "coffeeworks", "02", "Byredo", "04",
+  "MYONGWOLGWAN", "Sakura Onsen Cafe", "GRAND JOSUN Jeju", "Interior ceiling height",
+  "Shake Shake_Incheon", "Interior Ocean", "Vineyard-style concert hall",
+  "HERMETIA Seocho", "Boulangerie",
+])
+
+// Showreel은 인테리어/익스테리어 장면을 다 담고 있어서 둘 다 태그
+const ALSO_EXTERIOR_IDS = new Set(["Showreel"])
+
+function getCategories(item: MediaItem): Array<"interior" | "exterior"> {
+  const isInterior = INTERIOR_IDS.has(item.id)
+  const cats: Array<"interior" | "exterior"> = []
+  if (isInterior) cats.push("interior")
+  if (!isInterior || ALSO_EXTERIOR_IDS.has(item.id)) cats.push("exterior")
+  return cats
+}
+
+function hasImageContent(item: MediaItem): boolean {
+  if (item.type === "image") return true
+  if (item.type === "gallery") {
+    if (item.images && item.images.length > 0) return true
+    if (item.galleryContents?.some((c) => c.type === "image")) return true
+  }
+  return false
+}
+
+function hasAnimationContent(item: MediaItem): boolean {
+  if (item.type === "video" || item.type === "youtube") return true
+  if (item.type === "gallery" && item.galleryContents?.some((c) => c.type === "video" || c.type === "youtube")) return true
+  return false
+}
+
+const TYPE_OPTIONS = [
+  { key: "image" as const, label: "Image" },
+  { key: "animation" as const, label: "Animation" },
+]
+
+const CATEGORY_OPTIONS = [
+  { key: "interior" as const, label: "Interior" },
+  { key: "exterior" as const, label: "Exterior" },
+]
+
 export default function WorkPage() {
   const SIDEBAR_W = "w-20 md:w-40"
   const NAV_OFFSET_PX = 14
@@ -125,34 +169,29 @@ export default function WorkPage() {
           { type: "image", src: "/work/dandelion vp.jpg" }, 
         ]
       },
-      { 
-        id: "Unreal Interior", type: "youtube", youtubeId: "rxb98mBXT7I", poster: "/work/Unreal Interior poster.jpg",
-        title: "Interactive Real-Time Home Experience | Animation 3D Tour", caption: "Portfolio",
-        span: "md:col-span-3 md:row-span-2"
+            { 
+        id: "MYONGWOLGWAN", type: "gallery", title: "VISTA WALKERHILL SEOUL MYONGWOLGWAN Project", caption: "MYONGWOLGWAN SEOUL Project", poster: "/work/MYONGWOLGWAN_04.jpg",
+        span: "md:col-span-3 md:row-span-2",
+        images: [
+          "/work/MYONGWOLGWAN_01.jpg", "/work/MYONGWOLGWAN_02.jpg", "/work/MYONGWOLGWAN_03.jpg", "/work/MYONGWOLGWAN_04.jpg",
+          "/work/MYONGWOLGWAN_05.jpg",
+        ]
       },
       { 
         id: "Sakura Onsen Cafe", type: "youtube", youtubeId: "ZHcF7w-4bW4", poster: "/work/Sakura Onsen Cafe_poster.jpg",
         title: "Sakura Onsen Cafe", caption: "Portfolio",
         span: "md:col-span-3 md:row-span-2"
       },
-      { 
-        id: "Shake Shake_Incheon", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
-        span: "md:col-span-2 md:row-span-2",
+
+
+
+
+
+            { 
+        id: "GRAND JOSUN Jeju", type: "gallery", title: "GRAND JOSUN Jeju Project", caption: "GRAND JOSUN Jeju Project", poster: "/work/JOSUN_01.jpg",
+        span: "md:col-span-4 md:row-span-2",
         images: [
-          "/work/Shake Shake_Incheon_01.jpg", "/work/Shake Shake_Incheon_02.jpg", "/work/Shake Shake_Incheon_03.jpg", "/work/Shake Shake_Incheon_04.jpg",
-          "/work/Shake Shake_Incheon_05.jpg",
-        ]
-      },
-      { 
-        id: "Interior Ocean", 
-        type: "gallery", 
-        title: "Interior Ocean", 
-        caption: "Portfolio",
-        span: "md:col-span-2 md:row-span-2",
-        poster: "/work/Interior Ocean.jpg",
-        galleryContents: [
-          { type: "image", src: "/work/Interior Ocean.jpg" },
-          { type: "youtube", youtubeId: "PhFaa-IfPYs"}
+          "/work/JOSUN_01.jpg", "/work/JOSUN_02.jpg", "/work/JOSUN_03.jpg", "/work/JOSUN_04.jpg",
         ]
       },
       { 
@@ -167,6 +206,35 @@ export default function WorkPage() {
           { type: "image", src: "/work/Interior ceiling height_02.jpg" }
         ]
       },
+
+
+      { 
+        id: "Shake Shake_Incheon", type: "gallery", title: "Shake Shake Incheon Project", caption: "Incheon Project", poster: "/work/Shake Shake_Incheon_04.jpg",
+        span: "md:col-span-3 md:row-span-2",
+        images: [
+          "/work/Shake Shake_Incheon_01.jpg", "/work/Shake Shake_Incheon_02.jpg", "/work/Shake Shake_Incheon_03.jpg", "/work/Shake Shake_Incheon_04.jpg",
+          "/work/Shake Shake_Incheon_05.jpg",
+        ]
+      },
+      { 
+        id: "Interior Ocean", 
+        type: "gallery", 
+        title: "Interior Ocean", 
+        caption: "Portfolio",
+        span: "md:col-span-3 md:row-span-2",
+        poster: "/work/Interior Ocean.jpg",
+        galleryContents: [
+          { type: "image", src: "/work/Interior Ocean.jpg" },
+          { type: "youtube", youtubeId: "PhFaa-IfPYs"}
+        ]
+      },
+
+
+
+
+
+
+
       { 
         id: "Vineyard-style concert hall", type: "gallery", title: "Vineyard-style concert hall", caption: "Portfolio", poster: "/work/Vineyard-style concert hall_02.png",
         span: "md:col-span-2 md:row-span-2",
@@ -336,11 +404,47 @@ export default function WorkPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
+  // 필터 상태 (타입: 이미지/애니메이션, 카테고리: 인테리어/익스테리어)
+  const [typeFilter, setTypeFilter] = useState<Set<"image" | "animation">>(new Set())
+  const [catFilter, setCatFilter] = useState<Set<"interior" | "exterior">>(new Set())
+
+  const toggleType = useCallback((key: "image" | "animation") => {
+    setTypeFilter((prev) => {
+      const next = new Set(prev)
+      next.has(key) ? next.delete(key) : next.add(key)
+      return next
+    })
+  }, [])
+
+  const toggleCategory = useCallback((key: "interior" | "exterior") => {
+    setCatFilter((prev) => {
+      const next = new Set(prev)
+      next.has(key) ? next.delete(key) : next.add(key)
+      return next
+    })
+  }, [])
+
+  const resetFilters = useCallback(() => {
+    setTypeFilter(new Set())
+    setCatFilter(new Set())
+  }, [])
+
   // 4. 스와이프 터치 좌표 기록
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
   const [touchEndX, setTouchEndX] = useState<number | null>(null)
 
-  const active = activeIndex == null ? null : items[activeIndex]
+  const filteredItems = useMemo(() => {
+    return items.filter((item) => {
+      const typeOk =
+        typeFilter.size === 0 ||
+        (typeFilter.has("image") && hasImageContent(item)) ||
+        (typeFilter.has("animation") && hasAnimationContent(item))
+      const catOk = catFilter.size === 0 || getCategories(item).some((c) => catFilter.has(c))
+      return typeOk && catOk
+    })
+  }, [items, typeFilter, catFilter])
+
+  const active = activeIndex == null ? null : filteredItems[activeIndex]
 
   // 모바일 스와이프용 배열 변환 (video 타입 분기 추가)
   const flatGalleryItems = useMemo<GalleryContent[]>(() => {
@@ -368,13 +472,13 @@ export default function WorkPage() {
 
   const goPrev = useCallback((e?: React.MouseEvent) => {
     if(e) e.stopPropagation()
-    setActiveIndex((idx) => (idx == null ? null : (idx - 1 + items.length) % items.length))
-  }, [items.length])
+    setActiveIndex((idx) => (idx == null ? null : (idx - 1 + filteredItems.length) % filteredItems.length))
+  }, [filteredItems.length])
 
   const goNext = useCallback((e?: React.MouseEvent) => {
     if(e) e.stopPropagation()
-    setActiveIndex((idx) => (idx == null ? null : (idx + 1) % items.length))
-  }, [items.length])
+    setActiveIndex((idx) => (idx == null ? null : (idx + 1) % filteredItems.length))
+  }, [filteredItems.length])
 
   // --- 모바일 전용 Lightbox 스와이프 핸들러 ---
   const goLightboxPrev = useCallback(() => {
@@ -536,7 +640,53 @@ export default function WorkPage() {
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
                 <span className="font-light group-hover:opacity-80 transition-opacity">Projects<br className="md:hidden"/> & Portfolio</span>
               </Link>
-              
+
+              {/* ---- 필터: Type / Category ---- */}
+              <div className="flex flex-col gap-2.5 md:gap-3 mt-1 md:mt-2 pl-3 md:pl-4 border-l border-white/10">
+                <div className="flex flex-col gap-1.5 md:gap-2">
+                  {TYPE_OPTIONS.map((opt) => (
+                    <label key={opt.key} className="flex items-center gap-2 cursor-pointer group/f">
+                      <input
+                        type="checkbox"
+                        checked={typeFilter.has(opt.key)}
+                        onChange={() => toggleType(opt.key)}
+                        className="peer sr-only"
+                      />
+                      <span className="flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 border border-white/30 bg-transparent peer-checked:border-2 peer-checked:border-[#e85d22] transition-colors" />
+                      <span className="font-light text-white/50 group-hover/f:text-white peer-checked:text-white transition-colors">
+                        {opt.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+
+                <div className="flex flex-col gap-1.5 md:gap-2">
+                  {CATEGORY_OPTIONS.map((opt) => (
+                    <label key={opt.key} className="flex items-center gap-2 cursor-pointer group/f">
+                      <input
+                        type="checkbox"
+                        checked={catFilter.has(opt.key)}
+                        onChange={() => toggleCategory(opt.key)}
+                        className="peer sr-only"
+                      />
+                      <span className="flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 border border-white/30 bg-transparent peer-checked:border-2 peer-checked:border-[#e85d22] transition-colors" />
+                      <span className="font-light text-white/50 group-hover/f:text-white peer-checked:text-white transition-colors">
+                        {opt.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+
+                {(typeFilter.size > 0 || catFilter.size > 0) && (
+                  <button
+                    onClick={resetFilters}
+                    className="text-left text-white/30 hover:text-white underline underline-offset-2 transition-colors"
+                  >
+                    Reset filter
+                  </button>
+                )}
+              </div>
+
               <Link href="/media-art" className="text-white/50 hover:text-white flex items-center gap-2 group transition-colors">
                 <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
                 <span className="font-light">Media Art</span>
@@ -563,7 +713,7 @@ export default function WorkPage() {
       {/* ---------------- 메인 프로젝트 타일 ---------------- */}
       <main className="pl-20 md:pl-40">
         <div className="mx-auto max-w-[1700px] grid gap-3 md:gap-4 grid-cols-2 md:grid-cols-6 auto-rows-[120px] md:auto-rows-[170px] lg:auto-rows-[190px] p-3 md:p-6">
-          {items.map((item, i) => (
+          {filteredItems.map((item, i) => (
             <Tile key={item.id} item={item} span={item.span} onOpen={() => openAt(i)} priority={i < 6} />
           ))}
         </div>

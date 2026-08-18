@@ -29,11 +29,17 @@ SEQUENCE_CLIPS = [
     os.path.join(SOURCE_DIR, "Up_Video Final_03.mp4"),
     os.path.join(SOURCE_DIR, "Up_Video Final_04.mp4"),
 ]
-AMBIENT_CLIP = os.path.join(SOURCE_DIR, "Up_Video Final_05.mp4")
+AMBIENT_CLIP = os.path.join(SOURCE_DIR, "Up_Video Final_05_x2 Slow.mp4")
 
 TOTAL_FRAMES = 382
 OUT_W, OUT_H = 1280, 720
-WEBP_QUALITY = 60
+WEBP_QUALITY = 35
+
+# The ambient loop is a plain background video rather than a scrubbed sequence,
+# so it carries its own resolution: 1080p reads noticeably cleaner full-bleed
+# and inter-frame compression keeps it cheap even at the higher size.
+AMBIENT_W = 1920
+AMBIENT_CRF = 23
 
 SEQ_DIR = os.path.join(PUBLIC, "sequences", "intro")
 AMBIENT_OUT = os.path.join(PUBLIC, "ambient-courtyard.mp4")
@@ -167,9 +173,9 @@ def main():
     print("Transcoding ambient loop video...")
     run([
         "ffmpeg", "-v", "error", "-i", AMBIENT_CLIP,
-        "-vf", f"scale={OUT_W}:{OUT_H}:flags=lanczos",
-        "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "20",
-        "-pix_fmt", "yuv420p",
+        "-vf", f"scale={AMBIENT_W}:-2:flags=lanczos",
+        "-an", "-c:v", "libx264", "-preset", "slow", "-crf", str(AMBIENT_CRF),
+        "-pix_fmt", "yuv420p", "-movflags", "+faststart",
         AMBIENT_OUT, "-y",
     ])
     print(f"  {os.path.getsize(AMBIENT_OUT) / 1_000_000:.1f} MB")

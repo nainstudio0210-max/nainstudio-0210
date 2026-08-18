@@ -62,6 +62,15 @@ export default function ContactForm() {
           {status.kind === "sending" ? "전송 중…" : "문의 보내기"}
         </button>
 
+        {/* The last screen otherwise dead-ends: the header has hidden itself on
+            the way down, so this is the only route left into the work. */}
+        <a
+          href="/work"
+          className="px-8 py-3.5 text-sm border border-white/40 hover:border-white transition-colors"
+        >
+          포트폴리오 보기
+        </a>
+
         {status.message && (
           <p
             role="status"
