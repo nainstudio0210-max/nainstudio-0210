@@ -757,7 +757,11 @@ export default function WorkPage() {
                         ) : (
                           <div className="relative w-full">
                             <Image
-                              src={content.src || ""} alt={`Gallery Item ${index}`}
+                              src={content.src || ""}
+                              // "Gallery Item 3" tells a screen reader nothing
+                              // and gives image search nothing to index. The
+                              // project name is the useful part.
+                              alt={`${active.title}${active.caption ? ` · ${active.caption}` : ""} 상세 이미지 ${index + 1}`}
                               width={0} height={0} sizes="100vw"
                               className="w-full h-auto object-contain rounded-sm select-none"
                               style={{ WebkitTouchCallout: 'none' }} draggable={false} priority={index === 0}
@@ -840,7 +844,7 @@ export default function WorkPage() {
               ) : (
                 <Image
                   src={flatGalleryItems[lightboxIndex].src || ""}
-                  alt="Full Screen View"
+                  alt={`${active?.title ?? ""} 확대 이미지 ${lightboxIndex + 1}`}
                   fill
                   className="object-contain select-none"
                   draggable={false}
@@ -897,7 +901,7 @@ function Tile({
         {(item.type === "image" || item.type === "gallery") && posterSrc ? (
           <Image
             src={posterSrc}
-            alt={item.title || ""}
+            alt={item.caption ? `${item.title} · ${item.caption}` : item.title || ""}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             priority={priority}
@@ -910,7 +914,7 @@ function Tile({
             {item.poster ? (
               <Image
                 src={item.poster}
-                alt={item.title || ""}
+                alt={item.caption ? `${item.title} · ${item.caption}` : item.title || ""}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 draggable={false}
