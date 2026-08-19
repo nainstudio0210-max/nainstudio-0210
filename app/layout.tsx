@@ -68,6 +68,11 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
+  // Search Console ownership proof. Removing these un-verifies the property,
+  // so they stay after the check passes.
+  verification: {
+    google: "Ji5hPetKVt5me2wrOmm9n059Y1yzPyEKn3fVTfxscbs",
+  },
 };
 
 // Tells search engines this is a specific local business rather than an
