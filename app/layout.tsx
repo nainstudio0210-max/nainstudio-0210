@@ -72,6 +72,9 @@ export const metadata: Metadata = {
   // so they stay after the check passes.
   verification: {
     google: "Ji5hPetKVt5me2wrOmm9n059Y1yzPyEKn3fVTfxscbs",
+    other: {
+      "naver-site-verification": "26917f745783db2918bddba513919e3d97c6f828",
+    },
   },
 };
 
