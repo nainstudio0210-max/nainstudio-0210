@@ -156,6 +156,23 @@ export default function CinematicIntro({
   const stageRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
 
+  // A cursor-tracking lens has nothing to track on a touch screen, and the plate
+  // it magnifies plus the four detail shots are close to a megabyte the phone
+  // would download for an interaction it can never perform. Worse, the
+  // displacement filter runs every frame on top of a 382-frame scrub, which is
+  // what makes the page crawl on a handset. Starts false so the server render
+  // and the first client render agree.
+  const [finePointer, setFinePointer] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)")
+    const sync = () => setFinePointer(mq.matches)
+    sync()
+    mq.addEventListener("change", sync)
+    return () => mq.removeEventListener("change", sync)
+  }, [])
+
+  const lensEnabled = finePointer && !prefersReducedMotion
+
   const videoARef = useRef<HTMLVideoElement>(null)
   const videoBRef = useRef<HTMLVideoElement>(null)
   const [videoRunning, setVideoRunning] = useState(false)
@@ -227,6 +244,8 @@ export default function CinematicIntro({
   // covers the top strip of the viewport and would otherwise swallow the move
   // events, killing the lens whenever the cursor crossed into the nav band.
   useEffect(() => {
+    if (!lensEnabled) return
+
     const onMove = (e: PointerEvent) => {
       const stage = stageRef.current
       if (!stage) return
@@ -281,7 +300,7 @@ export default function CinematicIntro({
       window.removeEventListener("pointermove", onMove)
       document.removeEventListener("pointerleave", park)
     }
-  }, [pointerX, pointerY])
+  }, [pointerX, pointerY, lensEnabled])
 
   return (
     <section ref={ref} className="relative h-[720vh]">
@@ -341,7 +360,7 @@ export default function CinematicIntro({
         {/* Clay reveal: the same opening frame, untextured, shown only inside a
             lens that follows the cursor. Reduced motion drops it entirely — the
             whole point is the pointer chase. */}
-        {!prefersReducedMotion && (
+        {lensEnabled && (
           <motion.svg
             aria-hidden
             className="absolute inset-0 w-full h-full pointer-events-none"
@@ -500,7 +519,7 @@ export default function CinematicIntro({
         {/* Markers are purely visual. Clicking is handled on the stage against
             whatever the lens has locked, so the hit target can never disagree
             with what the viewer is actually looking at. */}
-        {!prefersReducedMotion && (
+        {lensEnabled && (
           <motion.div
             className="absolute inset-0 pointer-events-none"
             style={{ opacity: lensOpacity }}
