@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1045" fill="none" stroke="currentColor" stroke-width="25" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="NAIN STUDIO">
+  <path d="M45 712 A684 670 0 0 1 1413 712 H1185"/>
+  <path d="M1470 712 L1453 462 Q1640 530 1757 712 V605"/>
+  <circle cx="1438" cy="345" r="50" stroke="#9a4424" stroke-width="30"/>
+  <path d="M45 1005 V800 Q260 860 400 1000 V800"/>
+  <path d="M612 1005 V800 Q850 850 1030 1000 M612 900 H886"/>
+  <path d="M1188 800 V1005"/>
+  <path d="M1400 1005 V800 Q1615 860 1755 1000 V800"/>
+</svg>

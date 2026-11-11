@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import NainLogo from "./NainLogo"
 
 export default function SiteHeader() {
   // A permanently fixed bar sits on top of every section below the intro — the
@@ -41,12 +42,7 @@ export default function SiteHeader() {
 
         <div className="flex-1 flex justify-center mt-[6px] md:mt-[15px]">
           <Link href="/">
-            <img
-              src="/logo02.png"
-              alt="NAIN"
-              className="w-30 md:w-44 h-auto object-contain opacity-80"
-              draggable={false}
-            />
+            <NainLogo className="w-30 md:w-44 h-auto opacity-80" />
           </Link>
         </div>
 

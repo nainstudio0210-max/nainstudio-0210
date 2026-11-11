@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <path d="M6 12 L42 12 C43.105 12 44 12.895 44 14 L44 34 C44 35.105 43.105 36 42 36 L6 36 C4.895 36 4 35.105 4 34 L4 14 C4 12.895 4.895 12 6 12 Z" fill="none" stroke="#1f1b16" stroke-width="1.6" stroke-linejoin="round"/>
+      <polygon points="20,18 31,24 20,30" fill="#9a4424"/>
+      <path d="M6.5 16 L11.5 16 L11.5 21 L6.5 21 Z M6.5 26 L11.5 26 L11.5 31 L6.5 31 Z M36.5 16 L41.5 16 L41.5 21 L36.5 21 Z M36.5 26 L41.5 26 L41.5 31 L36.5 31 Z" fill="none" stroke="#1f1b16" stroke-width="1.4" stroke-linejoin="round"/>
+</svg>

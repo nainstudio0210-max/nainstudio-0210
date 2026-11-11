@@ -6,24 +6,60 @@ import SiteHeader from "./components/home/SiteHeader"
 import CinematicIntro from "./components/home/CinematicIntro"
 import ClientMarquee from "./components/home/ClientMarquee"
 import ContactForm from "./components/home/ContactForm"
-import TiltCard from "./components/home/TiltCard"
+import ServiceFlow, { SelectedWorkFlow } from "./components/home/ServiceFlow"
+import { serviceIcons } from "./components/home/ServiceIcons"
 import { clients } from "./data/clients"
 
-// Stills rather than the source clips: the three hero videos are 70–100MB each
-// and this section sits below a 27MB frame sequence. The moving versions live
-// on /work.
+// Paper palette, shared with the leaflet and the company profile.
+const PAPER = "#e4dbcb"
+const PAPER2 = "#dad0bd"
+const INK = "#1f1b16"
+const MUTE = "#584e42"
+const ACC = "#9a4424"
+
+const CART_URL = "https://yn-golf-cart-parts-explorer.vercel.app/"
+
 const featuredWork = [
-  { title: "LE|EL UPPERHOUSE VR", src: "/work/le-el-upperhouse-home.jpg" },
-  { title: "Shake Shake Incheon", src: "/work/shake-shake-incheon-home.jpg" },
-  { title: "Gold Coast", src: "/work/gold-coast-home.jpg" },
+  {
+    title: "LE|EL UPPERHOUSE",
+    kind: "현상설계 CG · 360VR · VR 웹페이지",
+    src: "/work/leel-home-mono.webp",
+    preview: undefined as string | undefined,
+    // Greyscale and locked: the client has not cleared this one for the site.
+    locked: true,
+    cta: "문의 주시면 보여드립니다",
+    href: "/contact",
+  },
+  {
+    title: "GOLF CART & LSV PARTS",
+    kind: "인터랙티브 웹 카탈로그",
+    src: "/work/golfcart-home.webp",
+    preview: "/work/golfcart-preview.mp4",
+    locked: false,
+    cta: "카탈로그 열기",
+    href: CART_URL,
+  },
+  {
+    title: "NAIN STUDIO SHOWREEL",
+    kind: "2026 쇼릴",
+    src: "/work/Logo_1920x1080_White_2026.jpg",
+    preview: "/work/showreel-preview.mp4",
+    locked: false,
+    cta: "쇼릴 재생",
+    href: "https://www.youtube.com/watch?v=-ZPEkh02j3c",
+  },
 ]
 
+// Each card is the entry point to its /services page — the one route search
+// actually lands on. Copy is repeated here rather than imported from
+// app/services/data.ts on purpose: this is a client component, and importing
+// that module would ship every landing page's body text in the home bundle.
 const services = [
-  { label: "스틸 이미지", en: "Still", desc: "설계 의도를 한 장의 이미지로 압축합니다." },
-  { label: "애니메이션", en: "Animation", desc: "공간의 동선과 분위기를 시간 위에 펼칩니다." },
-  { label: "리얼타임 · VR", en: "Realtime", desc: "실시간 워크스루로, 완공 전 공간을 미리 걷습니다." },
-  { label: "AI 소셜 패키지", en: "AI Social Pack", desc: "짧은 형식의 소셜 콘텐츠로 확장되는 비주얼 패키지입니다." },
-]
+  { label: "스틸 이미지", en: "Still", icon: "perspective", desc: "설계 의도를 한 장의 이미지로 압축합니다.", href: "/services/architectural-rendering" },
+  { label: "애니메이션 · 홍보영상", en: "Animation", icon: "cinematic", desc: "공간의 동선과 분위기를 시간 위에 펼칩니다. 숏폼 소셜 리컷까지.", href: "/services/animation" },
+  { label: "리얼타임 · VR", en: "Realtime", icon: "vr", desc: "실시간 워크스루로, 완공 전 공간을 미리 걷습니다.", href: "/services/vr" },
+  { label: "현상설계 CG", en: "Competition", icon: "aerial", desc: "제출 일정에서 역산해 패널 이미지와 심사용 영상을 맞춥니다.", href: "/services/competition" },
+] as const
 
 export default function Page() {
   // ===== 보안 차단 (오리지널 로직 유지) =====
@@ -69,50 +105,170 @@ export default function Page() {
         ]}
       />
 
+      {/* The intro ends on black and the sequence starts on paper. Without
+          this the two meet on a hard line across the page; a band of their own
+          gradient lets the eye walk from one to the other. */}
+      <div
+        id="flow-lead"
+        aria-hidden
+        className="h-[42vh] md:h-[55vh] -mb-px"
+        style={{ background: `linear-gradient(to bottom, #000 0%, #0f0d0b 22%, #6b5f50 68%, ${PAPER} 100%)` }}
+      />
+
+      {/* ---- 스크롤로 넘기는 서비스 시퀀스 → 주요 실적 ---- */}
+      <ServiceFlow />
+      <SelectedWorkFlow />
+
       {/* ---------------- Services ---------------- */}
-      <section id="services" className="py-20 md:py-28 px-6 md:px-14 lg:px-16 border-t border-white/10">
-        <span className="text-xs tracking-[0.2em] text-[#D9772B]">SERVICES</span>
+      {/* The sequence above shows the work; this grid is the index under it —
+          the only place on the home page that links into /services/*. */}
+      <section
+        id="services"
+        className="py-20 md:py-28 px-6 md:px-14 lg:px-16"
+        style={{ background: PAPER, color: INK, borderTop: `1px solid ${PAPER2}` }}
+      >
+        <span className="text-xs tracking-[0.2em]" style={{ color: ACC }}>SERVICES</span>
         <h2 className="mt-4 text-2xl md:text-4xl font-light tracking-[-0.02em] mb-14 md:mb-20">
-          공간을 보여주는 네 가지 방식
+          서비스 자세히 보기
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: PAPER2 }}>
           {services.map((s) => (
-            <div key={s.en} className="bg-black p-8 md:p-10 flex flex-col gap-4">
-              <span className="text-[10px] tracking-[0.15em] text-white/40">{s.en}</span>
+            <a
+              key={s.en}
+              href={s.href}
+              className="group p-8 md:p-10 flex flex-col gap-4 transition-colors"
+              style={{ background: PAPER }}
+            >
+              {(() => {
+                const Icon = serviceIcons[s.icon]
+                return <Icon className="w-10 h-10" />
+              })()}
+              <span className="text-[10px] tracking-[0.15em]" style={{ color: ACC }}>{s.en}</span>
               <h3 className="text-lg md:text-xl font-normal">{s.label}</h3>
-              <p className="text-sm text-white/60 leading-relaxed">{s.desc}</p>
-            </div>
+              <p className="text-sm leading-relaxed" style={{ color: MUTE }}>{s.desc}</p>
+              <span
+                className="mt-auto pt-6 text-xs transition-opacity opacity-60 group-hover:opacity-100"
+                style={{ color: ACC }}
+              >
+                자세히 보기 →
+              </span>
+            </a>
           ))}
         </div>
       </section>
 
       {/* ---------------- 대표 프로젝트 ---------------- */}
-      <section id="work-preview" className="py-20 md:py-28 px-6 md:px-14 lg:px-16 border-t border-white/10">
+      <section
+        id="work-preview"
+        className="py-20 md:py-28 px-6 md:px-14 lg:px-16"
+        style={{ background: PAPER, color: INK, borderTop: `1px solid ${PAPER2}` }}
+      >
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14 md:mb-20">
           <div>
-            <span className="text-xs tracking-[0.2em] text-[#D9772B]">WORK</span>
+            <span className="text-xs tracking-[0.2em]" style={{ color: ACC }}>WORK</span>
             <h2 className="mt-4 text-2xl md:text-4xl font-light tracking-[-0.02em]">대표 프로젝트</h2>
           </div>
           <a
             href="/work"
-            className="text-sm border border-white/40 hover:border-white transition-colors px-5 py-2.5 self-start md:self-auto"
+            className="text-sm px-5 py-2.5 self-start md:self-auto transition-colors"
+            style={{ border: `1px solid ${ACC}`, color: ACC }}
           >
             포트폴리오 보기
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {featuredWork.map((item) => (
-            <TiltCard key={item.title} className="group relative aspect-[4/5] overflow-hidden bg-neutral-900">
-              <img
-                src={item.src}
-                alt={item.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                draggable={false}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <span className="absolute bottom-4 left-4 text-sm md:text-base">{item.title}</span>
-            </TiltCard>
+        {/* Hovering a card should feel like a frame being set, not like the
+            card wobbling. Four things move together and none of them is a
+            tilt: the outline closes in on the picture, the picture comes up
+            out of grey, a rule draws under the title, and the label gives way
+            to where the card actually goes. */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+          {featuredWork.map((item, i) => (
+            <a
+              key={item.title}
+              href={item.href}
+              target={item.href.startsWith("http") ? "_blank" : undefined}
+              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+              className="group block focus:outline-none"
+              // The preview only runs under the pointer, and goes back to its
+              // first frame on the way out so the next hover starts clean.
+              onMouseEnter={(e) => void e.currentTarget.querySelector("video")?.play().catch(() => {})}
+              onMouseLeave={(e) => {
+                const v = e.currentTarget.querySelector("video")
+                if (v) {
+                  v.pause()
+                  v.currentTime = 0
+                }
+              }}
+            >
+              <div
+                className="relative aspect-[16/10] overflow-hidden bg-[#15120f] outline outline-[1.5px] outline-[#9a4424]
+                           [outline-offset:10px] group-hover:[outline-offset:2px] group-focus-visible:[outline-offset:2px]
+                           transition-[outline-offset] duration-700 ease-out"
+              >
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover grayscale-[.45] saturate-[.85]
+                             transition-[transform,filter] duration-[1100ms] ease-out
+                             group-hover:grayscale-0 group-hover:saturate-100 group-hover:scale-[1.06]"
+                  draggable={false}
+                />
+                {item.preview && (
+                  <video
+                    src={item.preview}
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+
+                {item.locked && (
+                  <>
+                    {/* The veil thins on hover — enough to say there is
+                        something here without showing the project. */}
+                    <div className="absolute inset-0 backdrop-blur-[7px] bg-black/40 transition-all duration-700 group-hover:backdrop-blur-[3px] group-hover:bg-black/20" />
+                    <span
+                      className="absolute top-4 right-4 z-10 text-[10px] tracking-[0.18em] px-3 py-1.5"
+                      style={{ background: PAPER, color: INK }}
+                    >
+                      비공개
+                    </span>
+                  </>
+                )}
+
+                {/* The index slides in from the edge it is pinned to. */}
+                <span className="absolute top-4 left-4 z-10 font-mono text-[11px] tracking-[0.2em] text-[#f3ede3]/0 -translate-x-2 transition-all duration-500 group-hover:text-[#f3ede3]/80 group-hover:translate-x-0">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                <span className="absolute inset-x-5 bottom-5 z-10 block">
+                  <span className="flex items-end justify-between gap-3">
+                    <span className="text-[#f3ede3] text-sm md:text-base tracking-[0.02em] transition-transform duration-500 group-hover:-translate-y-1">
+                      {item.title}
+                    </span>
+                    {/* Wiped in from the left rather than faded: a fade on a
+                        chip this small just reads as a rendering hiccup. */}
+                    <span
+                      className="shrink-0 text-[10px] md:text-xs px-3 py-1.5 [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-500 ease-out group-hover:[clip-path:inset(0_0_0_0)]"
+                      style={{ background: ACC, color: "#f6efe4" }}
+                    >
+                      {item.cta} ↗
+                    </span>
+                  </span>
+                  <span
+                    className="mt-3 block h-px origin-left scale-x-0 transition-transform duration-700 delay-75 ease-out group-hover:scale-x-100"
+                    style={{ background: ACC }}
+                  />
+                </span>
+              </div>
+              <p className="mt-6 text-xs md:text-sm transition-colors duration-500 group-hover:text-[#9a4424]" style={{ color: MUTE }}>
+                {item.kind}
+              </p>
+            </a>
           ))}
         </div>
       </section>

@@ -112,12 +112,15 @@ const organizationLd = {
     "@type": "OfferCatalog",
     name: "건축 시각화 서비스",
     itemListElement: [
+      // `url` points at the matching /services landing so the offer and the
+      // page crawlers index are the same thing, not two unrelated claims.
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
           name: "건축 투시도·조감도 (스틸 이미지)",
           description: "설계 의도를 한 장의 이미지로 압축한 건축 CG 렌더링.",
+          url: `${SITE_URL}/services/architectural-rendering`,
         },
       },
       {
@@ -126,6 +129,7 @@ const organizationLd = {
           "@type": "Service",
           name: "건축 애니메이션·시네마틱 영상",
           description: "공간의 동선과 분위기를 담아내는 3D 건축 영상 제작.",
+          url: `${SITE_URL}/services/animation`,
         },
       },
       {
@@ -135,6 +139,17 @@ const organizationLd = {
           name: "리얼타임 VR 워크스루",
           description:
             "언리얼 엔진 기반 실시간 워크스루로 완공 전 공간을 직접 걸어보는 인터랙티브 경험.",
+          url: `${SITE_URL}/services/vr`,
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "현상설계·설계공모 CG",
+          description:
+            "제출 일정을 기준으로 역산해 준비하는 현상설계 패널 투시도와 심사용 영상.",
+          url: `${SITE_URL}/services/competition`,
         },
       },
       {

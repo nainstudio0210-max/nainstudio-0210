@@ -11,3 +11,4 @@ Thumbs.db
 .omc/
 .claude/
 tsconfig.tsbuildinfo
+.craft/
