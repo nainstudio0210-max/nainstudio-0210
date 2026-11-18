@@ -91,7 +91,7 @@ export default function ContactPage() {
 이메일, 전화, 문자, 인스타그램 DM, 카카오톡 채널 등 편하신 방법으로 언제든지 연락 주세요. 친절하고 자세하게 답변드리겠습니다.
                 </p>
                 <p className="text-gray-400">경기 김포시 김포한강11로 312, 2층 201호</p>
-                <p className="text-gray-400">nainstudio0210@gmail.com</p>
+                <p className="text-gray-400">nainstudio0210@naver.com</p>
                 <p className="text-gray-400">010-4112-3739</p>
 
                 {/* ★ 요청하신 SNS 아이콘 3개 추가 부분입니다. ★ */}

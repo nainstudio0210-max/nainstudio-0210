@@ -30,6 +30,9 @@ export type Service = {
   schemaName: string
   schemaDescription: string
   hero: { src: string; alt: string }
+  /** A short muted loop played over the hero image, which stays as its
+   *  poster and as what search and reduced-data readers get. */
+  heroVideo?: string
   /** "이런 경우에 필요합니다" — the buying situation, not the feature. */
   situations: string[]
   deliverables: { title: string; desc: string }[]
@@ -77,8 +80,8 @@ export const services: Service[] = [
     // This page sells exteriors and aerials, so every image on it has to be
     // one. An atrium shot here reads as "they only do interiors".
     hero: {
-      src: "/services/rendering-hero.webp",
-      alt: "노출 콘크리트 외관과 진입부를 담은 건축 투시도 CG",
+      src: "/services/rendering-hero-myongwolgwan.webp",
+      alt: "비스타 워커힐 서울 명월관 한옥 진입부 건축 투시도 CG",
     },
     situations: [
       "분양 또는 심의 자료에 들어갈 대표 이미지가 필요한 경우",
@@ -117,7 +120,7 @@ export const services: Service[] = [
       {
         step: "03",
         title: "1차 시안",
-        desc: "재질, 조명, 식재, 인물까지 올린 1차 이미지를 전달하고 수정 의견을 받습니다.",
+        desc: "재질, 조명, 식재, 인물까지 올린 1차 이미지를 보여드리고 1회 수정을 반영합니다.",
       },
       {
         step: "04",
@@ -137,9 +140,9 @@ export const services: Service[] = [
         caption: "Umbrella Atrium",
       },
       {
-        src: "/services/rendering-soyo.webp",
-        alt: "소요 한남 레퍼런스 중정 조경 건축 투시도 CG",
-        caption: "SOYO Hannam Reference",
+        src: "/services/rendering-goldcoast-night.webp",
+        alt: "골드코스트 마리나와 고층 타워의 야경 건축 투시도 CG",
+        caption: "Gold Coast 마리나 야경",
       },
     ],
     faq: [
@@ -149,7 +152,7 @@ export const services: Service[] = [
       },
       {
         q: "수정은 어디까지 반영되나요?",
-        a: "앵글 확정 단계에서 구도를 잡고, 1차 시안 이후 재질·조명 수준의 수정을 반영합니다. 확정된 앵글을 바꾸거나 설계 자체가 변경되는 경우는 작업 범위가 달라지므로 협의가 필요합니다.",
+        a: "기본 1회입니다. 1차 시안 뒤 수정을 1회 반영하고 최종본을 드립니다. 최종본 이후에도 색감 조정처럼 다시 렌더링하지 않아도 되는 수정은 무상으로 처리합니다. 앵글 변경이나 재렌더링이 필요한 수정은 견적과 일정을 협의한 뒤 진행합니다.",
       },
       {
         q: "해상도는 어느 정도까지 나오나요?",
@@ -185,6 +188,7 @@ export const services: Service[] = [
       src: "/services/animation-hero.webp",
       alt: "포레스트 글라스 빌라 시네마틱 건축 애니메이션 장면",
     },
+    heroVideo: "/services/animation-hero.mp4",
     situations: [
       "분양 홍보관이나 온라인 채널에 쓸 영상이 필요한 경우",
       "단지 전체의 동선과 규모를 한 번에 설명해야 하는 경우",
@@ -216,18 +220,18 @@ export const services: Service[] = [
       },
       {
         step: "02",
-        title: "프리뷰 렌더",
-        desc: "저해상 애니메이션으로 카메라 속도와 컷 길이를 먼저 확인합니다. 본 렌더 이후에는 되돌리는 비용이 큽니다.",
+        title: "1차 시안",
+        desc: "저해상 프리뷰로 카메라 속도와 컷 길이를 확인하고 1회 수정을 반영합니다. 본 렌더 이후에는 되돌리는 비용이 큽니다.",
       },
       {
         step: "03",
-        title: "본 렌더 · 편집",
-        desc: "최종 품질로 렌더한 뒤 색보정, 사운드, 타이포그래피를 올립니다.",
+        title: "2차 시안",
+        desc: "본 렌더에 색보정, 사운드, 타이포그래피를 올린 편집본을 보여드리고 남은 1회 수정을 반영합니다.",
       },
       {
         step: "04",
         title: "최종 납품",
-        desc: "상영용 고화질 파일과 웹·소셜용 버전을 함께 전달합니다.",
+        desc: "두 번의 수정을 마친 상영용 고화질 파일과 웹·소셜용 버전을 함께 전달합니다.",
       },
     ],
     samples: [
@@ -291,8 +295,8 @@ export const services: Service[] = [
     // The realtime build's own UI is visible in this frame (세대 타입 선택
     // 버튼), which says "interactive" faster than any still render can.
     hero: {
-      src: "/services/vr-hero.webp",
-      alt: "언리얼 엔진 리얼타임 VR 워크스루 실내 화면과 세대 타입 선택 인터페이스",
+      src: "/services/vr-hero-tour.webp",
+      alt: "언리얼 엔진 리얼타임 VR 투어 거실 화면과 공간 이동 버튼, 미니맵",
     },
     situations: [
       "모델하우스를 짓기 전에 세대 평면을 체험시켜야 하는 경우",
@@ -309,8 +313,8 @@ export const services: Service[] = [
         desc: "같은 공간에서 마감 옵션과 주경·야경을 버튼으로 바꿔보는 인터랙션.",
       },
       {
-        title: "VR 헤드셋 대응",
-        desc: "헤드셋 체험용 빌드가 필요한 경우 별도로 구성합니다.",
+        title: "360VR 웹페이지",
+        desc: "설치 없이 브라우저에서 여는 360° 파노라마 투어. 링크 하나로 공유할 수 있습니다.",
       },
       {
         title: "영상 · 스틸 추출",
@@ -321,22 +325,22 @@ export const services: Service[] = [
       {
         step: "01",
         title: "체험 설계",
-        desc: "어디서 어떤 기기로 체험하는지부터 정합니다. 홍보관 터치스크린과 헤드셋은 설계가 전혀 다릅니다.",
+        desc: "어디서 어떤 기기로 체험하는지부터 정합니다. 홍보관 터치스크린과 PC는 화면 크기와 조작 방식이 달라 설계도 달라집니다.",
       },
       {
         step: "02",
-        title: "씬 구축",
-        desc: "모델을 엔진에 올려 조명과 재질을 잡고, 이동 가능 범위와 충돌을 정리합니다.",
+        title: "1차 시안",
+        desc: "모델을 엔진에 올려 조명과 재질, 이동 범위를 잡은 1차 빌드를 보여드리고 1회 수정을 반영합니다.",
       },
       {
         step: "03",
-        title: "인터랙션 구현",
-        desc: "마감재 전환, 시간대 변경, 평면 이동 등 조작 요소를 붙이고 프레임을 맞춥니다.",
+        title: "2차 시안",
+        desc: "마감재 전환, 시간대 변경, 평면 이동 등 조작 요소를 붙인 2차 빌드에서 남은 1회 수정을 반영합니다.",
       },
       {
         step: "04",
-        title: "현장 세팅",
-        desc: "실제 구동 기기에서 성능을 확인하고 실행 파일을 전달합니다.",
+        title: "최종 납품",
+        desc: "두 번의 수정을 마친 뒤 실제 구동 기기에서 성능을 확인하고 실행 파일을 전달합니다.",
       },
     ],
     samples: [
@@ -345,27 +349,27 @@ export const services: Service[] = [
         alt: "르엘 어퍼하우스 360VR 웹페이지의 레인 가든 장면과 계절 전환 인터페이스",
         caption: "LE|EL UPPERHOUSE 360VR",
       },
-      // The same unit seen two ways in one realtime build: the cut-away plan
-      // you pick a room from, then the room itself at eye level.
+      // The same unit seen two ways in one realtime build: the room at eye
+      // level, then the cut-away plan you jump between rooms from.
       {
-        src: "/services/vr-unreal-iso.webp",
-        alt: "언리얼 엔진 리얼타임 세대 아이소메트릭 평면과 타입 선택 인터페이스",
-        caption: "세대 아이소 뷰 — 타입 선택",
+        src: "/services/vr-unreal-tour.webp",
+        alt: "언리얼 엔진 리얼타임 VR 투어 거실 화면과 상단 공간 이동 버튼, 미니맵",
+        caption: "세대 VR 투어 — 공간 이동",
       },
       {
-        src: "/services/vr-unreal-sofa.webp",
-        alt: "언리얼 엔진 리얼타임 VR 투어 거실에서 소파 옵션을 고르는 화면",
-        caption: "같은 세대 — 가구 옵션 선택",
+        src: "/services/vr-unreal-plan.webp",
+        alt: "언리얼 엔진 리얼타임 세대 아이소메트릭 평면과 아홉 곳의 이동 포인트",
+        caption: "같은 세대 — 아이소 뷰 포인트 이동",
       },
     ],
     faq: [
       {
         q: "체험하려면 어떤 장비가 필요한가요?",
-        a: "기본은 PC에서 실행하는 빌드입니다. 홍보관 터치스크린, 노트북, VR 헤드셋 중 어디서 쓸지 정해주시면 그 환경에 맞춰 성능을 맞춥니다.",
+        a: "기본은 PC에서 실행하는 빌드입니다. 홍보관 터치스크린과 노트북 중 어디서 쓸지 정해주시면 그 환경에 맞춰 성능을 맞춥니다.",
       },
       {
         q: "웹 브라우저에서 바로 열 수 있나요?",
-        a: "용량과 성능 때문에 기본은 실행 파일입니다. 웹 배포가 필요한 경우 품질과 조작 범위를 조정해 별도로 구성합니다.",
+        a: "리얼타임 워크스루는 용량과 성능 때문에 실행 파일이 기본입니다. 브라우저에서 바로 열어야 한다면 360VR 웹페이지로 구성합니다.",
       },
       {
         q: "설계가 변경되면 다시 만들어야 하나요?",

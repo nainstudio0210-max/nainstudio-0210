@@ -119,6 +119,19 @@ export default async function Page({
           className="object-cover"
           draggable={false}
         />
+        {service.heroVideo && (
+          <video
+            src={service.heroVideo}
+            poster={service.hero.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
         {/* The headline sits over whatever the hero happens to be — a bright
             daylight render included — so the scrim is heavy at the bottom. */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
@@ -135,7 +148,7 @@ export default async function Page({
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
-              href="/contact"
+              href="/#contact"
               className="text-sm bg-white text-black px-6 py-3 hover:bg-white/85 transition-colors"
             >
               견적 문의하기
@@ -159,10 +172,10 @@ export default async function Page({
         <ul className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
           {service.situations.map((text, i) => (
             <li key={text} className="bg-black p-8 md:p-10">
-              <span className="text-[10px] tracking-[0.15em] text-white/40">
+              <span className="text-xs tracking-[0.15em] text-white/40">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <p className="mt-4 text-sm md:text-base text-white/80 leading-relaxed">
+              <p className="mt-4 text-base md:text-lg text-white/80 leading-relaxed">
                 {text}
               </p>
             </li>
@@ -179,8 +192,8 @@ export default async function Page({
         <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
           {service.deliverables.map((d) => (
             <div key={d.title} className="bg-black p-8 md:p-10">
-              <h3 className="text-lg md:text-xl font-normal">{d.title}</h3>
-              <p className="mt-4 text-sm text-white/60 leading-relaxed">
+              <h3 className="text-xl md:text-[22px] font-normal">{d.title}</h3>
+              <p className="mt-4 text-base text-white/60 leading-relaxed">
                 {d.desc}
               </p>
             </div>
@@ -197,11 +210,11 @@ export default async function Page({
         <ol className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-4 gap-px bg-white/10">
           {service.process.map((p) => (
             <li key={p.step} className="bg-black p-8 md:p-10 flex flex-col gap-4">
-              <span className="text-[10px] tracking-[0.15em] text-white/40">
+              <span className="text-xs tracking-[0.15em] text-white/40">
                 {p.step}
               </span>
-              <h3 className="text-lg md:text-xl font-normal">{p.title}</h3>
-              <p className="text-sm text-white/60 leading-relaxed">{p.desc}</p>
+              <h3 className="text-xl md:text-[22px] font-normal">{p.title}</h3>
+              <p className="text-base text-white/60 leading-relaxed">{p.desc}</p>
             </li>
           ))}
         </ol>
@@ -265,8 +278,8 @@ export default async function Page({
         <dl className="mt-14 md:mt-20 max-w-3xl divide-y divide-white/10 border-y border-white/10">
           {service.faq.map((f) => (
             <div key={f.q} className="py-8">
-              <dt className="text-base md:text-lg font-normal">{f.q}</dt>
-              <dd className="mt-3 text-sm md:text-base text-white/60 leading-relaxed">
+              <dt className="text-lg md:text-xl font-normal">{f.q}</dt>
+              <dd className="mt-3 text-base md:text-lg text-white/60 leading-relaxed">
                 {f.a}
               </dd>
             </div>
@@ -289,11 +302,11 @@ export default async function Page({
                 href={`/services/${s.slug}`}
                 className="bg-black p-8 md:p-10 flex flex-col gap-4 hover:bg-white/5 transition-colors"
               >
-                <span className="text-[10px] tracking-[0.15em] text-white/40">
+                <span className="text-xs tracking-[0.15em] text-white/40">
                   {s.eyebrow.toUpperCase()}
                 </span>
-                <h3 className="text-lg md:text-xl font-normal">{s.label}</h3>
-                <p className="text-sm text-white/60 leading-relaxed">
+                <h3 className="text-xl md:text-[22px] font-normal">{s.label}</h3>
+                <p className="text-base text-white/60 leading-relaxed">
                   {s.metaDescription.split(".")[0]}.
                 </p>
               </Link>
@@ -319,7 +332,7 @@ export default async function Page({
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
           <Link
-            href="/contact"
+            href="/#contact"
             className="text-sm bg-white text-black px-6 py-3 hover:bg-white/85 transition-colors"
           >
             문의 남기기
@@ -374,8 +387,7 @@ export default async function Page({
 
           <div className="pl-6 md:pl-14 lg:pl-25 pr-6 md:pr-14 lg:pr-25 md:col-span-2">
             <p className="text-sm md:text-base leading-relaxed max-w-2xl opacity-70">
-              20년 경력 디렉터와 함께하는 Architecture Visualization Studio — 건축
-              시각화 · 애니메이션 · 리얼타임 경험
+              Architecture Visualization Studio — 건축 시각화 · 애니메이션 · 리얼타임 경험
             </p>
           </div>
         </div>

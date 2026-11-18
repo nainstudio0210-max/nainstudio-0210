@@ -322,7 +322,7 @@ function Slot({
         animate={{ y: on ? [top, "0.1em", "0em"] : top }}
         transition={
           on
-            ? { duration: 1.7, delay: delay + 0.25, times: [0, 0.84, 1], ease: [[0.1, 0.7, 0.18, 1], "easeInOut"] }
+            ? { duration: 1.0, delay: delay + 0.1, times: [0, 0.84, 1], ease: [[0.1, 0.7, 0.18, 1], "easeInOut"] }
             : { duration: 0 }
         }
         className="absolute inset-x-0 top-0 block will-change-transform"
@@ -375,8 +375,79 @@ function TitleCard({ p, approach }: { p: MotionValue<number>; approach: MotionVa
   // re-arm when the section has been scrolled back out of.
   const [on, setOn] = useState(false)
   useMotionValueEvent(q, "change", (v) => setOn((was) => (was ? v > 0.04 : v > 0.3)))
-  const STEP = 0.05
-  const done = (chars.length - 1) * STEP + 0.25 + 1.7
+  const STEP = 0.03
+  const done = (chars.length - 1) * STEP + 0.1 + 1.0
+
+  // The page waits at the pin until the title has finished assembling: a
+  // quick scroll used to carry straight past it mid-spin. Only a scroll that
+  // arrives from above is held — a jump (an anchor link, a reload deep in the
+  // page) lands well past the pin and is left alone.
+  const ready = useRef(false)
+  useEffect(() => {
+    if (!on) {
+      ready.current = false
+      return
+    }
+    const t = setTimeout(() => (ready.current = true), (done + 0.2) * 1000)
+    return () => clearTimeout(t)
+  }, [on, done])
+  useEffect(() => {
+    const sec = head.current?.closest("section")
+    if (!sec) return
+    const pin = () => sec.getBoundingClientRect().top + window.scrollY
+    // Held at the source: a downward wheel, swipe or key is swallowed before
+    // it scrolls. Letting it scroll and then putting the page back made the
+    // screen bob on every notch.
+    const held = (dy: number) => {
+      if (ready.current || dy <= 0) return false
+      const y = window.scrollY
+      const top = pin()
+      if (y > top + 2 || y + dy <= top) return false
+      if (y < top) window.scrollTo(0, top)
+      return true
+    }
+    const onWheel = (e: WheelEvent) => {
+      if (held(e.deltaY)) e.preventDefault()
+    }
+    let touchY = 0
+    const onTouchStart = (e: TouchEvent) => (touchY = e.touches[0].clientY)
+    const onTouchMove = (e: TouchEvent) => {
+      const dy = touchY - e.touches[0].clientY
+      touchY = e.touches[0].clientY
+      if (e.cancelable && held(dy)) e.preventDefault()
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (["ArrowDown", "PageDown", "End", " "].includes(e.key) && held(window.innerHeight)) e.preventDefault()
+    }
+    // Whatever gets past those (a scrollbar drag, momentum already in flight)
+    // is put back once; a jump from elsewhere lands far below and is let go.
+    let last = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      const top = pin()
+      if (!ready.current && y > top) {
+        if (last <= top + 2 && y < top + window.innerHeight) {
+          window.scrollTo(0, top)
+          last = top
+          return
+        }
+        ready.current = true
+      }
+      last = y
+    }
+    window.addEventListener("wheel", onWheel, { passive: false })
+    window.addEventListener("touchstart", onTouchStart, { passive: true })
+    window.addEventListener("touchmove", onTouchMove, { passive: false })
+    window.addEventListener("keydown", onKey)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => {
+      window.removeEventListener("wheel", onWheel)
+      window.removeEventListener("touchstart", onTouchStart)
+      window.removeEventListener("touchmove", onTouchMove)
+      window.removeEventListener("keydown", onKey)
+      window.removeEventListener("scroll", onScroll)
+    }
+  }, [])
 
   return (
     // The title carries its own paper: the stage behind it is dark, so the
@@ -390,7 +461,7 @@ function TitleCard({ p, approach }: { p: MotionValue<number>; approach: MotionVa
         <motion.span
           initial={false}
           animate={on ? { opacity: 1, letterSpacing: "0.35em" } : { opacity: 0, letterSpacing: "0.6em" }}
-          transition={on ? { duration: 1.4, delay: 0.1, ease: EXPO } : { duration: 0 }}
+          transition={on ? { duration: 0.9, delay: 0.05, ease: EXPO } : { duration: 0 }}
           style={{ color: ACC }}
           className="block text-[10px] md:text-xs"
         >
@@ -421,7 +492,7 @@ function TitleCard({ p, approach }: { p: MotionValue<number>; approach: MotionVa
         <motion.span
           initial={false}
           animate={{ scaleX: on ? 1 : 0 }}
-          transition={on ? { duration: 1.1, delay: done - 0.35, ease: EXPO } : { duration: 0 }}
+          transition={on ? { duration: 0.7, delay: done - 0.4, ease: EXPO } : { duration: 0 }}
           style={{ background: ACC }}
           className="mt-7 block h-px w-full opacity-60"
         />
@@ -673,7 +744,7 @@ export default function ServiceFlow() {
   // settled when the stage pins; without this the very next notch of the
   // wheel starts dissolving it. Every chapter reads `p`, which sits at 0
   // through that stretch and then runs 0→1 over the rest exactly as before.
-  const dwell = compact ? 90 : 120
+  const dwell = compact ? 18 : 24
   const run = compact ? 780 : 1080
   const lead = dwell / (run + dwell - 100)
   const p = useTransform(scrollYProgress, (v) => Math.min(Math.max((v - lead) / (1 - lead), 0), 1))
@@ -787,11 +858,11 @@ export function SelectedWorkFlow() {
       <div className="md:flex md:gap-14 lg:gap-20">
         <div className="md:w-[32%] lg:w-[28%] shrink-0">
           <div className="md:sticky md:top-24">
-            <span className="text-xs tracking-[0.25em]" style={{ color: ACC }}>SELECTED PROJECTS</span>
+            <span className="text-sm tracking-[0.25em]" style={{ color: ACC }}>SELECTED PROJECTS</span>
             <h2 className="mt-4 text-3xl md:text-5xl font-light tracking-[-0.03em]" style={{ color: INK }}>
               주요 실적
             </h2>
-            <p className="mt-5 text-sm leading-relaxed max-w-sm" style={{ color: MUTE }}>
+            <p className="mt-5 text-base leading-relaxed max-w-md" style={{ color: MUTE }}>
               호텔과 리조트, 상업 공간과 광고 캠페인까지 — 완공 전의 마감과 조명을
               먼저 확인할 수 있게 만든 장면들입니다.
             </p>
@@ -800,10 +871,10 @@ export function SelectedWorkFlow() {
               {ledger.map(([kind, name]) => (
                 <div
                   key={name}
-                  className="flex gap-5 py-3.5 border-b text-sm"
+                  className="flex gap-5 py-3.5 border-b text-base"
                   style={{ borderColor: PAPER2 }}
                 >
-                  <dt className="w-12 shrink-0 text-[11px] tracking-[0.12em] pt-0.5" style={{ color: ACC }}>
+                  <dt className="w-14 shrink-0 text-[13px] tracking-[0.12em] pt-0.5" style={{ color: ACC }}>
                     {kind}
                   </dt>
                   <dd style={{ color: INK }}>{name}</dd>
@@ -813,7 +884,7 @@ export function SelectedWorkFlow() {
 
             <a
               href="/work"
-              className="mt-10 inline-block text-sm px-5 py-2.5 transition-colors hover:bg-[#9a4424] hover:text-[#f6efe4]"
+              className="mt-10 inline-block text-base px-5 py-2.5 transition-colors hover:bg-[#9a4424] hover:text-[#f6efe4]"
               style={{ border: `1px solid ${ACC}`, color: ACC }}
             >
               포트폴리오 보기

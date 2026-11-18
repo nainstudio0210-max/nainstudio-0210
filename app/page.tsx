@@ -314,7 +314,7 @@ export default function Page() {
 
           <div className="pl-6 md:pl-14 lg:pl-25 pr-6 md:pr-14 lg:pr-25 md:col-span-2">
             <p className="text-sm md:text-base leading-relaxed max-w-2xl opacity-70">
-              20년 경력 디렉터와 함께하는 Architecture Visualization Studio — 건축 시각화 · 애니메이션 · 리얼타임 경험
+              Architecture Visualization Studio — 건축 시각화 · 애니메이션 · 리얼타임 경험
             </p>
           </div>
         </div>
