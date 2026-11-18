@@ -288,6 +288,14 @@ export default function Page() {
           간단한 브리핑만으로 견적과 일정 안내를 도와드립니다.
         </p>
         <ContactForm />
+        <address className="mt-8 flex flex-col items-start gap-1 text-sm md:text-base not-italic text-white/70">
+          <a href="mailto:nainstudio0210@naver.com" className="py-1 hover:text-white transition-colors">
+            nainstudio0210@naver.com
+          </a>
+          <a href="tel:+821041123739" className="py-1 hover:text-white transition-colors">
+            010-4112-3739
+          </a>
+        </address>
       </section>
 
       {/* ---------------- Footer ---------------- */}
