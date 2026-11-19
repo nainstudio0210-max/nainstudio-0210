@@ -338,10 +338,10 @@ export default async function Page({
             문의 남기기
           </Link>
           <a
-            href="tel:+821041123739"
+            href="mailto:nainstudio0210@naver.com"
             className="text-sm border border-white/40 hover:border-white transition-colors px-6 py-3"
           >
-            010-4112-3739
+            nainstudio0210@naver.com
           </a>
         </div>
       </section>

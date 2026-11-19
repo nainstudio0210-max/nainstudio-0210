@@ -576,13 +576,13 @@ export default function WorkPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#e4dbcb] text-[#1f1b16]">
+    <div className="relative min-h-screen bg-black text-white">
       
       {/* ---------------- 우측 상단 드롭다운 메뉴 ---------------- */}
       <div className="fixed top-5 right-5 md:top-8 md:right-8 z-[200]" ref={menuRef}>
         <button 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="flex items-center justify-center p-1.5 rounded-full bg-[#e4dbcb]/90 text-[#1f1b16]/80 hover:text-[#1f1b16] transition-colors focus:outline-none"
+          className="flex items-center justify-center p-1.5 rounded-full bg-black/60 text-white/80 hover:text-white transition-colors focus:outline-none"
           aria-label="Open Menu"
         >
           {isMenuOpen ? (
@@ -595,20 +595,20 @@ export default function WorkPage() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="absolute right-0 mt-3 w-44 md:w-52 bg-[#efe8da] border border-[#1f1b16]/10 rounded-lg shadow-2xl flex flex-col py-2 overflow-hidden"
+              className="absolute right-0 mt-3 w-44 md:w-52 bg-[#111] border border-white/10 rounded-lg shadow-2xl flex flex-col py-2 overflow-hidden"
               variants={menuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
             >
               <motion.div variants={itemVariants}>
-                <Link href="/" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-[#1f1b16]/75 hover:text-[#1f1b16] hover:bg-[#1f1b16]/10 transition-colors">Home</Link>
+                <Link href="/" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-white/75 hover:text-white hover:bg-white/10 transition-colors">Home</Link>
               </motion.div>
               <motion.div variants={itemVariants}>
-                <Link href="/work" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-[#1f1b16] font-medium bg-[#1f1b16]/10 transition-colors">Works</Link>
+                <Link href="/work" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-white font-medium bg-white/10 transition-colors">Works</Link>
               </motion.div>
               <motion.div variants={itemVariants}>
-                <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-[#1f1b16]/75 hover:text-[#1f1b16] hover:bg-[#1f1b16]/10 transition-colors">Contact</Link>
+                <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="block px-5 py-3 text-sm md:text-base text-white/75 hover:text-white hover:bg-white/10 transition-colors">Contact</Link>
               </motion.div>
             </motion.div>
           )}
@@ -616,7 +616,7 @@ export default function WorkPage() {
       </div>
 
       {/* ---------------- 사이드바 ---------------- */}
-      <aside className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-[#d6cbb6] border-r border-[#1f1b16]/10 flex flex-col items-center select-none`}>
+      <aside className={`fixed left-0 top-0 bottom-0 ${SIDEBAR_W} z-40 bg-[#181818] border-r border-white/10 flex flex-col items-center select-none`}>
         
         {/* 로고 영역 */}
         <Link href="/" className="mt-6 block" aria-label="Go to Home">
@@ -627,23 +627,23 @@ export default function WorkPage() {
         <nav className="w-full flex flex-col text-[10px] md:text-sm tracking-wide mt-4 md:mt-5">
           
           {/* 얇고 희미한 구분선 */}
-          <div className="w-[60%] mx-auto border-t border-[#1f1b16]/15 mb-3 md:mb-4" />
+          <div className="w-[60%] mx-auto border-t border-white/10 mb-3 md:mb-4" />
 
           {/* 하단 메뉴: Works 타이틀(가운데 정렬) 및 하위 메뉴(왼쪽 정렬 그룹) */}
           <div className="flex flex-col items-center w-full">
             
             {/* Works 텍스트 */}
-            <span className="text-[#1f1b16] font-medium mb-3 md:mb-4">Works</span>
+            <span className="text-white font-medium mb-3 md:mb-4">Works</span>
             
             {/* 하위 메뉴 리스트 */}
             <div className="flex flex-col items-start gap-2.5 md:gap-3 pl-6 md:pl-10">
-              <Link href="/work" className="text-[#1f1b16] hover:text-[#1f1b16] flex items-center gap-2 group">
-                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#9a4424] bg-transparent" />
+              <Link href="/work" className="text-white hover:text-white flex items-center gap-2 group">
+                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#e85d22] bg-transparent" />
                 <span className="font-light group-hover:opacity-80 transition-opacity">Projects<br className="md:hidden"/> & Portfolio</span>
               </Link>
 
               {/* ---- 필터: Type / Category ---- */}
-              <div className="flex flex-col gap-2.5 md:gap-3 mt-1 md:mt-2 pl-3 md:pl-4 border-l border-[#1f1b16]/15">
+              <div className="flex flex-col gap-2.5 md:gap-3 mt-1 md:mt-2 pl-3 md:pl-4 border-l border-white/10">
                 <div className="flex flex-col gap-1.5 md:gap-2">
                   {TYPE_OPTIONS.map((opt) => (
                     <label key={opt.key} className="flex items-center gap-2 cursor-pointer group/f">
@@ -653,8 +653,8 @@ export default function WorkPage() {
                         onChange={() => toggleType(opt.key)}
                         className="peer sr-only"
                       />
-                      <span className="flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 border border-[#1f1b16]/45 bg-transparent peer-checked:border-2 peer-checked:border-[#9a4424] transition-colors" />
-                      <span className="font-light text-[#1f1b16]/65 group-hover/f:text-[#1f1b16] peer-checked:text-[#1f1b16] transition-colors">
+                      <span className="flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 border border-white/30 bg-transparent peer-checked:border-2 peer-checked:border-[#e85d22] transition-colors" />
+                      <span className="font-light text-white/65 group-hover/f:text-white peer-checked:text-white transition-colors">
                         {opt.label}
                       </span>
                     </label>
@@ -670,8 +670,8 @@ export default function WorkPage() {
                         onChange={() => toggleCategory(opt.key)}
                         className="peer sr-only"
                       />
-                      <span className="flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 border border-[#1f1b16]/45 bg-transparent peer-checked:border-2 peer-checked:border-[#9a4424] transition-colors" />
-                      <span className="font-light text-[#1f1b16]/65 group-hover/f:text-[#1f1b16] peer-checked:text-[#1f1b16] transition-colors">
+                      <span className="flex-shrink-0 w-2.5 h-2.5 md:w-3 md:h-3 border border-white/30 bg-transparent peer-checked:border-2 peer-checked:border-[#e85d22] transition-colors" />
+                      <span className="font-light text-white/65 group-hover/f:text-white peer-checked:text-white transition-colors">
                         {opt.label}
                       </span>
                     </label>
@@ -681,15 +681,15 @@ export default function WorkPage() {
                 {(typeFilter.size > 0 || catFilter.size > 0) && (
                   <button
                     onClick={resetFilters}
-                    className="text-left text-[#1f1b16]/55 hover:text-[#1f1b16] underline underline-offset-2 transition-colors"
+                    className="text-left text-white/55 hover:text-white underline underline-offset-2 transition-colors"
                   >
                     Reset filter
                   </button>
                 )}
               </div>
 
-              <Link href="/media-art" className="text-[#1f1b16]/65 hover:text-[#1f1b16] flex items-center gap-2 group transition-colors">
-                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-[#1f1b16]/45 bg-transparent group-hover:border-[#9a4424] transition-colors" />
+              <Link href="/media-art" className="text-white/65 hover:text-white flex items-center gap-2 group transition-colors">
+                <div className="flex-shrink-0 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full border-[1.5px] border-white/30 bg-transparent group-hover:border-[#e85d22] transition-colors" />
                 <span className="font-light">Media Art</span>
               </Link>
 
@@ -701,11 +701,11 @@ export default function WorkPage() {
 
         {/* 하단 푸터 영역 */}
         <div className="w-full px-1 md:px-4 mt-auto mb-4 md:mb-6 flex flex-col items-center md:items-start">
-          <div className="flex items-center gap-2 md:gap-3 text-[#1f1b16]/75 justify-center md:justify-start pl-0 md:pl-2">
-            <a href="https://www.instagram.com/nainstudio0210/" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:text-[#1f1b16]"><Instagram className="w-4 h-4 md:w-5 md:h-5" /></a>
-            <a href="https://www.youtube.com/@Nainstudio-v5x" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:text-[#1f1b16]"><Youtube className="w-4 h-4 md:w-5 md:h-5" /></a>
+          <div className="flex items-center gap-2 md:gap-3 text-white/75 justify-center md:justify-start pl-0 md:pl-2">
+            <a href="https://www.instagram.com/nainstudio0210/" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:text-white"><Instagram className="w-4 h-4 md:w-5 md:h-5" /></a>
+            <a href="https://www.youtube.com/@Nainstudio-v5x" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:text-white"><Youtube className="w-4 h-4 md:w-5 md:h-5" /></a>
           </div>
-          <p className="mt-2 md:mt-3 text-[8px] md:text-[11px] leading-3 md:leading-5 text-[#584e42] text-center md:text-left md:max-w-[11.5rem] md:pl-2 break-keep px-1 md:px-0">
+          <p className="mt-2 md:mt-3 text-[8px] md:text-[11px] leading-3 md:leading-5 text-white/60 text-center md:text-left md:max-w-[11.5rem] md:pl-2 break-keep px-1 md:px-0">
             We are a creative visualization studio specializing in architectural imagery, animation, and realtime experiences.
           </p>
         </div>
@@ -891,7 +891,7 @@ function Tile({
   return (
     <div
       className={[
-        "group relative cursor-pointer overflow-hidden rounded-md md:rounded-lg bg-[#cfc4af] select-none",
+        "group relative cursor-pointer overflow-hidden rounded-md md:rounded-lg bg-zinc-900 select-none",
         "col-span-2 row-span-2",
         span,
       ].join(" ")}

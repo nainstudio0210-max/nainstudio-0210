@@ -292,9 +292,6 @@ export default function Page() {
           <a href="mailto:nainstudio0210@naver.com" className="py-1 hover:text-white transition-colors">
             nainstudio0210@naver.com
           </a>
-          <a href="tel:+821041123739" className="py-1 hover:text-white transition-colors">
-            010-4112-3739
-          </a>
         </address>
       </section>
 

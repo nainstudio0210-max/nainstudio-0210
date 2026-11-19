@@ -92,7 +92,6 @@ const organizationLd = {
   image: `${SITE_URL}/og-cover.jpg`,
   description:
     "건축 이미지, 애니메이션, 리얼타임 경험을 전문으로 하는 건축 시각화 스튜디오입니다.",
-  telephone: "+82-10-4112-3739",
   email: "nainstudio0210@naver.com",
   address: {
     "@type": "PostalAddress",
